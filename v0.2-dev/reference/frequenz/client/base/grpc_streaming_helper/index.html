@@ -668,7 +668,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.__init__" class="md-nav__link">
     <span class="md-ellipsis">
-      __init__()
+      __init__
     </span>
   </a>
   
@@ -677,7 +677,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.new_receiver" class="md-nav__link">
     <span class="md-ellipsis">
-      new_receiver()
+      new_receiver
     </span>
   </a>
   
@@ -686,7 +686,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.stop" class="md-nav__link">
     <span class="md-ellipsis">
-      stop()
+      stop
     </span>
   </a>
   
@@ -860,7 +860,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.__init__" class="md-nav__link">
     <span class="md-ellipsis">
-      __init__()
+      __init__
     </span>
   </a>
   
@@ -869,7 +869,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.new_receiver" class="md-nav__link">
     <span class="md-ellipsis">
-      new_receiver()
+      new_receiver
     </span>
   </a>
   
@@ -878,7 +878,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.stop" class="md-nav__link">
     <span class="md-ellipsis">
-      stop()
+      stop
     </span>
   </a>
   
@@ -928,7 +928,6 @@
 
 
 
-
 <h2 id="frequenz.client.base.grpc_streaming_helper" class="doc doc-heading">
           <span class="doc doc-object-name doc-module-name">frequenz.client.base.grpc_streaming_helper</span>
 
@@ -951,7 +950,6 @@
 <h3 id="frequenz.client.base.grpc_streaming_helper-classes">Classes<a href="#frequenz.client.base.grpc_streaming_helper-classes" class="headerlink" title="Permanent link">¤</a></h3>
 
 <div class="doc doc-object doc-class">
-
 
 
 
@@ -1160,19 +1158,18 @@
 
 
 
-
 <h6 id="frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.__init__" class="doc doc-heading">
           <span class="doc doc-object-name doc-function-name">__init__</span>
 
 
 <a href="#frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.__init__" class="headerlink" title="Permanent link">¤</a></h6>
 <div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="fm">__init__</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">stream_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stream_method</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="p">[],</span> <span class="n">UnaryStreamCall</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">_InputT</span><span class="p">]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">stream_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stream_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Callable" href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a></span><span class="p">[</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="p">[],</span> <span class="n"><span title="grpc.aio.UnaryStreamCall">UnaryStreamCall</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">,</span> <span class="n"><span title="frequenz.client.base.grpc_streaming_helper._InputT">_InputT</span></span><span class="p">]</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="p">],</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">transform</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">_InputT</span><span class="p">],</span> <span class="n">_OutputT</span><span class="p">],</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">retry_spec</span><span class="p">:</span> <span class="n">retry_strategy</span><span class="o">.</span><span class="n">RetryStrategy</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">transform</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Callable" href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a></span><span class="p">[[</span><span class="n"><span title="frequenz.client.base.grpc_streaming_helper._InputT">_InputT</span></span><span class="p">],</span> <span class="n"><span title="frequenz.client.base.grpc_streaming_helper._OutputT">_OutputT</span></span><span class="p">],</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">retry_spec</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.retry_strategy.RetryStrategy" href="../retry_strategy/#frequenz.client.base.retry_strategy.RetryStrategy">RetryStrategy</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">)</span>
 </span></code></pre></div>
 
@@ -1323,15 +1320,12 @@ to retries every 3 seconds, with a jitter of 1 second, indefinitely.</p>
 
 
 
-
 <h6 id="frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.new_receiver" class="doc doc-heading">
           <span class="doc doc-object-name doc-function-name">new_receiver</span>
 
 
 <a href="#frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.new_receiver" class="headerlink" title="Permanent link">¤</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">new_receiver</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">maxsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">channels</span><span class="o">.</span><span class="n">Receiver</span><span class="p">[</span><span class="n">_OutputT</span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">new_receiver</span><span class="p">(</span><span class="n">maxsize</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="frequenz.channels.Receiver">Receiver</span></span><span class="p">[</span><span class="n"><span title="frequenz.client.base.grpc_streaming_helper._OutputT">_OutputT</span></span><span class="p">]</span>
 </span></code></pre></div>
 
   <div class="doc doc-contents ">
@@ -1426,7 +1420,6 @@ to retries every 3 seconds, with a jitter of 1 second, indefinitely.</p>
 
 
 
-
 <h6 id="frequenz.client.base.grpc_streaming_helper.GrpcStreamingHelper.stop" class="doc doc-heading">
           <span class="doc doc-object-name doc-function-name">stop</span>
 
@@ -1475,6 +1468,7 @@ to retries every 3 seconds, with a jitter of 1 second, indefinitely.</p>
   </div>
 
   </div>
+
 
 </div>
 
