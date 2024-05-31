@@ -544,6 +544,8 @@
       
         
       
+        
+      
     
     
       
@@ -693,6 +695,27 @@
   
   <span class="md-ellipsis">
     conversion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exception/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    exception
   </span>
   
 
@@ -883,16 +906,16 @@
 
 
 <h2 id="frequenz.client.base.channel" class="doc doc-heading">
-          <span class="doc doc-object-name doc-module-name">frequenz.client.base.channel</span>
+            <span class="doc doc-object-name doc-module-name">frequenz.client.base.channel</span>
 
 
 <a href="#frequenz.client.base.channel" class="headerlink" title="Permanent link">¤</a></h2>
 
-  <div class="doc doc-contents first">
-  
+    <div class="doc doc-contents first">
+
       <p>Handling of gRPC channels.</p>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -904,13 +927,11 @@
 
 <h3 id="frequenz.client.base.channel-functions">Functions<a href="#frequenz.client.base.channel-functions" class="headerlink" title="Permanent link">¤</a></h3>
 
-
 <div class="doc doc-object doc-function">
 
 
-
 <h4 id="frequenz.client.base.channel.parse_grpc_uri" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">frequenz.client.base.channel.parse_grpc_uri</span>
+            <span class="doc doc-object-name doc-function-name">frequenz.client.base.channel.parse_grpc_uri</span>
 
 
 <a href="#frequenz.client.base.channel.parse_grpc_uri" class="headerlink" title="Permanent link">¤</a></h4>
@@ -919,8 +940,8 @@
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" title="grpclib.client.Channel" href="https://grpclib.readthedocs.io/en/latest/client.html#grpclib.client.Channel">Channel</a></span>
 </span></code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Create a grpclib client channel from a URI.</p>
 <p>The URI must have the following format:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>grpc://hostname[:port][?ssl=false]
@@ -937,103 +958,100 @@
 </ul>
 
 
-
-  <table>
-    <thead>
-      <tr>
-        <th><span class="doc-section-title">PARAMETER</span></th>
-        <th><span>DESCRIPTION</span></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code>uri</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The gRPC URI specifying the connection parameters.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-                </span>
-            </p>
-          </td>
+<table>
+      <thead>
+        <tr>
+          <th><span class="doc-section-title">PARAMETER</span></th>
+          <th><span>DESCRIPTION</span></th>
         </tr>
-        <tr class="doc-section-item">
-          <td><code>default_port</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The default port number to use if the URI does not specify one.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>9090</code>
-                </span>
-            </p>
-          </td>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>uri</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The gRPC URI specifying the connection parameters.</p>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>default_port</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The default port number to use if the URI does not specify one.</p>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>9090</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<table>
+      <thead>
+        <tr>
+          <th><span class="doc-section-title">RETURNS</span></th>
+          <th><span>DESCRIPTION</span></th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <span class="doc-returns-annotation">
+                    <code><a class="autorefs autorefs-external" title="grpclib.client.Channel" href="https://grpclib.readthedocs.io/en/latest/client.html#grpclib.client.Channel">Channel</a></code>
+                </span>
+            </td>
+            <td class="doc-returns-details">
+              <div class="doc-md-description">
+                <p>A grpclib client channel object.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <table>
-    <thead>
-      <tr>
-        <th><span class="doc-section-title">RETURNS</span></th>
-        <th><span>DESCRIPTION</span></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-              <span class="doc-returns-annotation">
-                  <code><a class="autorefs autorefs-external" title="grpclib.client.Channel" href="https://grpclib.readthedocs.io/en/latest/client.html#grpclib.client.Channel">Channel</a></code>
+<table>
+      <thead>
+        <tr>
+          <th><span class="doc-section-title">RAISES</span></th>
+          <th><span>DESCRIPTION</span></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+              <span class="doc-raises-annotation">
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
               </span>
-          </td>
-          <td class="doc-returns-details">
-            <div class="doc-md-description">
-              <p>A grpclib client channel object.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+            </td>
+            <td class="doc-raises-details">
+              <div class="doc-md-description">
+                <p>If the URI is invalid or contains unexpected components.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-
-
-  <table>
-    <thead>
-      <tr>
-        <th><span class="doc-section-title">RAISES</span></th>
-        <th><span>DESCRIPTION</span></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-            <span class="doc-raises-annotation">
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
-            </span>
-          </td>
-          <td class="doc-raises-details">
-            <div class="doc-md-description">
-              <p>If the URI is invalid or contains unexpected components.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-          <details class="quote">
-            <summary>Source code in <code>frequenz/client/base/channel.py</code></summary>
-            <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-20">20</a></span>
+            <details class="quote">
+              <summary>Source code in <code>frequenz/client/base/channel.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-20">20</a></span>
 <span class="normal"><a href="#__codelineno-0-21">21</a></span>
 <span class="normal"><a href="#__codelineno-0-22">22</a></span>
 <span class="normal"><a href="#__codelineno-0-23">23</a></span>
@@ -1145,8 +1163,8 @@
 </span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="n">ssl</span><span class="o">=</span><span class="n">ssl</span><span class="p">,</span>
 </span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a>    <span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
 
@@ -1154,7 +1172,7 @@
 
   </div>
 
-  </div>
+    </div>
 
 </div>
 
