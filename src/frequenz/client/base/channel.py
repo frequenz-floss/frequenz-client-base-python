@@ -45,9 +45,6 @@ class SslOptions:
 class ChannelOptions:
     """Options for a gRPC channel."""
 
-    port: int = 9090
-    """The port number to connect to."""
-
     ssl: SslOptions = SslOptions()
     """SSL options for the channel."""
 
@@ -110,9 +107,10 @@ def parse_grpc_uri(
 
     options = _parse_query_params(uri, parsed_uri.query)
 
-    target = (
-        parsed_uri.netloc if parsed_uri.port else f"{parsed_uri.netloc}:{defaults.port}"
-    )
+    if not parsed_uri.port:
+        raise ValueError(f"The gRPC URI '{uri}' doesn't specify a port.")
+
+    target = parsed_uri.netloc
 
     ssl = defaults.ssl.enabled if options.ssl is None else options.ssl
     if ssl:
