@@ -6,7 +6,7 @@
 
 ## Upgrading
 
-<!-- Here goes notes on how to upgrade from previous versions, including deprecations and what they should be replaced with -->
+- Removes support for default ports in grpc URIs.  If a URI doesn't specify a default port, an exception is raised.
 
 ## New Features
 
