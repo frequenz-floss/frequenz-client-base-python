@@ -24,14 +24,17 @@ OutputT = TypeVar("OutputT")
 """The output type of the stream."""
 
 
-class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
+class GrpcStreamBroadcaster(
+    Generic[InputT, OutputT]
+):  # pylint: disable=too-many-instance-attributes
     """Helper class to handle grpc streaming methods."""
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         stream_name: str,
         stream_method: Callable[[], AsyncIterator[InputT]],
         transform: Callable[[InputT], OutputT],
+        recovery_method: Callable[[OutputT], None] | None = None,
         retry_strategy: retry.Strategy | None = None,
     ):
         """Initialize the streaming helper.
@@ -41,12 +44,15 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             stream_method: A function that returns the grpc stream. This function is
                 called everytime the connection is lost and we want to retry.
             transform: A function to transform the input type to the output type.
+            recovery_method: A function to call when the connection is lost.
+                Receives the last message received before the connection was lost.
             retry_strategy: The retry strategy to use, when the connection is lost. Defaults
                 to retries every 3 seconds, with a jitter of 1 second, indefinitely.
         """
         self._stream_name = stream_name
         self._stream_method = stream_method
         self._transform = transform
+        self._recovery_method = recovery_method
         self._retry_strategy = (
             retry.LinearBackoff() if retry_strategy is None else retry_strategy.copy()
         )
@@ -55,6 +61,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             name=f"GrpcStreamBroadcaster-{stream_name}"
         )
         self._task = asyncio.create_task(self._run())
+        self._last_message: OutputT | None = None
 
     def new_receiver(self, maxsize: int = 50) -> channels.Receiver[OutputT]:
         """Create a new receiver for the stream.
@@ -87,8 +94,15 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             _logger.info("%s: starting to stream", self._stream_name)
             try:
                 call = self._stream_method()
+
+                # Call the recovery method with the last message received before the
+                # connection was lost.
+                if self._last_message is not None and self._recovery_method is not None:
+                    self._recovery_method(self._last_message)
+
                 async for msg in call:
-                    await sender.send(self._transform(msg))
+                    self._last_message = self._transform(msg)
+                    await sender.send(self._last_message)
             except grpc.aio.AioRpcError as err:
                 error = err
             error_str = f"Error: {error}" if error else "Stream exhausted"
