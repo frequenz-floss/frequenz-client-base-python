@@ -91,9 +91,18 @@ class BaseApiClient(abc.ABC):
             def __init__(self, response: ExampleResponse) -> None:
                 self.transformed_value = f"{response.float_value:.2f}"
 
+        # Change defaults as needed
+        DEFAULT_CHANNEL_OPTIONS = ChannelOptions()
+
         class MyApiClient(BaseApiClient):
-            def __init__(self, server_url: str, *, connect: bool = True) -> None:
-                super().__init__(server_url, connect=connect)
+            def __init__(
+                    self,
+                    server_url: str,
+                    *,
+                    connect: bool = True,
+                    channel_defaults: ChannelOptions = DEFAULT_CHANNEL_OPTIONS,
+                    ) -> None:
+                super().__init__(server_url, connect=connect, channel_defaults=channel_defaults)
                 self._stub = cast(
                     ExampleAsyncStub, ExampleStub(self.channel)
                 )
