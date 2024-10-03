@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../../_img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.8c3ca2c6.min.css">
       
         
         <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1320,7 +1320,7 @@
 
     <div class="doc doc-contents first">
 
-      <p>Base class for API clients.</p>
+        <p>Base class for API clients.</p>
 
 
 
@@ -1350,7 +1350,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>The type of the response from a gRPC stub method.</p>
+        <p>The type of the response from a gRPC stub method.</p>
     </div>
 
 </div>
@@ -1373,7 +1373,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>The type of the gRPC stub.</p>
+        <p>The type of the gRPC stub.</p>
     </div>
 
 </div>
@@ -1398,7 +1398,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>The type of the transformed response from a gRPC stub method.</p>
+        <p>The type of the transformed response from a gRPC stub method.</p>
     </div>
 
 </div>
@@ -1420,7 +1420,7 @@
               Bases: <code><a class="autorefs autorefs-external" title="abc.ABC" href="https://docs.python.org/3/library/abc.html#abc.ABC">ABC</a></code>, <code><a class="autorefs autorefs-external" title="typing.Generic" href="https://docs.python.org/3/library/typing.html#typing.Generic">Generic</a>[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT" href="#frequenz.client.base.client.StubT">StubT</a>]</code></p>
 
 
-      <p>A base class for API clients.</p>
+        <p>A base class for API clients.</p>
 <p>This class provides a common interface for API clients that communicate with a API
 server. It is designed to be subclassed by specific API clients that provide a more
 specific interface.</p>
@@ -1966,7 +1966,7 @@ gRPC server and calls a method on a stub.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The underlying gRPC channel used to communicate with the server.</p>
+        <p>The underlying gRPC channel used to communicate with the server.</p>
 
 
 <details class="warning" open>
@@ -2020,7 +2020,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The default options for the gRPC channel.</p>
+        <p>The default options for the gRPC channel.</p>
     </div>
 
 </div>
@@ -2043,7 +2043,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Whether the client is connected to the server.</p>
+        <p>Whether the client is connected to the server.</p>
     </div>
 
 </div>
@@ -2066,7 +2066,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The URL of the server.</p>
+        <p>The URL of the server.</p>
     </div>
 
 </div>
@@ -2089,7 +2089,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
     <div class="doc doc-contents ">
 
-      <p>The underlying gRPC stub.</p>
+        <p>The underlying gRPC stub.</p>
 
 
 <details class="warning" open>
@@ -2144,7 +2144,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Enter a context manager.</p>
+        <p>Enter a context manager.</p>
 
             <details class="quote">
               <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
@@ -2182,7 +2182,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Exit a context manager.</p>
+        <p>Exit a context manager.</p>
 
             <details class="quote">
               <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
@@ -2236,7 +2236,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Create an instance and connect to the server.</p>
+        <p>Create an instance and connect to the server.</p>
 
 
 <table>
@@ -2392,7 +2392,7 @@ the server URL.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Connect to the server, possibly using a new URL.</p>
+        <p>Connect to the server, possibly using a new URL.</p>
 <p>If the client is already connected and the URL is the same as the previous URL,
 this method does nothing. If you want to force a reconnection, you can call
 <a class="autorefs autorefs-internal" href="#frequenz.client.base.client.BaseApiClient.disconnect">disconnect()</a> first.</p>
@@ -2486,7 +2486,7 @@ previously used URL is used.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Disconnect from the server.</p>
+        <p>Disconnect from the server.</p>
 <p>If the client is not connected, this method does nothing.</p>
 
             <details class="quote">
@@ -2542,7 +2542,7 @@ previously used URL is used.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Call a gRPC stub method and translate errors to API client errors.</p>
+        <p>Call a gRPC stub method and translate errors to API client errors.</p>
 <p>This function is a convenience wrapper around calling a gRPC stub method. It
 translates gRPC errors to API client errors and optionally transforms the response
 using a provided function.</p>
@@ -2689,9 +2689,7 @@ function if provided.</p>
 
             <details class="quote">
               <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
-              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-261">261</a></span>
-<span class="normal"><a href="#__codelineno-0-262">262</a></span>
-<span class="normal"><a href="#__codelineno-0-263">263</a></span>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-263">263</a></span>
 <span class="normal"><a href="#__codelineno-0-264">264</a></span>
 <span class="normal"><a href="#__codelineno-0-265">265</a></span>
 <span class="normal"><a href="#__codelineno-0-266">266</a></span>
@@ -2734,52 +2732,54 @@ function if provided.</p>
 <span class="normal"><a href="#__codelineno-0-303">303</a></span>
 <span class="normal"><a href="#__codelineno-0-304">304</a></span>
 <span class="normal"><a href="#__codelineno-0-305">305</a></span>
-<span class="normal"><a href="#__codelineno-0-306">306</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-261"><a id="__codelineno-0-261" name="__codelineno-0-261"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">call_stub_method</span><span class="p">(</span>
-</span><span id="__span-0-262"><a id="__codelineno-0-262" name="__codelineno-0-262"></a>    <span class="n">client</span><span class="p">:</span> <span class="n">BaseApiClient</span><span class="p">[</span><span class="n">StubT</span><span class="p">],</span>
-</span><span id="__span-0-263"><a id="__codelineno-0-263" name="__codelineno-0-263"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">StubOutT</span><span class="p">]],</span>
-</span><span id="__span-0-264"><a id="__codelineno-0-264" name="__codelineno-0-264"></a>    <span class="o">*</span><span class="p">,</span>
-</span><span id="__span-0-265"><a id="__codelineno-0-265" name="__codelineno-0-265"></a>    <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-266"><a id="__codelineno-0-266" name="__codelineno-0-266"></a>    <span class="n">transform</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">StubOutT</span><span class="p">],</span> <span class="n">TransformOutT_co</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-267"><a id="__codelineno-0-267" name="__codelineno-0-267"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StubOutT</span> <span class="o">|</span> <span class="n">TransformOutT_co</span><span class="p">:</span>
-</span><span id="__span-0-268"><a id="__codelineno-0-268" name="__codelineno-0-268"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Call a gRPC stub method and translate errors to API client errors.</span>
-</span><span id="__span-0-269"><a id="__codelineno-0-269" name="__codelineno-0-269"></a>
-</span><span id="__span-0-270"><a id="__codelineno-0-270" name="__codelineno-0-270"></a><span class="sd">    This function is a convenience wrapper around calling a gRPC stub method. It</span>
-</span><span id="__span-0-271"><a id="__codelineno-0-271" name="__codelineno-0-271"></a><span class="sd">    translates gRPC errors to API client errors and optionally transforms the response</span>
-</span><span id="__span-0-272"><a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="sd">    using a provided function.</span>
-</span><span id="__span-0-273"><a id="__codelineno-0-273" name="__codelineno-0-273"></a>
-</span><span id="__span-0-274"><a id="__codelineno-0-274" name="__codelineno-0-274"></a><span class="sd">    This function is designed to be used with API clients that subclass</span>
-</span><span id="__span-0-275"><a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="sd">    [BaseApiClient][frequenz.client.base.client.BaseApiClient].</span>
-</span><span id="__span-0-276"><a id="__codelineno-0-276" name="__codelineno-0-276"></a>
-</span><span id="__span-0-277"><a id="__codelineno-0-277" name="__codelineno-0-277"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-278"><a id="__codelineno-0-278" name="__codelineno-0-278"></a><span class="sd">        client: The API client to use.</span>
-</span><span id="__span-0-279"><a id="__codelineno-0-279" name="__codelineno-0-279"></a><span class="sd">        stub_method: The gRPC stub method to call.</span>
-</span><span id="__span-0-280"><a id="__codelineno-0-280" name="__codelineno-0-280"></a><span class="sd">        method_name: The name of the method being called. If not provided, the name of</span>
-</span><span id="__span-0-281"><a id="__codelineno-0-281" name="__codelineno-0-281"></a><span class="sd">            the calling function is used.</span>
-</span><span id="__span-0-282"><a id="__codelineno-0-282" name="__codelineno-0-282"></a><span class="sd">        transform: A function that transforms the response from the gRPC stub method.</span>
-</span><span id="__span-0-283"><a id="__codelineno-0-283" name="__codelineno-0-283"></a>
-</span><span id="__span-0-284"><a id="__codelineno-0-284" name="__codelineno-0-284"></a><span class="sd">    Returns:</span>
-</span><span id="__span-0-285"><a id="__codelineno-0-285" name="__codelineno-0-285"></a><span class="sd">        The response from the gRPC stub method, possibly transformed by the `transform`</span>
-</span><span id="__span-0-286"><a id="__codelineno-0-286" name="__codelineno-0-286"></a><span class="sd">            function if provided.</span>
-</span><span id="__span-0-287"><a id="__codelineno-0-287" name="__codelineno-0-287"></a>
-</span><span id="__span-0-288"><a id="__codelineno-0-288" name="__codelineno-0-288"></a><span class="sd">    Raises:</span>
-</span><span id="__span-0-289"><a id="__codelineno-0-289" name="__codelineno-0-289"></a><span class="sd">        ClientNotConnected: If the client is not connected to the server.</span>
-</span><span id="__span-0-290"><a id="__codelineno-0-290" name="__codelineno-0-290"></a><span class="sd">        GrpcError: If a gRPC error occurs.</span>
-</span><span id="__span-0-291"><a id="__codelineno-0-291" name="__codelineno-0-291"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-0-292"><a id="__codelineno-0-292" name="__codelineno-0-292"></a>    <span class="k">if</span> <span class="n">method_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-293"><a id="__codelineno-0-293" name="__codelineno-0-293"></a>        <span class="c1"># Get the name of the calling function</span>
-</span><span id="__span-0-294"><a id="__codelineno-0-294" name="__codelineno-0-294"></a>        <span class="n">method_name</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
-</span><span id="__span-0-295"><a id="__codelineno-0-295" name="__codelineno-0-295"></a>
-</span><span id="__span-0-296"><a id="__codelineno-0-296" name="__codelineno-0-296"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">is_connected</span><span class="p">:</span>
-</span><span id="__span-0-297"><a id="__codelineno-0-297" name="__codelineno-0-297"></a>        <span class="k">raise</span> <span class="n">ClientNotConnected</span><span class="p">(</span><span class="n">server_url</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">server_url</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="n">method_name</span><span class="p">)</span>
-</span><span id="__span-0-298"><a id="__codelineno-0-298" name="__codelineno-0-298"></a>
-</span><span id="__span-0-299"><a id="__codelineno-0-299" name="__codelineno-0-299"></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-0-300"><a id="__codelineno-0-300" name="__codelineno-0-300"></a>        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">stub_method</span><span class="p">()</span>
-</span><span id="__span-0-301"><a id="__codelineno-0-301" name="__codelineno-0-301"></a>    <span class="k">except</span> <span class="n">AioRpcError</span> <span class="k">as</span> <span class="n">grpc_error</span><span class="p">:</span>
-</span><span id="__span-0-302"><a id="__codelineno-0-302" name="__codelineno-0-302"></a>        <span class="k">raise</span> <span class="n">ApiClientError</span><span class="o">.</span><span class="n">from_grpc_error</span><span class="p">(</span>
-</span><span id="__span-0-303"><a id="__codelineno-0-303" name="__codelineno-0-303"></a>            <span class="n">server_url</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">server_url</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="n">method_name</span><span class="p">,</span> <span class="n">grpc_error</span><span class="o">=</span><span class="n">grpc_error</span>
-</span><span id="__span-0-304"><a id="__codelineno-0-304" name="__codelineno-0-304"></a>        <span class="p">)</span> <span class="kn">from</span> <span class="nn">grpc_error</span>
-</span><span id="__span-0-305"><a id="__codelineno-0-305" name="__codelineno-0-305"></a>
-</span><span id="__span-0-306"><a id="__codelineno-0-306" name="__codelineno-0-306"></a>    <span class="k">return</span> <span class="n">response</span> <span class="k">if</span> <span class="n">transform</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">transform</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-306">306</a></span>
+<span class="normal"><a href="#__codelineno-0-307">307</a></span>
+<span class="normal"><a href="#__codelineno-0-308">308</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-263"><a id="__codelineno-0-263" name="__codelineno-0-263"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">call_stub_method</span><span class="p">(</span>  <span class="c1"># noqa: DOC503</span>
+</span><span id="__span-0-264"><a id="__codelineno-0-264" name="__codelineno-0-264"></a>    <span class="n">client</span><span class="p">:</span> <span class="n">BaseApiClient</span><span class="p">[</span><span class="n">StubT</span><span class="p">],</span>
+</span><span id="__span-0-265"><a id="__codelineno-0-265" name="__codelineno-0-265"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">StubOutT</span><span class="p">]],</span>
+</span><span id="__span-0-266"><a id="__codelineno-0-266" name="__codelineno-0-266"></a>    <span class="o">*</span><span class="p">,</span>
+</span><span id="__span-0-267"><a id="__codelineno-0-267" name="__codelineno-0-267"></a>    <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-268"><a id="__codelineno-0-268" name="__codelineno-0-268"></a>    <span class="n">transform</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">StubOutT</span><span class="p">],</span> <span class="n">TransformOutT_co</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-269"><a id="__codelineno-0-269" name="__codelineno-0-269"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StubOutT</span> <span class="o">|</span> <span class="n">TransformOutT_co</span><span class="p">:</span>
+</span><span id="__span-0-270"><a id="__codelineno-0-270" name="__codelineno-0-270"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Call a gRPC stub method and translate errors to API client errors.</span>
+</span><span id="__span-0-271"><a id="__codelineno-0-271" name="__codelineno-0-271"></a>
+</span><span id="__span-0-272"><a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="sd">    This function is a convenience wrapper around calling a gRPC stub method. It</span>
+</span><span id="__span-0-273"><a id="__codelineno-0-273" name="__codelineno-0-273"></a><span class="sd">    translates gRPC errors to API client errors and optionally transforms the response</span>
+</span><span id="__span-0-274"><a id="__codelineno-0-274" name="__codelineno-0-274"></a><span class="sd">    using a provided function.</span>
+</span><span id="__span-0-275"><a id="__codelineno-0-275" name="__codelineno-0-275"></a>
+</span><span id="__span-0-276"><a id="__codelineno-0-276" name="__codelineno-0-276"></a><span class="sd">    This function is designed to be used with API clients that subclass</span>
+</span><span id="__span-0-277"><a id="__codelineno-0-277" name="__codelineno-0-277"></a><span class="sd">    [BaseApiClient][frequenz.client.base.client.BaseApiClient].</span>
+</span><span id="__span-0-278"><a id="__codelineno-0-278" name="__codelineno-0-278"></a>
+</span><span id="__span-0-279"><a id="__codelineno-0-279" name="__codelineno-0-279"></a><span class="sd">    Args:</span>
+</span><span id="__span-0-280"><a id="__codelineno-0-280" name="__codelineno-0-280"></a><span class="sd">        client: The API client to use.</span>
+</span><span id="__span-0-281"><a id="__codelineno-0-281" name="__codelineno-0-281"></a><span class="sd">        stub_method: The gRPC stub method to call.</span>
+</span><span id="__span-0-282"><a id="__codelineno-0-282" name="__codelineno-0-282"></a><span class="sd">        method_name: The name of the method being called. If not provided, the name of</span>
+</span><span id="__span-0-283"><a id="__codelineno-0-283" name="__codelineno-0-283"></a><span class="sd">            the calling function is used.</span>
+</span><span id="__span-0-284"><a id="__codelineno-0-284" name="__codelineno-0-284"></a><span class="sd">        transform: A function that transforms the response from the gRPC stub method.</span>
+</span><span id="__span-0-285"><a id="__codelineno-0-285" name="__codelineno-0-285"></a>
+</span><span id="__span-0-286"><a id="__codelineno-0-286" name="__codelineno-0-286"></a><span class="sd">    Returns:</span>
+</span><span id="__span-0-287"><a id="__codelineno-0-287" name="__codelineno-0-287"></a><span class="sd">        The response from the gRPC stub method, possibly transformed by the `transform`</span>
+</span><span id="__span-0-288"><a id="__codelineno-0-288" name="__codelineno-0-288"></a><span class="sd">            function if provided.</span>
+</span><span id="__span-0-289"><a id="__codelineno-0-289" name="__codelineno-0-289"></a>
+</span><span id="__span-0-290"><a id="__codelineno-0-290" name="__codelineno-0-290"></a><span class="sd">    Raises:</span>
+</span><span id="__span-0-291"><a id="__codelineno-0-291" name="__codelineno-0-291"></a><span class="sd">        ClientNotConnected: If the client is not connected to the server.</span>
+</span><span id="__span-0-292"><a id="__codelineno-0-292" name="__codelineno-0-292"></a><span class="sd">        GrpcError: If a gRPC error occurs.</span>
+</span><span id="__span-0-293"><a id="__codelineno-0-293" name="__codelineno-0-293"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-294"><a id="__codelineno-0-294" name="__codelineno-0-294"></a>    <span class="k">if</span> <span class="n">method_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-0-295"><a id="__codelineno-0-295" name="__codelineno-0-295"></a>        <span class="c1"># Get the name of the calling function</span>
+</span><span id="__span-0-296"><a id="__codelineno-0-296" name="__codelineno-0-296"></a>        <span class="n">method_name</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+</span><span id="__span-0-297"><a id="__codelineno-0-297" name="__codelineno-0-297"></a>
+</span><span id="__span-0-298"><a id="__codelineno-0-298" name="__codelineno-0-298"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">is_connected</span><span class="p">:</span>
+</span><span id="__span-0-299"><a id="__codelineno-0-299" name="__codelineno-0-299"></a>        <span class="k">raise</span> <span class="n">ClientNotConnected</span><span class="p">(</span><span class="n">server_url</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">server_url</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="n">method_name</span><span class="p">)</span>
+</span><span id="__span-0-300"><a id="__codelineno-0-300" name="__codelineno-0-300"></a>
+</span><span id="__span-0-301"><a id="__codelineno-0-301" name="__codelineno-0-301"></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-0-302"><a id="__codelineno-0-302" name="__codelineno-0-302"></a>        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">stub_method</span><span class="p">()</span>
+</span><span id="__span-0-303"><a id="__codelineno-0-303" name="__codelineno-0-303"></a>    <span class="k">except</span> <span class="n">AioRpcError</span> <span class="k">as</span> <span class="n">grpc_error</span><span class="p">:</span>
+</span><span id="__span-0-304"><a id="__codelineno-0-304" name="__codelineno-0-304"></a>        <span class="k">raise</span> <span class="n">ApiClientError</span><span class="o">.</span><span class="n">from_grpc_error</span><span class="p">(</span>
+</span><span id="__span-0-305"><a id="__codelineno-0-305" name="__codelineno-0-305"></a>            <span class="n">server_url</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">server_url</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="n">method_name</span><span class="p">,</span> <span class="n">grpc_error</span><span class="o">=</span><span class="n">grpc_error</span>
+</span><span id="__span-0-306"><a id="__codelineno-0-306" name="__codelineno-0-306"></a>        <span class="p">)</span> <span class="kn">from</span> <span class="nn">grpc_error</span>
+</span><span id="__span-0-307"><a id="__codelineno-0-307" name="__codelineno-0-307"></a>
+</span><span id="__span-0-308"><a id="__codelineno-0-308" name="__codelineno-0-308"></a>    <span class="k">return</span> <span class="n">response</span> <span class="k">if</span> <span class="n">transform</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">transform</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2915,10 +2915,10 @@ function if provided.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.footer", "navigation.tabs", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.footer", "navigation.tabs", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.525ec568.min.js"></script>
       
     
   </body>
