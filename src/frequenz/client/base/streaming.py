@@ -27,12 +27,13 @@ OutputT = TypeVar("OutputT")
 class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
     """Helper class to handle grpc streaming methods."""
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         stream_name: str,
         stream_method: Callable[[], AsyncIterable[InputT]],
         transform: Callable[[InputT], OutputT],
         retry_strategy: retry.Strategy | None = None,
+        retry_on_exhausted_stream: bool = False,
     ):
         """Initialize the streaming helper.
 
@@ -43,6 +44,8 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             transform: A function to transform the input type to the output type.
             retry_strategy: The retry strategy to use, when the connection is lost. Defaults
                 to retries every 3 seconds, with a jitter of 1 second, indefinitely.
+            retry_on_exhausted_stream: Whether to retry when the stream is exhausted, i.e.
+                when the server closes the stream. Defaults to False.
         """
         self._stream_name = stream_name
         self._stream_method = stream_method
@@ -50,6 +53,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
         self._retry_strategy = (
             retry.LinearBackoff() if retry_strategy is None else retry_strategy.copy()
         )
+        self._retry_on_exhausted_stream = retry_on_exhausted_stream
 
         self._channel: channels.Broadcast[OutputT] = channels.Broadcast(
             name=f"GrpcStreamBroadcaster-{stream_name}"
@@ -91,6 +95,12 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                     await sender.send(self._transform(msg))
             except grpc.aio.AioRpcError as err:
                 error = err
+            if error is None and not self._retry_on_exhausted_stream:
+                _logger.info(
+                    "%s: connection closed, stream exhausted", self._stream_name
+                )
+                await self._channel.close()
+                break
             error_str = f"Error: {error}" if error else "Stream exhausted"
             interval = self._retry_strategy.next_interval()
             if interval is None:
