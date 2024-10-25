@@ -71,6 +71,15 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
         """
         return self._channel.new_receiver(limit=maxsize)
 
+    @property
+    def is_running(self) -> bool:
+        """Return whether the streaming helper is running.
+
+        Returns:
+            Whether the streaming helper is running.
+        """
+        return not self._task.done()
+
     async def stop(self) -> None:
         """Stop the streaming helper."""
         if self._task.done():
