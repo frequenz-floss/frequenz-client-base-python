@@ -116,6 +116,43 @@ async def test_streaming_success_retry_on_exhausted(
     ]
 
 
+@pytest.mark.parametrize("retry_on_exhausted_stream", [False])
+async def test_streaming_success(
+    ok_helper: streaming.GrpcStreamBroadcaster[
+        int, str
+    ],  # pylint: disable=redefined-outer-name
+    no_retry: mock.MagicMock,  # pylint: disable=redefined-outer-name
+    receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Test streaming success."""
+    caplog.set_level(logging.INFO)
+    items: list[str] = []
+    async with asyncio.timeout(1):
+        receiver = ok_helper.new_receiver()
+        receiver_ready_event.set()
+        async for item in receiver:
+            items.append(item)
+    assert (
+        no_retry.next_interval.call_count == 0
+    ), "next_interval should not be called when streaming is successful"
+
+    assert items == [
+        "transformed_0",
+        "transformed_1",
+        "transformed_2",
+        "transformed_3",
+        "transformed_4",
+    ]
+    assert caplog.record_tuples == [
+        (
+            "frequenz.client.base.streaming",
+            logging.INFO,
+            "test_helper: connection closed, stream exhausted",
+        )
+    ]
+
+
 class _NamedMagicMock(mock.MagicMock):
     """Mock with a name."""
 
