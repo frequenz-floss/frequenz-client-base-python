@@ -154,9 +154,7 @@ def test_parse_uri_ok(  # pylint: disable=too-many-locals
     )
     expected_port = case.expected_port
     expected_ssl = (
-        expected_options.ssl.enabled
-        if "ssl=" in uri or defaults.ssl.enabled is None
-        else defaults.ssl.enabled
+        expected_options.ssl.enabled if "ssl=" in uri else defaults.ssl.enabled
     )
     expected_root_certificates = (
         expected_options.ssl.root_certificates
