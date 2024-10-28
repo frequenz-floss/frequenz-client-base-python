@@ -40,6 +40,7 @@ def no_retry() -> mock.MagicMock:
 async def ok_helper(
     no_retry: mock.MagicMock,  # pylint: disable=redefined-outer-name
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
+    retry_on_exhausted_stream: bool,
 ) -> AsyncIterator[streaming.GrpcStreamBroadcaster[int, str]]:
     """Fixture for GrpcStreamBroadcaster."""
 
@@ -55,6 +56,7 @@ async def ok_helper(
         stream_method=lambda: asynciter(receiver_ready_event),
         transform=_transformer,
         retry_strategy=no_retry,
+        retry_on_exhausted_stream=retry_on_exhausted_stream,
     )
     yield helper
     await helper.stop()
@@ -79,7 +81,8 @@ class _ErroringAsyncIter(AsyncIterator[int]):
         return self._current
 
 
-async def test_streaming_success(
+@pytest.mark.parametrize("retry_on_exhausted_stream", [True])
+async def test_streaming_success_retry_on_exhausted(
     ok_helper: streaming.GrpcStreamBroadcaster[
         int, str
     ],  # pylint: disable=redefined-outer-name
