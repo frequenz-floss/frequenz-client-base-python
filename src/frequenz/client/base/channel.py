@@ -47,13 +47,13 @@ class KeepAliveOptions:
     """Options for HTTP2 keep-alive pings."""
 
     enabled: bool = True
-    """Whether keep-alive should be enabled."""
+    """Whether HTTP2 keep-alive should be enabled."""
 
     interval: timedelta = timedelta(seconds=60)
-    """The interval between pings."""
+    """The interval between HTTP2 pings."""
 
     timeout: timedelta = timedelta(seconds=20)
-    """The time in milliseconds to wait for a keep-alive response."""
+    """The time to wait for a HTTP2 keep-alive response."""
 
 
 @dataclasses.dataclass(frozen=True)
@@ -151,9 +151,9 @@ def parse_grpc_uri(
                 "grpc.keepalive_time_ms",
                 (
                     (
-                        options.keep_alive_interval
-                        if options.keep_alive_interval is not None
-                        else defaults.keep_alive.interval
+                        defaults.keep_alive.interval
+                        if options.keep_alive_interval is None
+                        else options.keep_alive_interval
                     ).total_seconds()
                     * 1000
                 ),
@@ -161,9 +161,9 @@ def parse_grpc_uri(
             (
                 "grpc.keepalive_timeout_ms",
                 (
-                    options.keep_alive_timeout
-                    if options.keep_alive_timeout is not None
-                    else defaults.keep_alive.timeout
+                    defaults.keep_alive.timeout
+                    if options.keep_alive_timeout is None
+                    else options.keep_alive_timeout
                 ).total_seconds()
                 * 1000,
             ),
@@ -302,12 +302,12 @@ def _parse_query_params(uri: str, query_string: str) -> _QueryParams:
         ),
         keep_alive=keep_alive,
         keep_alive_interval=(
-            timedelta(seconds=int(keep_alive_opts["keep_alive_interval_s"]))
+            timedelta(seconds=float(keep_alive_opts["keep_alive_interval_s"]))
             if keep_alive_opts["keep_alive_interval_s"] is not None
             else None
         ),
         keep_alive_timeout=(
-            timedelta(seconds=int(keep_alive_opts["keep_alive_timeout_s"]))
+            timedelta(seconds=float(keep_alive_opts["keep_alive_timeout_s"]))
             if keep_alive_opts["keep_alive_timeout_s"] is not None
             else None
         ),
