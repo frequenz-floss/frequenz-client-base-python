@@ -40,6 +40,7 @@ def no_retry() -> mock.MagicMock:
 async def ok_helper(
     no_retry: mock.MagicMock,  # pylint: disable=redefined-outer-name
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
+    retry_on_exhausted_stream: bool,
 ) -> AsyncIterator[streaming.GrpcStreamBroadcaster[int, str]]:
     """Fixture for GrpcStreamBroadcaster."""
 
@@ -55,6 +56,7 @@ async def ok_helper(
         stream_method=lambda: asynciter(receiver_ready_event),
         transform=_transformer,
         retry_strategy=no_retry,
+        retry_on_exhausted_stream=retry_on_exhausted_stream,
     )
     yield helper
     await helper.stop()
@@ -79,7 +81,8 @@ class _ErroringAsyncIter(AsyncIterator[int]):
         return self._current
 
 
-async def test_streaming_success(
+@pytest.mark.parametrize("retry_on_exhausted_stream", [True])
+async def test_streaming_success_retry_on_exhausted(
     ok_helper: streaming.GrpcStreamBroadcaster[
         int, str
     ],  # pylint: disable=redefined-outer-name
@@ -109,6 +112,43 @@ async def test_streaming_success(
             logging.ERROR,
             "test_helper: connection ended, retry limit exceeded (mock progress), "
             "giving up. Stream exhausted.",
+        )
+    ]
+
+
+@pytest.mark.parametrize("retry_on_exhausted_stream", [False])
+async def test_streaming_success(
+    ok_helper: streaming.GrpcStreamBroadcaster[
+        int, str
+    ],  # pylint: disable=redefined-outer-name
+    no_retry: mock.MagicMock,  # pylint: disable=redefined-outer-name
+    receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Test streaming success."""
+    caplog.set_level(logging.INFO)
+    items: list[str] = []
+    async with asyncio.timeout(1):
+        receiver = ok_helper.new_receiver()
+        receiver_ready_event.set()
+        async for item in receiver:
+            items.append(item)
+    assert (
+        no_retry.next_interval.call_count == 0
+    ), "next_interval should not be called when streaming is successful"
+
+    assert items == [
+        "transformed_0",
+        "transformed_1",
+        "transformed_2",
+        "transformed_3",
+        "transformed_4",
+    ]
+    assert caplog.record_tuples == [
+        (
+            "frequenz.client.base.streaming",
+            logging.INFO,
+            "test_helper: connection closed, stream exhausted",
         )
     ]
 
