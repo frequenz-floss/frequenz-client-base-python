@@ -14,9 +14,11 @@
 
 * The `ExponentialBackoff` and `LinearBackoff` classes now require keyword arguments for their constructor. This change was made to make the classes easier to use and to avoid confusion with the order of the arguments.
 
+- HTTP2 keep-alive is now enabled by default, with an interval of 60 seconds between pings, and a 20 second timeout for responses from the service.  These values are configurable and may be updated based on specific requirements.
+
 ## New Features
 
-<!-- Here goes the main new features and examples or instructions on how to use them -->
+- Added support for HTTP2 keep-alive.
 
 ## Bug Fixes
 

@@ -5,6 +5,7 @@
 
 import dataclasses
 import pathlib
+from datetime import timedelta
 from typing import assert_never
 from urllib.parse import parse_qs, urlparse
 
@@ -42,6 +43,20 @@ class SslOptions:
 
 
 @dataclasses.dataclass(frozen=True)
+class KeepAliveOptions:
+    """Options for HTTP2 keep-alive pings."""
+
+    enabled: bool = True
+    """Whether HTTP2 keep-alive should be enabled."""
+
+    interval: timedelta = timedelta(seconds=60)
+    """The interval between HTTP2 pings."""
+
+    timeout: timedelta = timedelta(seconds=20)
+    """The time to wait for a HTTP2 keep-alive response."""
+
+
+@dataclasses.dataclass(frozen=True)
 class ChannelOptions:
     """Options for a gRPC channel."""
 
@@ -50,6 +65,9 @@ class ChannelOptions:
 
     ssl: SslOptions = SslOptions()
     """SSL options for the channel."""
+
+    keep_alive: KeepAliveOptions = KeepAliveOptions()
+    """HTTP2 keep-alive options for the channel."""
 
 
 def parse_grpc_uri(
@@ -120,6 +138,40 @@ def parse_grpc_uri(
         parsed_uri.netloc if parsed_uri.port else f"{parsed_uri.netloc}:{defaults.port}"
     )
 
+    keep_alive = (
+        defaults.keep_alive.enabled
+        if options.keep_alive is None
+        else options.keep_alive
+    )
+    channel_options = (
+        [
+            ("grpc.http2.max_pings_without_data", 0),
+            ("grpc.keepalive_permit_without_calls", 1),
+            (
+                "grpc.keepalive_time_ms",
+                (
+                    (
+                        defaults.keep_alive.interval
+                        if options.keep_alive_interval is None
+                        else options.keep_alive_interval
+                    ).total_seconds()
+                    * 1000
+                ),
+            ),
+            (
+                "grpc.keepalive_timeout_ms",
+                (
+                    defaults.keep_alive.timeout
+                    if options.keep_alive_timeout is None
+                    else options.keep_alive_timeout
+                ).total_seconds()
+                * 1000,
+            ),
+        ]
+        if keep_alive
+        else None
+    )
+
     ssl = defaults.ssl.enabled if options.ssl is None else options.ssl
     if ssl:
         return secure_channel(
@@ -141,8 +193,9 @@ def parse_grpc_uri(
                     defaults.ssl.certificate_chain,
                 ),
             ),
+            channel_options,
         )
-    return insecure_channel(target)
+    return insecure_channel(target, channel_options)
 
 
 def _to_bool(value: str) -> bool:
@@ -160,6 +213,9 @@ class _QueryParams:
     ssl_root_certificates_path: pathlib.Path | None
     ssl_private_key_path: pathlib.Path | None
     ssl_certificate_chain_path: pathlib.Path | None
+    keep_alive: bool | None
+    keep_alive_interval: timedelta | None
+    keep_alive_timeout: timedelta | None
 
 
 def _parse_query_params(uri: str, query_string: str) -> _QueryParams:
@@ -200,6 +256,26 @@ def _parse_query_params(uri: str, query_string: str) -> _QueryParams:
                 f"Option(s) {', '.join(erros)} found in URI {uri!r}, but SSL is disabled",
             )
 
+    keep_alive_option = options.pop("keep_alive", None)
+    keep_alive: bool | None = None
+    if keep_alive_option is not None:
+        keep_alive = _to_bool(keep_alive_option)
+
+    keep_alive_opts = {
+        k: options.pop(k, None)
+        for k in ("keep_alive_interval_s", "keep_alive_timeout_s")
+    }
+
+    if keep_alive is False:
+        erros = []
+        for opt_name, opt in keep_alive_opts.items():
+            if opt is not None:
+                erros.append(opt_name)
+        if erros:
+            raise ValueError(
+                f"Option(s) {', '.join(erros)} found in URI {uri!r}, but keep_alive is disabled",
+            )
+
     if options:
         names = ", ".join(options)
         raise ValueError(
@@ -209,7 +285,32 @@ def _parse_query_params(uri: str, query_string: str) -> _QueryParams:
 
     return _QueryParams(
         ssl=ssl,
-        **{k: pathlib.Path(v) if v is not None else None for k, v in ssl_opts.items()},
+        ssl_root_certificates_path=(
+            pathlib.Path(ssl_opts["ssl_root_certificates_path"])
+            if ssl_opts["ssl_root_certificates_path"] is not None
+            else None
+        ),
+        ssl_private_key_path=(
+            pathlib.Path(ssl_opts["ssl_private_key_path"])
+            if ssl_opts["ssl_private_key_path"] is not None
+            else None
+        ),
+        ssl_certificate_chain_path=(
+            pathlib.Path(ssl_opts["ssl_certificate_chain_path"])
+            if ssl_opts["ssl_certificate_chain_path"] is not None
+            else None
+        ),
+        keep_alive=keep_alive,
+        keep_alive_interval=(
+            timedelta(seconds=float(keep_alive_opts["keep_alive_interval_s"]))
+            if keep_alive_opts["keep_alive_interval_s"] is not None
+            else None
+        ),
+        keep_alive_timeout=(
+            timedelta(seconds=float(keep_alive_opts["keep_alive_timeout_s"]))
+            if keep_alive_opts["keep_alive_timeout_s"] is not None
+            else None
+        ),
     )
 
 
