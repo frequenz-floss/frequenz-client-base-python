@@ -2,7 +2,7 @@
 
 ## Summary
 
-<!-- Here goes a general summary of what this release is about -->
+This release improves the `BaseApiClient` interface and introduces HTTP2 keep-alive, among other changes.
 
 ## Upgrading
 
@@ -47,7 +47,3 @@
 ## New Features
 
 - Added support for HTTP2 keep-alive.
-
-## Bug Fixes
-
-<!-- Here goes notable bug fixes that are worth a special mention or explanation -->
