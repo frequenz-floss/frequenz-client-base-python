@@ -16,6 +16,34 @@
 
 - HTTP2 keep-alive is now enabled by default, with an interval of 60 seconds between pings, and a 20 second timeout for responses from the service.  These values are configurable and may be updated based on specific requirements.
 
+* The `BaseApiClient` class is not generic anymore, and doesn't take a function to create the stub. Instead, subclasses should create their own stub right after calling the parent constructor. This enables subclasses to cast the stub to the generated `XxxAsyncStub` class, which have proper `async` type hints. To convert you client:
+
+    ```python
+    # Old
+    from my_service_pb2_grpc import MyServiceStub
+    class MyApiClient(BaseApiClient[MyServiceStub]):
+        def __init__(self, server_url: str, *, ...) -> None:
+            super().__init__(server_url, MyServiceStub, ...)
+            ...
+
+    # New
+    from typing import cast
+    from my_service_pb2_grpc import MyServiceStub, MyServiceAsyncStub
+    class MyApiClient(BaseApiClient):
+        def __init__(self, server_url: str, *, ...) -> None:
+            super().__init__(server_url, connect=connect)
+            self._stub = cast(MyServiceAsyncStub, MyServiceStub(self.channel))
+            ...
+
+        @property
+        def stub(self) -> MyServiceAsyncStub:
+            if self._channel is None:
+                raise ClientNotConnected(server_url=self.server_url, operation="stub")
+            return self._stub
+    ```
+
+    After this, you should be able to remove a lot of `cast`s or `type: ignore` from the code when calling the stub `async` methods.
+
 ## New Features
 
 - Added support for HTTP2 keep-alive.
