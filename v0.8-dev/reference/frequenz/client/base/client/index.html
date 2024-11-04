@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../../../../_img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1288,6 +1288,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1333,7 +1338,7 @@
 
 <a href="#frequenz.client.base.client.TransformOutT_co" class="headerlink" title="Permanent link">¤</a></h4>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">TransformOutT_co</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="typing.TypeVar" href="https://docs.python.org/3/library/typing.html#typing.TypeVar">TypeVar</a></span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">&quot;TransformOutT_co&quot;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">&quot;TransformOutT_co&quot;</span><span class="p">,</span> <span class="n"><span title="typing.TypeVar(covariant)">covariant</span></span><span class="o">=</span><span class="kc">True</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span>
 </span></code></pre></div>
 
@@ -1496,6 +1501,11 @@ gRPC server and calls a method on a stub.</p>
         a key based on the stream method request parameters to broadcaster
         instances.</p>
 </details>
+
+
+
+
+
               <details class="quote">
                 <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-17"> 17</a></span>
@@ -2205,7 +2215,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="nf">server_url</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="o">*</span><span class="p">,</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">connect</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">channel_defaults</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span> <span class="o">=</span> <span class="n">ChannelOptions</span><span class="p">()</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">channel_defaults</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span><span class="p">()</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </span></code></pre></div>
 
@@ -2223,7 +2233,9 @@ doing and you don't care about being tied to a specific gRPC library.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>server_url</code></td>
+            <td>
+                <code>server_url</code>
+            </td>
             <td class="doc-param-details">
               <div class="doc-md-description">
                 <p>The URL of the server to connect to.</p>
@@ -2237,7 +2249,9 @@ doing and you don't care about being tied to a specific gRPC library.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>connect</code></td>
+            <td>
+                <code>connect</code>
+            </td>
             <td class="doc-param-details">
               <div class="doc-md-description">
                 <p>Whether to connect to the server as soon as a client instance is
@@ -2258,7 +2272,9 @@ called.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>channel_defaults</code></td>
+            <td>
+                <code>channel_defaults</code>
+            </td>
             <td class="doc-param-details">
               <div class="doc-md-description">
                 <p>The default options for the gRPC channel to create using
@@ -2360,7 +2376,9 @@ this method does nothing. If you want to force a reconnection, you can call
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>server_url</code></td>
+            <td>
+                <code>server_url</code>
+            </td>
             <td class="doc-param-details">
               <div class="doc-md-description">
                 <p>The URL of the server to connect to. If not provided, the
@@ -2480,6 +2498,22 @@ previously used URL is used.</p>
   </span>
 
 <a href="#frequenz.client.base.client.call_stub_method" class="headerlink" title="Permanent link">¤</a></h4>
+          <div class="doc-overloads">
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">call_stub_method</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">*</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">method_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">transform</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co" href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span><span class="p">]</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co" href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span>
+</span></code></pre></div><div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">call_stub_method</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">*</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">method_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">transform</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span>
+</span></code></pre></div>          </div>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">call_stub_method</span><span class="p">(</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">,</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
@@ -2510,7 +2544,9 @@ using a provided function.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>client</code></td>
+            <td>
+                <code>client</code>
+            </td>
             <td class="doc-param-details">
               <div class="doc-md-description">
                 <p>The API client to use.</p>
@@ -2524,7 +2560,9 @@ using a provided function.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>stub_method</code></td>
+            <td>
+                <code>stub_method</code>
+            </td>
             <td class="doc-param-details">
               <div class="doc-md-description">
                 <p>The gRPC stub method to call.</p>
@@ -2538,7 +2576,9 @@ using a provided function.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>method_name</code></td>
+            <td>
+                <code>method_name</code>
+            </td>
             <td class="doc-param-details">
               <div class="doc-md-description">
                 <p>The name of the method being called. If not provided, the name of
@@ -2557,7 +2597,9 @@ the calling function is used.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>transform</code></td>
+            <td>
+                <code>transform</code>
+            </td>
             <td class="doc-param-details">
               <div class="doc-md-description">
                 <p>A function that transforms the response from the gRPC stub method.</p>
@@ -2869,7 +2911,7 @@ function if provided.</p>
     <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.footer", "navigation.tabs", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
     
   </body>
