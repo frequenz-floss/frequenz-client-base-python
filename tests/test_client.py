@@ -12,7 +12,7 @@ import pytest
 import pytest_mock
 
 from frequenz.client.base.channel import ChannelOptions, SslOptions
-from frequenz.client.base.client import BaseApiClient, call_stub_method
+from frequenz.client.base.client import BaseApiClient, StubT, call_stub_method
 from frequenz.client.base.exception import ClientNotConnected, UnknownError
 
 
@@ -20,9 +20,15 @@ def _auto_connect_name(auto_connect: bool) -> str:
     return f"{auto_connect=}"
 
 
-def _assert_is_disconnected(client: BaseApiClient) -> None:
+def _assert_is_disconnected(client: BaseApiClient[StubT]) -> None:
     """Assert that the client is disconnected."""
     assert not client.is_connected
+
+    with pytest.raises(ClientNotConnected, match=r"") as exc_info:
+        _ = client.channel
+    exc = exc_info.value
+    assert exc.server_url == _DEFAULT_SERVER_URL
+    assert exc.operation == "channel"
 
     with pytest.raises(ClientNotConnected, match=r"") as exc_info:
         _ = client.channel
@@ -33,6 +39,8 @@ def _assert_is_disconnected(client: BaseApiClient) -> None:
 
 @dataclass(kw_only=True, frozen=True)
 class _ClientMocks:
+    stub: mock.MagicMock
+    create_stub: mock.MagicMock
     channel: mock.MagicMock
     parse_grpc_uri: mock.MagicMock
 
@@ -46,8 +54,10 @@ def create_client_with_mocks(
     auto_connect: bool = True,
     server_url: str = _DEFAULT_SERVER_URL,
     channel_defaults: ChannelOptions | None = None,
-) -> tuple[BaseApiClient, _ClientMocks]:
+) -> tuple[BaseApiClient[mock.MagicMock], _ClientMocks]:
     """Create a BaseApiClient instance with mocks."""
+    mock_stub = mock.MagicMock(name="stub")
+    mock_create_stub = mock.MagicMock(name="create_stub", return_value=mock_stub)
     mock_channel = mock.MagicMock(name="channel", spec=grpc.aio.Channel)
     mock_parse_grpc_uri = mocker.patch(
         "frequenz.client.base.client.parse_grpc_uri", return_value=mock_channel
@@ -57,10 +67,13 @@ def create_client_with_mocks(
         kwargs["channel_defaults"] = channel_defaults
     client = BaseApiClient(
         server_url=server_url,
+        create_stub=mock_create_stub,
         connect=auto_connect,
         **kwargs,
     )
     return client, _ClientMocks(
+        stub=mock_stub,
+        create_stub=mock_create_stub,
         channel=mock_channel,
         parse_grpc_uri=mock_parse_grpc_uri,
     )
@@ -79,10 +92,13 @@ def test_base_api_client_init(
             client.server_url, ChannelOptions()
         )
         assert client.channel is mocks.channel
+        assert client._stub is mocks.stub  # pylint: disable=protected-access
         assert client.is_connected
+        mocks.create_stub.assert_called_once_with(mocks.channel)
     else:
         _assert_is_disconnected(client)
         mocks.parse_grpc_uri.assert_not_called()
+        mocks.create_stub.assert_not_called()
 
 
 def test_base_api_client_init_with_channel_defaults(
@@ -94,7 +110,9 @@ def test_base_api_client_init_with_channel_defaults(
     assert client.server_url == _DEFAULT_SERVER_URL
     mocks.parse_grpc_uri.assert_called_once_with(client.server_url, channel_defaults)
     assert client.channel is mocks.channel
+    assert client._stub is mocks.stub  # pylint: disable=protected-access
     assert client.is_connected
+    mocks.create_stub.assert_called_once_with(mocks.channel)
 
 
 @pytest.mark.parametrize(
@@ -111,10 +129,12 @@ def test_base_api_client_connect(
     # We want to check only what happens when we call connect, so we reset the mocks
     # that were called during initialization
     mocks.parse_grpc_uri.reset_mock()
+    mocks.create_stub.reset_mock()
 
     client.connect(new_server_url)
 
     assert client.channel is mocks.channel
+    assert client._stub is mocks.stub  # pylint: disable=protected-access
     assert client.is_connected
 
     same_url = new_server_url is None or new_server_url == _DEFAULT_SERVER_URL
@@ -128,10 +148,12 @@ def test_base_api_client_connect(
     # reconnect
     if auto_connect and same_url:
         mocks.parse_grpc_uri.assert_not_called()
+        mocks.create_stub.assert_not_called()
     else:
         mocks.parse_grpc_uri.assert_called_once_with(
             client.server_url, ChannelOptions()
         )
+        mocks.create_stub.assert_called_once_with(mocks.channel)
 
 
 async def test_base_api_client_disconnect(mocker: pytest_mock.MockFixture) -> None:
@@ -155,19 +177,23 @@ async def test_base_api_client_async_context_manager(
     # We want to check only what happens when we enter the context manager, so we reset
     # the mocks that were called during initialization
     mocks.parse_grpc_uri.reset_mock()
+    mocks.create_stub.reset_mock()
 
     async with client:
         assert client.channel is mocks.channel
+        assert client._stub is mocks.stub  # pylint: disable=protected-access
         assert client.is_connected
         mocks.channel.__aexit__.assert_not_called()
         # If we were previously connected, the client should not reconnect when entering
         # the context manager
         if auto_connect:
             mocks.parse_grpc_uri.assert_not_called()
+            mocks.create_stub.assert_not_called()
         else:
             mocks.parse_grpc_uri.assert_called_once_with(
                 client.server_url, ChannelOptions()
             )
+            mocks.create_stub.assert_called_once_with(mocks.channel)
 
     mocks.channel.__aexit__.assert_called_once_with(None, None, None)
     assert client.server_url == _DEFAULT_SERVER_URL
