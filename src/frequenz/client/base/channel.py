@@ -101,6 +101,11 @@ def parse_grpc_uri(
       enabled. Will raise a `ValueError` if the file cannot be read.
     - `ssl_certificate_chain_path` (str): Path to the certificate chain file. Only
       valid if SSL is enabled. Will raise a `ValueError` if the file cannot be read.
+    - `keep_alive` (bool): Enable or disable HTTP2 keep-alive. Defaults to `True`.
+    - `keep_alive_interval_s` (float): The interval between HTTP2 pings in seconds.
+      Defaults to 60.
+    - `keep_alive_timeout_s` (float): The time to wait for a HTTP2 keep-alive response
+      in seconds
 
     Args:
         uri: The gRPC URI specifying the connection parameters.
