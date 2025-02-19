@@ -10,7 +10,7 @@
 
 ## New Features
 
-<!-- Here goes the main new features and examples or instructions on how to use them -->
+* Add the `warn_on_overflow` option to the streaming receivers to allow ignoring overflow warnings
 
 ## Bug Fixes
 
