@@ -60,16 +60,22 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
         )
         self._task = asyncio.create_task(self._run())
 
-    def new_receiver(self, maxsize: int = 50) -> channels.Receiver[OutputT]:
+    def new_receiver(
+        self, maxsize: int = 50, warn_on_overflow: bool = True
+    ) -> channels.Receiver[OutputT]:
         """Create a new receiver for the stream.
 
         Args:
             maxsize: The maximum number of messages to buffer.
+            warn_on_overflow: Whether to log a warning when the receiver's
+                buffer is full and a message is dropped.
 
         Returns:
             A new receiver.
         """
-        return self._channel.new_receiver(limit=maxsize)
+        return self._channel.new_receiver(
+            limit=maxsize, warn_on_overflow=warn_on_overflow
+        )
 
     @property
     def is_running(self) -> bool:
