@@ -218,6 +218,11 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
             '\tdebug_error_string = "mock debug_error_string"\n'
             ">.",
         ),
+        (
+            "frequenz.client.base.streaming",
+            logging.INFO,
+            "test_helper: stopping the stream",
+        ),
     ]
 
 

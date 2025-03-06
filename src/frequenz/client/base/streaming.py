@@ -88,6 +88,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
 
     async def stop(self) -> None:
         """Stop the streaming helper."""
+        _logger.info("%s: stopping the stream", self._stream_name)
         if self._task.done():
             return
         self._task.cancel()
