@@ -12,7 +12,11 @@ import pytest
 import pytest_mock
 
 from frequenz.client.base.channel import ChannelOptions, SslOptions
-from frequenz.client.base.client import BaseApiClient, StubT, call_stub_method
+from frequenz.client.base.client import (
+    BaseApiClient,
+    StubT,
+    call_stub_method,
+)
 from frequenz.client.base.exception import ClientNotConnected, UnknownError
 
 

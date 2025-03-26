@@ -315,11 +315,14 @@ def test_parse_uri_ok(  # pylint: disable=too-many-locals
             certificate_chain=expected_certificate_chain,
         )
         secure_channel_mock.assert_called_once_with(
-            expected_target, expected_credentials, expected_channel_options
+            expected_target,
+            expected_credentials,
+            expected_channel_options,
+            interceptors=[],
         )
     else:
         insecure_channel_mock.assert_called_once_with(
-            expected_target, expected_channel_options
+            expected_target, expected_channel_options, interceptors=[]
         )
 
 
