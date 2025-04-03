@@ -10,7 +10,15 @@ from typing import assert_never
 from urllib.parse import parse_qs, urlparse
 
 from grpc import ssl_channel_credentials
-from grpc.aio import Channel, insecure_channel, secure_channel
+from grpc.aio import (
+    Channel,
+    ClientInterceptor,
+    insecure_channel,
+    secure_channel,
+)
+
+from .authentication import AuthenticationInterceptor, AuthenticationOptions
+from .signing import SigningInterceptor, SigningOptions
 
 
 @dataclasses.dataclass(frozen=True)
@@ -68,6 +76,12 @@ class ChannelOptions:
 
     keep_alive: KeepAliveOptions = KeepAliveOptions()
     """HTTP2 keep-alive options for the channel."""
+
+    sign: SigningOptions | None = None
+    """Signing options for the channel."""
+
+    auth: AuthenticationOptions | None = None
+    """Authentication options for the channel."""
 
 
 def parse_grpc_uri(
@@ -177,6 +191,17 @@ def parse_grpc_uri(
         else None
     )
 
+    interceptors: list[ClientInterceptor] = []
+    if defaults.auth is not None:
+        interceptors.append(
+            AuthenticationInterceptor(options=defaults.auth)  # type: ignore[arg-type]
+        )
+
+    if defaults.sign is not None:
+        interceptors.append(
+            SigningInterceptor(options=defaults.sign)  # type: ignore[arg-type]
+        )
+
     ssl = defaults.ssl.enabled if options.ssl is None else options.ssl
     if ssl:
         return secure_channel(
@@ -199,8 +224,9 @@ def parse_grpc_uri(
                 ),
             ),
             channel_options,
+            interceptors=interceptors,
         )
-    return insecure_channel(target, channel_options)
+    return insecure_channel(target, channel_options, interceptors=interceptors)
 
 
 def _to_bool(value: str) -> bool:

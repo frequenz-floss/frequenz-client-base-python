@@ -8,7 +8,10 @@ import inspect
 from collections.abc import Awaitable, Callable
 from typing import Any, Generic, Self, TypeVar, overload
 
-from grpc.aio import AioRpcError, Channel
+from grpc.aio import (
+    AioRpcError,
+    Channel,
+)
 
 from .channel import ChannelOptions, parse_grpc_uri
 from .exception import ApiClientError, ClientNotConnected
