@@ -7,5 +7,5 @@
 ## Upgrading
 
 * Updated `protobuf` dependency range: changed from `>=4.21.6, <6` to `>=5.29.2, <7`
-
+* The minimum dependency for `typing-extensions` is now `>=4.6.0` to be compatible with Python 3.12
 
