@@ -5273,6 +5273,7 @@
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -5300,12 +5301,17 @@
 
         <p>There was an error in an API client.</p>
 <p>To simplify retrying, errors are classified as
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.ApiClientError.is_retryable">retryable</a>, or not.
+<a class="autorefs autorefs-internal" title="is_retryable
+
+
+  
+      instance-attribute
+  " href="#frequenz.client.base.exception.ApiClientError.is_retryable">retryable</a>, or not.
 Retryable errors might succeed if retried, while permanent errors won't. When
 uncertain, errors are assumed to be retryable.</p>
 <p>The following sub-classes are available:</p>
 <ul>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a>: A gRPC operation failed.</li>
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a>: A gRPC operation failed.</li>
 </ul>
 
 
@@ -5313,8 +5319,9 @@ uncertain, errors are assumed to be retryable.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-14"> 14</a></span>
 <span class="normal"><a href="#__codelineno-0-15"> 15</a></span>
 <span class="normal"><a href="#__codelineno-0-16"> 16</a></span>
@@ -5548,6 +5555,7 @@ uncertain, errors are assumed to be retryable.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -5571,6 +5579,7 @@ uncertain, errors are assumed to be retryable.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -5594,6 +5603,7 @@ uncertain, errors are assumed to be retryable.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -5617,6 +5627,7 @@ uncertain, errors are assumed to be retryable.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -5720,8 +5731,9 @@ uncertain, errors are assumed to be retryable.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-27">27</a></span>
 <span class="normal"><a href="#__codelineno-0-28">28</a></span>
 <span class="normal"><a href="#__codelineno-0-29">29</a></span>
@@ -5891,7 +5903,7 @@ uncertain, errors are assumed to be retryable.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -5899,8 +5911,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -6049,8 +6062,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-117">117</a></span>
 <span class="normal"><a href="#__codelineno-0-118">118</a></span>
 <span class="normal"><a href="#__codelineno-0-119">119</a></span>
@@ -6114,6 +6128,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -6137,6 +6152,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -6160,6 +6176,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -6183,6 +6200,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -6248,8 +6266,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-120">120</a></span>
 <span class="normal"><a href="#__codelineno-0-121">121</a></span>
 <span class="normal"><a href="#__codelineno-0-122">122</a></span>
@@ -6383,7 +6402,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -6391,8 +6410,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -6541,8 +6561,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-604">604</a></span>
 <span class="normal"><a href="#__codelineno-0-605">605</a></span>
 <span class="normal"><a href="#__codelineno-0-606">606</a></span>
@@ -6614,6 +6635,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -6637,6 +6659,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -6660,6 +6683,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -6683,6 +6707,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -6706,6 +6731,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -6792,8 +6818,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-607">607</a></span>
 <span class="normal"><a href="#__codelineno-0-608">608</a></span>
 <span class="normal"><a href="#__codelineno-0-609">609</a></span>
@@ -6935,7 +6962,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -6943,8 +6970,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -7093,8 +7121,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-369">369</a></span>
 <span class="normal"><a href="#__codelineno-0-370">370</a></span>
 <span class="normal"><a href="#__codelineno-0-371">371</a></span>
@@ -7166,6 +7195,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -7189,6 +7219,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -7212,6 +7243,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -7235,6 +7267,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -7258,6 +7291,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -7344,8 +7378,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-372">372</a></span>
 <span class="normal"><a href="#__codelineno-0-373">373</a></span>
 <span class="normal"><a href="#__codelineno-0-374">374</a></span>
@@ -7487,7 +7522,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -7495,8 +7530,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -7640,7 +7676,7 @@ is not recognized, or an appropriate subclass if it is.</p>
 
         <p>The requested entity was not found.</p>
 <p>Note that this error differs from
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.PermissionDenied">PermissionDenied</a>. This error is
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.PermissionDenied" href="#frequenz.client.base.exception.PermissionDenied">PermissionDenied</a>. This error is
 used when the requested entity is not found, regardless of the user's permissions.</p>
 
 
@@ -7648,8 +7684,9 @@ used when the requested entity is not found, regardless of the user's permission
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-342">342</a></span>
 <span class="normal"><a href="#__codelineno-0-343">343</a></span>
 <span class="normal"><a href="#__codelineno-0-344">344</a></span>
@@ -7731,6 +7768,7 @@ used when the requested entity is not found, regardless of the user's permission
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -7754,6 +7792,7 @@ used when the requested entity is not found, regardless of the user's permission
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -7777,6 +7816,7 @@ used when the requested entity is not found, regardless of the user's permission
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -7800,6 +7840,7 @@ used when the requested entity is not found, regardless of the user's permission
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -7823,6 +7864,7 @@ used when the requested entity is not found, regardless of the user's permission
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -7909,8 +7951,9 @@ used when the requested entity is not found, regardless of the user's permission
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-350">350</a></span>
 <span class="normal"><a href="#__codelineno-0-351">351</a></span>
 <span class="normal"><a href="#__codelineno-0-352">352</a></span>
@@ -8052,7 +8095,7 @@ used when the requested entity is not found, regardless of the user's permission
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -8060,8 +8103,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -8209,39 +8253,39 @@ a protocol-independent way, you should avoid catching this exception. Catching
 subclasses that don't have <em>grpc</em> in their name should be protocol-independent.</p>
 <p>The following sub-classes are available:</p>
 <ul>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.DataLoss">DataLoss</a>: Unrecoverable data loss or
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.DataLoss" href="#frequenz.client.base.exception.DataLoss">DataLoss</a>: Unrecoverable data loss or
   corruption.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.EntityAlreadyExists">EntityAlreadyExists</a>: The
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.EntityAlreadyExists" href="#frequenz.client.base.exception.EntityAlreadyExists">EntityAlreadyExists</a>: The
   entity that we attempted to create already exists.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.EntityNotFound">EntityNotFound</a>: The requested
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.EntityNotFound" href="#frequenz.client.base.exception.EntityNotFound">EntityNotFound</a>: The requested
   entity was not found.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.InternalError">InternalError</a>: Some invariants
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.InternalError" href="#frequenz.client.base.exception.InternalError">InternalError</a>: Some invariants
   expected by the underlying system have been broken.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.InvalidArgument">InvalidArgument</a>: The client
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.InvalidArgument" href="#frequenz.client.base.exception.InvalidArgument">InvalidArgument</a>: The client
   specified an invalid argument.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationAborted">OperationAborted</a>: The
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationAborted" href="#frequenz.client.base.exception.OperationAborted">OperationAborted</a>: The
   operation was aborted.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationCancelled">OperationCancelled</a>: The
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationCancelled" href="#frequenz.client.base.exception.OperationCancelled">OperationCancelled</a>: The
   operation was cancelled.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationNotImplemented">OperationNotImplemented</a>:
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationNotImplemented" href="#frequenz.client.base.exception.OperationNotImplemented">OperationNotImplemented</a>:
   The operation is not implemented or not supported/enabled in this service.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationOutOfRange">OperationOutOfRange</a>: The
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationOutOfRange" href="#frequenz.client.base.exception.OperationOutOfRange">OperationOutOfRange</a>: The
   operation was attempted past the valid range.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationPreconditionFailed">OperationPreconditionFailed</a>:
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationPreconditionFailed" href="#frequenz.client.base.exception.OperationPreconditionFailed">OperationPreconditionFailed</a>:
   The operation was rejected because the system is not in a required state.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationTimedOut">OperationTimedOut</a>: The time
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationTimedOut" href="#frequenz.client.base.exception.OperationTimedOut">OperationTimedOut</a>: The time
   limit was exceeded while waiting for the operation to complete.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationUnauthenticated">OperationUnauthenticated</a>:
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationUnauthenticated" href="#frequenz.client.base.exception.OperationUnauthenticated">OperationUnauthenticated</a>:
   The request does not have valid authentication credentials for the operation.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.PermissionDenied">PermissionDenied</a>: The caller
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.PermissionDenied" href="#frequenz.client.base.exception.PermissionDenied">PermissionDenied</a>: The caller
   does not have permission to execute the specified operation.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.ResourceExhausted">ResourceExhausted</a>: Some
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.ResourceExhausted" href="#frequenz.client.base.exception.ResourceExhausted">ResourceExhausted</a>: Some
   resource has been exhausted (for example per-user quota, disk space, etc.).</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.ServiceUnavailable">ServiceUnavailable</a>: The
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.ServiceUnavailable" href="#frequenz.client.base.exception.ServiceUnavailable">ServiceUnavailable</a>: The
   service is currently unavailable.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.UnknownError">UnknownError</a>: There was an error
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.UnknownError" href="#frequenz.client.base.exception.UnknownError">UnknownError</a>: There was an error
   that can't be described using other statuses.</li>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.UnrecognizedGrpcStatus">UnrecognizedGrpcStatus</a>:
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.exception.UnrecognizedGrpcStatus" href="#frequenz.client.base.exception.UnrecognizedGrpcStatus">UnrecognizedGrpcStatus</a>:
   The gRPC server returned an unrecognized status code.</li>
 </ul>
 
@@ -8258,8 +8302,9 @@ subclasses that don't have <em>grpc</em> in their name should be protocol-indepe
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-135">135</a></span>
 <span class="normal"><a href="#__codelineno-0-136">136</a></span>
 <span class="normal"><a href="#__codelineno-0-137">137</a></span>
@@ -8457,6 +8502,7 @@ subclasses that don't have <em>grpc</em> in their name should be protocol-indepe
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -8480,6 +8526,7 @@ subclasses that don't have <em>grpc</em> in their name should be protocol-indepe
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -8503,6 +8550,7 @@ subclasses that don't have <em>grpc</em> in their name should be protocol-indepe
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -8526,6 +8574,7 @@ subclasses that don't have <em>grpc</em> in their name should be protocol-indepe
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -8549,6 +8598,7 @@ subclasses that don't have <em>grpc</em> in their name should be protocol-indepe
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -8669,8 +8719,9 @@ subclasses that don't have <em>grpc</em> in their name should be protocol-indepe
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-184">184</a></span>
 <span class="normal"><a href="#__codelineno-0-185">185</a></span>
 <span class="normal"><a href="#__codelineno-0-186">186</a></span>
@@ -8846,7 +8897,7 @@ subclasses that don't have <em>grpc</em> in their name should be protocol-indepe
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -8854,8 +8905,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -9005,8 +9057,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-552">552</a></span>
 <span class="normal"><a href="#__codelineno-0-553">553</a></span>
 <span class="normal"><a href="#__codelineno-0-554">554</a></span>
@@ -9086,6 +9139,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -9109,6 +9163,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -9132,6 +9187,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -9155,6 +9211,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -9178,6 +9235,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -9264,8 +9322,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-558">558</a></span>
 <span class="normal"><a href="#__codelineno-0-559">559</a></span>
 <span class="normal"><a href="#__codelineno-0-560">560</a></span>
@@ -9409,7 +9468,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -9417,8 +9476,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -9562,7 +9622,7 @@ is not recognized, or an appropriate subclass if it is.</p>
 
         <p>The client specified an invalid argument.</p>
 <p>Note that this error differs from
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationPreconditionFailed">OperationPreconditionFailed</a>.
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationPreconditionFailed" href="#frequenz.client.base.exception.OperationPreconditionFailed">OperationPreconditionFailed</a>.
 This error indicates arguments that are problematic regardless of the state of the
 system (e.g., a malformed file name).</p>
 
@@ -9571,8 +9631,9 @@ system (e.g., a malformed file name).</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-286">286</a></span>
 <span class="normal"><a href="#__codelineno-0-287">287</a></span>
 <span class="normal"><a href="#__codelineno-0-288">288</a></span>
@@ -9656,6 +9717,7 @@ system (e.g., a malformed file name).</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -9679,6 +9741,7 @@ system (e.g., a malformed file name).</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -9702,6 +9765,7 @@ system (e.g., a malformed file name).</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -9725,6 +9789,7 @@ system (e.g., a malformed file name).</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -9748,6 +9813,7 @@ system (e.g., a malformed file name).</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -9834,8 +9900,9 @@ system (e.g., a malformed file name).</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-295">295</a></span>
 <span class="normal"><a href="#__codelineno-0-296">296</a></span>
 <span class="normal"><a href="#__codelineno-0-297">297</a></span>
@@ -9977,7 +10044,7 @@ system (e.g., a malformed file name).</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -9985,8 +10052,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -10136,8 +10204,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-473">473</a></span>
 <span class="normal"><a href="#__codelineno-0-474">474</a></span>
 <span class="normal"><a href="#__codelineno-0-475">475</a></span>
@@ -10215,6 +10284,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -10238,6 +10308,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -10261,6 +10332,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -10284,6 +10356,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -10307,6 +10380,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -10393,8 +10467,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-479">479</a></span>
 <span class="normal"><a href="#__codelineno-0-480">480</a></span>
 <span class="normal"><a href="#__codelineno-0-481">481</a></span>
@@ -10536,7 +10611,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -10544,8 +10619,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -10694,8 +10770,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-242">242</a></span>
 <span class="normal"><a href="#__codelineno-0-243">243</a></span>
 <span class="normal"><a href="#__codelineno-0-244">244</a></span>
@@ -10767,6 +10844,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -10790,6 +10868,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -10813,6 +10892,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -10836,6 +10916,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -10859,6 +10940,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -10945,8 +11027,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-245">245</a></span>
 <span class="normal"><a href="#__codelineno-0-246">246</a></span>
 <span class="normal"><a href="#__codelineno-0-247">247</a></span>
@@ -11088,7 +11171,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -11096,8 +11179,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -11246,8 +11330,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-529">529</a></span>
 <span class="normal"><a href="#__codelineno-0-530">530</a></span>
 <span class="normal"><a href="#__codelineno-0-531">531</a></span>
@@ -11321,6 +11406,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -11344,6 +11430,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -11367,6 +11454,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -11390,6 +11478,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -11413,6 +11502,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -11499,8 +11589,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-532">532</a></span>
 <span class="normal"><a href="#__codelineno-0-533">533</a></span>
 <span class="normal"><a href="#__codelineno-0-534">534</a></span>
@@ -11644,7 +11735,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -11652,8 +11743,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -11796,10 +11888,10 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
         <p>The operation was attempted past the valid range.</p>
-<p>Unlike <a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.InvalidArgument">InvalidArgument</a>, this error
+<p>Unlike <a class="autorefs autorefs-internal" title="frequenz.client.base.exception.InvalidArgument" href="#frequenz.client.base.exception.InvalidArgument">InvalidArgument</a>, this error
 indicates a problem that may be fixed if the system state changes.</p>
 <p>There is a fair bit of overlap with
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationPreconditionFailed">OperationPreconditionFailed</a>,
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationPreconditionFailed" href="#frequenz.client.base.exception.OperationPreconditionFailed">OperationPreconditionFailed</a>,
 this error is just a more specific version of that error and could be the result of
 an operation that doesn't even take any arguments.</p>
 
@@ -11808,8 +11900,9 @@ an operation that doesn't even take any arguments.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-498">498</a></span>
 <span class="normal"><a href="#__codelineno-0-499">499</a></span>
 <span class="normal"><a href="#__codelineno-0-500">500</a></span>
@@ -11899,6 +11992,7 @@ an operation that doesn't even take any arguments.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -11922,6 +12016,7 @@ an operation that doesn't even take any arguments.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -11945,6 +12040,7 @@ an operation that doesn't even take any arguments.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -11968,6 +12064,7 @@ an operation that doesn't even take any arguments.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -11991,6 +12088,7 @@ an operation that doesn't even take any arguments.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -12077,8 +12175,9 @@ an operation that doesn't even take any arguments.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-510">510</a></span>
 <span class="normal"><a href="#__codelineno-0-511">511</a></span>
 <span class="normal"><a href="#__codelineno-0-512">512</a></span>
@@ -12220,7 +12319,7 @@ an operation that doesn't even take any arguments.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -12228,8 +12327,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -12381,8 +12481,9 @@ retrying the operation.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-445">445</a></span>
 <span class="normal"><a href="#__codelineno-0-446">446</a></span>
 <span class="normal"><a href="#__codelineno-0-447">447</a></span>
@@ -12466,6 +12567,7 @@ retrying the operation.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -12489,6 +12591,7 @@ retrying the operation.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -12512,6 +12615,7 @@ retrying the operation.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -12535,6 +12639,7 @@ retrying the operation.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -12558,6 +12663,7 @@ retrying the operation.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -12644,8 +12750,9 @@ retrying the operation.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-453">453</a></span>
 <span class="normal"><a href="#__codelineno-0-454">454</a></span>
 <span class="normal"><a href="#__codelineno-0-455">455</a></span>
@@ -12789,7 +12896,7 @@ retrying the operation.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -12797,8 +12904,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -12950,8 +13058,9 @@ a server could have been delayed long.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-314">314</a></span>
 <span class="normal"><a href="#__codelineno-0-315">315</a></span>
 <span class="normal"><a href="#__codelineno-0-316">316</a></span>
@@ -13035,6 +13144,7 @@ a server could have been delayed long.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -13058,6 +13168,7 @@ a server could have been delayed long.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -13081,6 +13192,7 @@ a server could have been delayed long.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -13104,6 +13216,7 @@ a server could have been delayed long.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -13127,6 +13240,7 @@ a server could have been delayed long.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -13213,8 +13327,9 @@ a server could have been delayed long.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-322">322</a></span>
 <span class="normal"><a href="#__codelineno-0-323">323</a></span>
 <span class="normal"><a href="#__codelineno-0-324">324</a></span>
@@ -13358,7 +13473,7 @@ a server could have been delayed long.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -13366,8 +13481,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -13516,8 +13632,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-626">626</a></span>
 <span class="normal"><a href="#__codelineno-0-627">627</a></span>
 <span class="normal"><a href="#__codelineno-0-628">628</a></span>
@@ -13591,6 +13708,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -13614,6 +13732,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -13637,6 +13756,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -13660,6 +13780,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -13683,6 +13804,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -13769,8 +13891,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-629">629</a></span>
 <span class="normal"><a href="#__codelineno-0-630">630</a></span>
 <span class="normal"><a href="#__codelineno-0-631">631</a></span>
@@ -13914,7 +14037,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -13922,8 +14045,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -14069,8 +14193,8 @@ is not recognized, or an appropriate subclass if it is.</p>
 <p>Note that when the operation is rejected due to other reasons, such as the resources
 being exhausted or the user not being authenticated at all, different errors should
 be catched instead
-(<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.ResourceExhausted">ResourceExhausted</a> and
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.OperationUnauthenticated">OperationUnauthenticated</a>
+(<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.ResourceExhausted" href="#frequenz.client.base.exception.ResourceExhausted">ResourceExhausted</a> and
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.OperationUnauthenticated" href="#frequenz.client.base.exception.OperationUnauthenticated">OperationUnauthenticated</a>
 respectively).</p>
 
 
@@ -14078,8 +14202,9 @@ respectively).</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-391">391</a></span>
 <span class="normal"><a href="#__codelineno-0-392">392</a></span>
 <span class="normal"><a href="#__codelineno-0-393">393</a></span>
@@ -14169,6 +14294,7 @@ respectively).</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -14192,6 +14318,7 @@ respectively).</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -14215,6 +14342,7 @@ respectively).</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -14238,6 +14366,7 @@ respectively).</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -14261,6 +14390,7 @@ respectively).</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -14347,8 +14477,9 @@ respectively).</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-402">402</a></span>
 <span class="normal"><a href="#__codelineno-0-403">403</a></span>
 <span class="normal"><a href="#__codelineno-0-404">404</a></span>
@@ -14492,7 +14623,7 @@ respectively).</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -14500,8 +14631,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -14650,8 +14782,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-422">422</a></span>
 <span class="normal"><a href="#__codelineno-0-423">423</a></span>
 <span class="normal"><a href="#__codelineno-0-424">424</a></span>
@@ -14725,6 +14858,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -14748,6 +14882,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -14771,6 +14906,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -14794,6 +14930,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -14817,6 +14954,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -14903,8 +15041,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-425">425</a></span>
 <span class="normal"><a href="#__codelineno-0-426">426</a></span>
 <span class="normal"><a href="#__codelineno-0-427">427</a></span>
@@ -15048,7 +15187,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -15056,8 +15195,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -15208,8 +15348,9 @@ a backoff. Note that it is not always safe to retry non-idempotent operations.</
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-578">578</a></span>
 <span class="normal"><a href="#__codelineno-0-579">579</a></span>
 <span class="normal"><a href="#__codelineno-0-580">580</a></span>
@@ -15289,6 +15430,7 @@ a backoff. Note that it is not always safe to retry non-idempotent operations.</
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -15312,6 +15454,7 @@ a backoff. Note that it is not always safe to retry non-idempotent operations.</
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -15335,6 +15478,7 @@ a backoff. Note that it is not always safe to retry non-idempotent operations.</
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -15358,6 +15502,7 @@ a backoff. Note that it is not always safe to retry non-idempotent operations.</
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -15381,6 +15526,7 @@ a backoff. Note that it is not always safe to retry non-idempotent operations.</
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -15467,8 +15613,9 @@ a backoff. Note that it is not always safe to retry non-idempotent operations.</
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-585">585</a></span>
 <span class="normal"><a href="#__codelineno-0-586">586</a></span>
 <span class="normal"><a href="#__codelineno-0-587">587</a></span>
@@ -15610,7 +15757,7 @@ a backoff. Note that it is not always safe to retry non-idempotent operations.</
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -15618,8 +15765,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -15768,8 +15916,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-264">264</a></span>
 <span class="normal"><a href="#__codelineno-0-265">265</a></span>
 <span class="normal"><a href="#__codelineno-0-266">266</a></span>
@@ -15841,6 +15990,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -15864,6 +16014,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -15887,6 +16038,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -15910,6 +16062,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -15933,6 +16086,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -16019,8 +16173,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-267">267</a></span>
 <span class="normal"><a href="#__codelineno-0-268">268</a></span>
 <span class="normal"><a href="#__codelineno-0-269">269</a></span>
@@ -16162,7 +16317,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -16170,8 +16325,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
@@ -16320,8 +16476,9 @@ is not recognized, or an appropriate subclass if it is.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-220">220</a></span>
 <span class="normal"><a href="#__codelineno-0-221">221</a></span>
 <span class="normal"><a href="#__codelineno-0-222">222</a></span>
@@ -16393,6 +16550,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The human-readable description of the error.</p>
+
     </div>
 
 </div>
@@ -16416,6 +16574,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The original gRPC error.</p>
+
     </div>
 
 </div>
@@ -16439,6 +16598,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>Whether retrying the operation might succeed.</p>
+
     </div>
 
 </div>
@@ -16462,6 +16622,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The operation that caused the error.</p>
+
     </div>
 
 </div>
@@ -16485,6 +16646,7 @@ is not recognized, or an appropriate subclass if it is.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server that returned the error.</p>
+
     </div>
 
 </div>
@@ -16571,8 +16733,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-223">223</a></span>
 <span class="normal"><a href="#__codelineno-0-224">224</a></span>
 <span class="normal"><a href="#__codelineno-0-225">225</a></span>
@@ -16714,7 +16877,7 @@ is not recognized, or an appropriate subclass if it is.</p>
             <td class="doc-returns-details">
               <div class="doc-md-description">
                 <p>An instance of
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
+<a class="autorefs autorefs-internal" title="frequenz.client.base.exception.GrpcError" href="#frequenz.client.base.exception.GrpcError">GrpcError</a> if the gRPC status
 is not recognized, or an appropriate subclass if it is.</p>
               </div>
             </td>
@@ -16722,8 +16885,9 @@ is not recognized, or an appropriate subclass if it is.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/exception.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/exception.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
 <span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
 <span class="normal"><a href="#__codelineno-0-61"> 61</a></span>

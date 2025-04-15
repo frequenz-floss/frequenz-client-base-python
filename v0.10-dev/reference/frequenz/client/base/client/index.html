@@ -715,7 +715,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.client.StubOutT" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;StubOutT
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;frequenz.client.base.client.StubOutT
     </span>
   </a>
   
@@ -724,7 +724,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.client.StubT" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;StubT
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;frequenz.client.base.client.StubT
     </span>
   </a>
   
@@ -733,7 +733,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.client.TransformOutT_co" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;TransformOutT_co
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;frequenz.client.base.client.TransformOutT_co
     </span>
   </a>
   
@@ -1132,7 +1132,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.client.StubOutT" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;StubOutT
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;frequenz.client.base.client.StubOutT
     </span>
   </a>
   
@@ -1141,7 +1141,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.client.StubT" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;StubT
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;frequenz.client.base.client.StubT
     </span>
   </a>
   
@@ -1150,7 +1150,7 @@
           <li class="md-nav__item">
   <a href="#frequenz.client.base.client.TransformOutT_co" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;TransformOutT_co
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;frequenz.client.base.client.TransformOutT_co
     </span>
   </a>
   
@@ -1373,6 +1373,7 @@
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -1400,6 +1401,7 @@
     <div class="doc doc-contents ">
 
         <p>The type of the response from a gRPC stub method.</p>
+
     </div>
 
 </div>
@@ -1423,6 +1425,7 @@
     <div class="doc doc-contents ">
 
         <p>The type of the gRPC stub.</p>
+
     </div>
 
 </div>
@@ -1448,6 +1451,7 @@
     <div class="doc doc-contents ">
 
         <p>The type of the transformed response from a gRPC stub method.</p>
+
     </div>
 
 </div>
@@ -1466,7 +1470,12 @@
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-external" title="abc.ABC" href="https://docs.python.org/3/library/abc.html#abc.ABC">ABC</a></code>, <code><a class="autorefs autorefs-external" title="typing.Generic" href="https://docs.python.org/3/library/typing.html#typing.Generic">Generic</a>[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT" href="#frequenz.client.base.client.StubT">StubT</a>]</code></p>
+              Bases: <code><a class="autorefs autorefs-external" title="abc.ABC" href="https://docs.python.org/3/library/abc.html#abc.ABC">ABC</a></code>, <code><a class="autorefs autorefs-external" title="typing.Generic" href="https://docs.python.org/3/library/typing.html#typing.Generic">Generic</a>[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubT">StubT</a>]</code></p>
 
 
         <p>A base class for API clients.</p>
@@ -1486,9 +1495,14 @@ needed to cast the sync stub to the async stub.</p>
 <p>Please see the example below for a recommended way to implement this property.</p>
 </details>        <p>Some extra tools are provided to make it easier to write API clients:</p>
 <ul>
-<li><a class="autorefs autorefs-internal" href="#frequenz.client.base.client.call_stub_method">call_stub_method()</a> is a function
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.client.call_stub_method
+
+
+  
+      async
+  " href="#frequenz.client.base.client.call_stub_method">call_stub_method()</a> is a function
     that calls a gRPC stub method and translates errors to API client errors.</li>
-<li><a class="autorefs autorefs-internal" href="../streaming/#frequenz.client.base.streaming.GrpcStreamBroadcaster">GrpcStreamBroadcaster</a> is
+<li><a class="autorefs autorefs-internal" title="frequenz.client.base.streaming.GrpcStreamBroadcaster" href="../streaming/#frequenz.client.base.streaming.GrpcStreamBroadcaster">GrpcStreamBroadcaster</a> is
     a class that helps sending messages from a gRPC stream to
     a <a class="autorefs autorefs-external" href="https://frequenz-floss.github.io/frequenz-channels-python/v1.0-pre/reference/frequenz/channels/#frequenz.channels.Broadcast">Broadcast</a> channel.</li>
 </ul>
@@ -1604,8 +1618,9 @@ gRPC server and calls a method on a stub.</p>
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/client.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-23"> 23</a></span>
 <span class="normal"><a href="#__codelineno-0-24"> 24</a></span>
 <span class="normal"><a href="#__codelineno-0-25"> 25</a></span>
@@ -2138,6 +2153,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
           </tr>
       </tbody>
     </table>
+
     </div>
 
 </div>
@@ -2155,12 +2171,18 @@ doing and you don't care about being tied to a specific gRPC library.</p>
   </span>
 
 <a href="#frequenz.client.base.client.BaseApiClient.channel_defaults" class="headerlink" title="Permanent link">¤</a></h6>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">channel_defaults</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">channel_defaults</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>The default options for the gRPC channel.</p>
+
     </div>
 
 </div>
@@ -2184,6 +2206,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
     <div class="doc doc-contents ">
 
         <p>Whether the client is connected to the server.</p>
+
     </div>
 
 </div>
@@ -2207,6 +2230,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
     <div class="doc doc-contents ">
 
         <p>The URL of the server.</p>
+
     </div>
 
 </div>
@@ -2232,8 +2256,9 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
         <p>Enter a context manager.</p>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/client.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-240">240</a></span>
 <span class="normal"><a href="#__codelineno-0-241">241</a></span>
 <span class="normal"><a href="#__codelineno-0-242">242</a></span>
@@ -2270,8 +2295,9 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 
         <p>Exit a context manager.</p>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/client.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-245">245</a></span>
 <span class="normal"><a href="#__codelineno-0-246">246</a></span>
 <span class="normal"><a href="#__codelineno-0-247">247</a></span>
@@ -2313,10 +2339,25 @@ doing and you don't care about being tied to a specific gRPC library.</p>
 <a href="#frequenz.client.base.client.BaseApiClient.__init__" class="headerlink" title="Permanent link">¤</a></h6>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="nf">server_url</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">create_stub</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[</span><span class="n"><a class="autorefs autorefs-external" title="grpc.aio.Channel" href="https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel">Channel</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT" href="#frequenz.client.base.client.StubT">StubT</a></span><span class="p">],</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">create_stub</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[</span><span class="n"><a class="autorefs autorefs-external" title="grpc.aio.Channel" href="https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel">Channel</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubT">StubT</a></span><span class="p">],</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">*</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">connect</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">channel_defaults</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span><span class="p">()</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">channel_defaults</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span><span class="p">()</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </span></code></pre></div>
 
@@ -2360,7 +2401,12 @@ doing and you don't care about being tied to a specific gRPC library.</p>
               <p>
                   <span class="doc-param-annotation">
                     <b>TYPE:</b>
-                      <code><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[[<a class="autorefs autorefs-external" title="grpc.aio.Channel" href="https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel">Channel</a>], <a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT" href="#frequenz.client.base.client.StubT">StubT</a>]</code>
+                      <code><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[[<a class="autorefs autorefs-external" title="grpc.aio.Channel" href="https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel">Channel</a>], <a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubT">StubT</a>]</code>
                   </span>
               </p>
             </td>
@@ -2373,7 +2419,7 @@ doing and you don't care about being tied to a specific gRPC library.</p>
               <div class="doc-md-description">
                 <p>Whether to connect to the server as soon as a client instance is
 created. If <code>False</code>, the client will not connect to the server until
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.client.BaseApiClient.connect">connect()</a> is
+<a class="autorefs autorefs-internal" title="connect" href="#frequenz.client.base.client.BaseApiClient.connect">connect()</a> is
 called.</p>
               </div>
               <p>
@@ -2400,11 +2446,21 @@ the server URL.</p>
               <p>
                   <span class="doc-param-annotation">
                     <b>TYPE:</b>
-                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></code>
+                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></code>
                   </span>
                   <span class="doc-param-default">
                     <b>DEFAULT:</b>
-                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a>()</code>
+                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="../channel/#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a>()</code>
                   </span>
               </p>
             </td>
@@ -2412,8 +2468,9 @@ the server URL.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/client.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-156">156</a></span>
 <span class="normal"><a href="#__codelineno-0-157">157</a></span>
 <span class="normal"><a href="#__codelineno-0-158">158</a></span>
@@ -2489,7 +2546,12 @@ the server URL.</p>
         <p>Connect to the server, possibly using a new URL.</p>
 <p>If the client is already connected and the URL is the same as the previous URL,
 this method does nothing. If you want to force a reconnection, you can call
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.client.BaseApiClient.disconnect">disconnect()</a> first.</p>
+<a class="autorefs autorefs-internal" title="disconnect
+
+
+  
+      async
+  " href="#frequenz.client.base.client.BaseApiClient.disconnect">disconnect()</a> first.</p>
 
 
 <table>
@@ -2524,8 +2586,9 @@ previously used URL is used.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/client.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-215">215</a></span>
 <span class="normal"><a href="#__codelineno-0-216">216</a></span>
 <span class="normal"><a href="#__codelineno-0-217">217</a></span>
@@ -2585,8 +2648,9 @@ previously used URL is used.</p>
         <p>Disconnect from the server.</p>
 <p>If the client is not connected, this method does nothing.</p>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/client.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-233">233</a></span>
 <span class="normal"><a href="#__codelineno-0-234">234</a></span>
 <span class="normal"><a href="#__codelineno-0-235">235</a></span>
@@ -2627,29 +2691,99 @@ previously used URL is used.</p>
 <a href="#frequenz.client.base.client.call_stub_method" class="headerlink" title="Permanent link">¤</a></h4>
           <div class="doc-overloads">
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">call_stub_method</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT" href="#frequenz.client.base.client.StubT">StubT</a></span><span class="p">],</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubT">StubT</a></span><span class="p">],</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">*</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">method_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">transform</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co" href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span><span class="p">]</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co" href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">transform</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span><span class="p">]</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span>
 </span></code></pre></div><div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">call_stub_method</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT" href="#frequenz.client.base.client.StubT">StubT</a></span><span class="p">],</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubT">StubT</a></span><span class="p">],</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">*</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">method_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">transform</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a></span>
 </span></code></pre></div>          </div>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">call_stub_method</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT" href="#frequenz.client.base.client.StubT">StubT</a></span><span class="p">],</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubT">StubT</a></span><span class="p">],</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">stub_method</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[],</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">]],</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">*</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">method_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">transform</span><span class="p">:</span> <span class="p">(</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co" href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[</span><span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="p">)</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co" href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2659,7 +2793,7 @@ previously used URL is used.</p>
 translates gRPC errors to API client errors and optionally transforms the response
 using a provided function.</p>
 <p>This function is designed to be used with API clients that subclass
-<a class="autorefs autorefs-internal" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a>.</p>
+<a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a>.</p>
 
 
 <table>
@@ -2681,7 +2815,12 @@ using a provided function.</p>
               <p>
                   <span class="doc-param-annotation">
                     <b>TYPE:</b>
-                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a>[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT" href="#frequenz.client.base.client.StubT">StubT</a>]</code>
+                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.client.BaseApiClient" href="#frequenz.client.base.client.BaseApiClient">BaseApiClient</a>[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubT">StubT</a>]</code>
                   </span>
               </p>
             </td>
@@ -2697,7 +2836,12 @@ using a provided function.</p>
               <p>
                   <span class="doc-param-annotation">
                     <b>TYPE:</b>
-                      <code><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[[], <a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a>[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a>]]</code>
+                      <code><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[[], <a class="autorefs autorefs-external" title="collections.abc.Awaitable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable">Awaitable</a>[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a>]]</code>
                   </span>
               </p>
             </td>
@@ -2734,7 +2878,17 @@ the calling function is used.</p>
               <p>
                   <span class="doc-param-annotation">
                     <b>TYPE:</b>
-                      <code><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a>], <a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co" href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a>] | None</code>
+                      <code><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[[<a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a>], <a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a>] | None</code>
                   </span>
                   <span class="doc-param-default">
                     <b>DEFAULT:</b>
@@ -2758,7 +2912,17 @@ the calling function is used.</p>
           <tr class="doc-section-item">
             <td>
                 <span class="doc-returns-annotation">
-                    <code><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT" href="#frequenz.client.base.client.StubOutT">StubOutT</a> | <a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co" href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></code>
+                    <code><a class="autorefs autorefs-internal" title="frequenz.client.base.client.StubOutT
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.StubOutT">StubOutT</a> | <a class="autorefs autorefs-internal" title="frequenz.client.base.client.TransformOutT_co
+
+
+  
+      module-attribute
+  " href="#frequenz.client.base.client.TransformOutT_co">TransformOutT_co</a></code>
                 </span>
             </td>
             <td class="doc-returns-details">
@@ -2807,8 +2971,9 @@ function if provided.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/client.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/client.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-289">289</a></span>
 <span class="normal"><a href="#__codelineno-0-290">290</a></span>
 <span class="normal"><a href="#__codelineno-0-291">291</a></span>

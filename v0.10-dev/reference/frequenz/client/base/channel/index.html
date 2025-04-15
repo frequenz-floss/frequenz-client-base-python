@@ -1433,6 +1433,7 @@
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -1467,8 +1468,9 @@
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/channel.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/channel.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-67">67</a></span>
 <span class="normal"><a href="#__codelineno-0-68">68</a></span>
 <span class="normal"><a href="#__codelineno-0-69">69</a></span>
@@ -1531,12 +1533,18 @@
   </span>
 
 <a href="#frequenz.client.base.channel.ChannelOptions.auth" class="headerlink" title="Permanent link">¤</a></h6>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">auth</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.authentication.AuthenticationOptions" href="../authentication/#frequenz.client.base.authentication.AuthenticationOptions">AuthenticationOptions</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">auth</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.authentication.AuthenticationOptions
+
+
+  
+      dataclass
+  " href="../authentication/#frequenz.client.base.authentication.AuthenticationOptions">AuthenticationOptions</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>Authentication options for the channel.</p>
+
     </div>
 
 </div>
@@ -1555,12 +1563,23 @@
   </span>
 
 <a href="#frequenz.client.base.channel.ChannelOptions.keep_alive" class="headerlink" title="Permanent link">¤</a></h6>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">keep_alive</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.KeepAliveOptions" href="#frequenz.client.base.channel.KeepAliveOptions">KeepAliveOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.KeepAliveOptions" href="#frequenz.client.base.channel.KeepAliveOptions">KeepAliveOptions</a></span><span class="p">()</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">keep_alive</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.KeepAliveOptions
+
+
+  
+      dataclass
+  " href="#frequenz.client.base.channel.KeepAliveOptions">KeepAliveOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.KeepAliveOptions
+
+
+  
+      dataclass
+  " href="#frequenz.client.base.channel.KeepAliveOptions">KeepAliveOptions</a></span><span class="p">()</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>HTTP2 keep-alive options for the channel.</p>
+
     </div>
 
 </div>
@@ -1585,6 +1604,7 @@
     <div class="doc doc-contents ">
 
         <p>The port number to connect to.</p>
+
     </div>
 
 </div>
@@ -1603,12 +1623,18 @@
   </span>
 
 <a href="#frequenz.client.base.channel.ChannelOptions.sign" class="headerlink" title="Permanent link">¤</a></h6>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">sign</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.signing.SigningOptions" href="../signing/#frequenz.client.base.signing.SigningOptions">SigningOptions</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">sign</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.signing.SigningOptions
+
+
+  
+      dataclass
+  " href="../signing/#frequenz.client.base.signing.SigningOptions">SigningOptions</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>Signing options for the channel.</p>
+
     </div>
 
 </div>
@@ -1627,12 +1653,23 @@
   </span>
 
 <a href="#frequenz.client.base.channel.ChannelOptions.ssl" class="headerlink" title="Permanent link">¤</a></h6>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">ssl</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.SslOptions" href="#frequenz.client.base.channel.SslOptions">SslOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.SslOptions" href="#frequenz.client.base.channel.SslOptions">SslOptions</a></span><span class="p">()</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">ssl</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.SslOptions
+
+
+  
+      dataclass
+  " href="#frequenz.client.base.channel.SslOptions">SslOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.SslOptions
+
+
+  
+      dataclass
+  " href="#frequenz.client.base.channel.SslOptions">SslOptions</a></span><span class="p">()</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>SSL options for the channel.</p>
+
     </div>
 
 </div>
@@ -1672,8 +1709,9 @@
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/channel.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/channel.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-53">53</a></span>
 <span class="normal"><a href="#__codelineno-0-54">54</a></span>
 <span class="normal"><a href="#__codelineno-0-55">55</a></span>
@@ -1730,6 +1768,7 @@
     <div class="doc doc-contents ">
 
         <p>Whether HTTP2 keep-alive should be enabled.</p>
+
     </div>
 
 </div>
@@ -1754,6 +1793,7 @@
     <div class="doc doc-contents ">
 
         <p>The interval between HTTP2 pings.</p>
+
     </div>
 
 </div>
@@ -1778,6 +1818,7 @@
     <div class="doc doc-contents ">
 
         <p>The time to wait for a HTTP2 keep-alive response.</p>
+
     </div>
 
 </div>
@@ -1817,8 +1858,9 @@
 
 
 
+
               <details class="quote">
-                <summary>Source code in <code>frequenz/client/base/channel.py</code></summary>
+                <summary>Source code in <code>src/frequenz/client/base/channel.py</code></summary>
                 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-24">24</a></span>
 <span class="normal"><a href="#__codelineno-0-25">25</a></span>
 <span class="normal"><a href="#__codelineno-0-26">26</a></span>
@@ -1907,6 +1949,7 @@
         <p>The PEM-encoded certificate chain.</p>
 <p>This can be a path to a file containing the chain, a byte string, or None if no
 chain should be used.</p>
+
     </div>
 
 </div>
@@ -1931,6 +1974,7 @@ chain should be used.</p>
     <div class="doc doc-contents ">
 
         <p>Whether SSL should be enabled.</p>
+
     </div>
 
 </div>
@@ -1957,6 +2001,7 @@ chain should be used.</p>
         <p>The PEM-encoded private key.</p>
 <p>This can be a path to a file containing the key, a byte string, or None if no key
 should be used.</p>
+
     </div>
 
 </div>
@@ -1983,6 +2028,7 @@ should be used.</p>
         <p>The PEM-encoded root certificates.</p>
 <p>This can be a path to a file containing the certificates, a byte string, or None to
 retrieve them from a default location chosen by gRPC runtime.</p>
+
     </div>
 
 </div>
@@ -2007,7 +2053,17 @@ retrieve them from a default location chosen by gRPC runtime.</p>
 
 <a href="#frequenz.client.base.channel.parse_grpc_uri" class="headerlink" title="Permanent link">¤</a></h4>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">parse_grpc_uri</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">uri</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">defaults</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span><span class="p">()</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">uri</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">defaults</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></span><span class="p">()</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" title="grpc.aio.Channel" href="https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel">Channel</a></span>
 </span></code></pre></div>
 
@@ -2079,11 +2135,21 @@ the URI.</p>
               <p>
                   <span class="doc-param-annotation">
                     <b>TYPE:</b>
-                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></code>
+                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a></code>
                   </span>
                   <span class="doc-param-default">
                     <b>DEFAULT:</b>
-                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions" href="#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a>()</code>
+                      <code><a class="autorefs autorefs-internal" title="frequenz.client.base.channel.ChannelOptions
+
+
+  
+      dataclass
+  " href="#frequenz.client.base.channel.ChannelOptions">ChannelOptions</a>()</code>
                   </span>
               </p>
             </td>
@@ -2139,8 +2205,9 @@ the URI.</p>
       </tbody>
     </table>
 
+
             <details class="quote">
-              <summary>Source code in <code>frequenz/client/base/channel.py</code></summary>
+              <summary>Source code in <code>src/frequenz/client/base/channel.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-87"> 87</a></span>
 <span class="normal"><a href="#__codelineno-0-88"> 88</a></span>
 <span class="normal"><a href="#__codelineno-0-89"> 89</a></span>
