@@ -25,4 +25,4 @@ async def test_auth_interceptor() -> None:
 
     auth_interceptor.add_auth_header(client_call_details)
 
-    assert metadata["x-key"] == "my_key"
+    assert metadata["key"] == "my_key"
