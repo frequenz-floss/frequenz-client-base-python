@@ -85,7 +85,7 @@ class SigningInterceptor(UnaryUnaryClientInterceptor):  # type: ignore[type-arg]
             )
             return
 
-        key: Any = client_call_details.metadata.get("x-key")
+        key: Any = client_call_details.metadata.get("key")
         if key is None:
             _logger.error("No key found in metadata, cannot sign the request.")
             return
@@ -96,6 +96,6 @@ class SigningInterceptor(UnaryUnaryClientInterceptor):  # type: ignore[type-arg]
 
         hmac_obj.update(client_call_details.method.encode())
 
-        client_call_details.metadata["x-ts"] = ts
-        client_call_details.metadata["x-nonce"] = nonce
-        client_call_details.metadata["x-hmac"] = urlsafe_b64encode(hmac_obj.digest())
+        client_call_details.metadata["ts"] = ts
+        client_call_details.metadata["nonce"] = nonce
+        client_call_details.metadata["sig"] = urlsafe_b64encode(hmac_obj.digest())

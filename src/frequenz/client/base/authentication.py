@@ -74,4 +74,4 @@ class AuthenticationInterceptor(UnaryUnaryClientInterceptor):  # type: ignore[ty
         if client_call_details.metadata is None:
             client_call_details.metadata = Metadata()
 
-        client_call_details.metadata["x-key"] = self._key
+        client_call_details.metadata["key"] = self._key
