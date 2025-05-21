@@ -3,6 +3,7 @@
 ## Features
 
 * Added support for HMAC signing of client messages
+* Added support for streams to be restarted without their channel being closed
 
 ## Upgrading
 

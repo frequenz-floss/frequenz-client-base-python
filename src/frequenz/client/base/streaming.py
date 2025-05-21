@@ -77,6 +77,19 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             limit=maxsize, warn_on_overflow=warn_on_overflow
         )
 
+    def reconnect(self) -> None:
+        """Reconnect to the stream.
+
+        This will cancel the current task and create a new one.
+        """
+        if not self._task.done():
+            _logger.warning(
+                "%s: reconnecting to the stream, cancelling the current task",
+                self._stream_name,
+            )
+            self._task.cancel()
+        self._task = asyncio.create_task(self._run())
+
     @property
     def is_running(self) -> bool:
         """Return whether the streaming helper is running.
