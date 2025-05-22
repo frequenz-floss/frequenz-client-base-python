@@ -88,6 +88,10 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                 self._stream_name,
             )
             self._task.cancel()
+            try:
+                await self._task
+            except asyncio.CancelledError:
+                pass
         self._task = asyncio.create_task(self._run())
 
     @property
