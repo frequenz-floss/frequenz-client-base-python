@@ -111,6 +111,12 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                     await sender.send(self._transform(msg))
             except grpc.aio.AioRpcError as err:
                 error = err
+            except Exception as err:  # pylint: disable=broad-except
+                _logger.exception(
+                    "%s: raise an unexpected exception",
+                    self._stream_name,
+                )
+                error = err
             if error is None and not self._retry_on_exhausted_stream:
                 _logger.info(
                     "%s: connection closed, stream exhausted", self._stream_name

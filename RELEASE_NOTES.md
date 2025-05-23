@@ -14,3 +14,7 @@
 ## Bug Fixes
 
 * Fixed keys of signature to match what fuse-rs expects
+* `GrpcStreamBroadcaster` will now correctly try to restart on unexpected errors.
+
+    Before if an unexpected exception was raised by the stream method, the
+    internal task would silently finish and never start again.
