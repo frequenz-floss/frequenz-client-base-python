@@ -278,13 +278,13 @@ def _parse_query_params(uri: str, query_string: str) -> _QueryParams:
     }
 
     if ssl is False:
-        erros = []
+        errors = []
         for opt_name, opt in ssl_opts.items():
             if opt is not None:
-                erros.append(opt_name)
-        if erros:
+                errors.append(opt_name)
+        if errors:
             raise ValueError(
-                f"Option(s) {', '.join(erros)} found in URI {uri!r}, but SSL is disabled",
+                f"Option(s) {', '.join(errors)} found in URI {uri!r}, but SSL is disabled",
             )
 
     keep_alive_option = options.pop("keep_alive", None)
@@ -298,13 +298,13 @@ def _parse_query_params(uri: str, query_string: str) -> _QueryParams:
     }
 
     if keep_alive is False:
-        erros = []
+        errors = []
         for opt_name, opt in keep_alive_opts.items():
             if opt is not None:
-                erros.append(opt_name)
-        if erros:
+                errors.append(opt_name)
+        if errors:
             raise ValueError(
-                f"Option(s) {', '.join(erros)} found in URI {uri!r}, but keep_alive is disabled",
+                f"Option(s) {', '.join(errors)} found in URI {uri!r}, but keep_alive is disabled",
             )
 
     if options:
