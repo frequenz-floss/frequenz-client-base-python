@@ -10,7 +10,7 @@ from unittest import mock
 
 import pytest
 from grpc import ssl_channel_credentials
-from grpc.aio import Channel
+from grpc.aio import Channel, UnaryStreamClientInterceptor, UnaryUnaryClientInterceptor
 
 from frequenz.client.base.channel import (
     ChannelOptions,
@@ -257,7 +257,7 @@ def test_parse_uri_ok(  # pylint: disable=too-many-locals
             return_value=b"contents",
         ) as get_contents_mock,
     ):
-        channel = parse_grpc_uri(uri, defaults)
+        channel = parse_grpc_uri(uri, defaults=defaults)
 
     assert channel == expected_channel
     expected_target = f"{expected_host}:{expected_port}"
@@ -318,11 +318,11 @@ def test_parse_uri_ok(  # pylint: disable=too-many-locals
             expected_target,
             expected_credentials,
             expected_channel_options,
-            interceptors=[],
+            interceptors=(),
         )
     else:
         insecure_channel_mock.assert_called_once_with(
-            expected_target, expected_channel_options, interceptors=[]
+            expected_target, expected_channel_options, interceptors=()
         )
 
 
@@ -387,3 +387,22 @@ def test_invalid_url_no_default_port() -> None:
         match=r"The gRPC URI 'grpc://localhost' doesn't specify a port and there is no default.",
     ):
         parse_grpc_uri(uri)
+
+
+def test_forward_interceptors() -> None:
+    """Test that the interceptors are properly forwarded to channel construction."""
+    expected_channel = mock.MagicMock(name="mock_channel", spec=Channel)
+    mock_interceptors = [
+        mock.MagicMock(name="mock_interceptorUU", spec=UnaryUnaryClientInterceptor),
+        mock.MagicMock(name="mock_interceptorUS", spec=UnaryStreamClientInterceptor),
+    ]
+    uri = "grpc://localhost:2355?keep_alive=0"
+    with mock.patch(
+        "frequenz.client.base.channel.secure_channel",
+        return_value=expected_channel,
+    ) as secure_channel_mock:
+        _ = parse_grpc_uri(uri, mock_interceptors)
+
+        secure_channel_mock.assert_called_once_with(
+            "localhost:2355", mock.ANY, None, interceptors=mock_interceptors
+        )

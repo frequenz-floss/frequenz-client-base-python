@@ -6,7 +6,11 @@
 
 ## Upgrading
 
-<!-- Here goes notes on how to upgrade from previous versions, including deprecations and what they should be replaced with -->
+* Updated interface and behavior for HMAC
+
+    This introduces a new positional argument to `parse_grpc_uri`.
+    If calling this function manually and passing `ChannelOptions`, it is recommended
+    to switch to passing `ChannelOptions` via keyword argument.
 
 ## New Features
 
