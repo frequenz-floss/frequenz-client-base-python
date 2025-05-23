@@ -2,7 +2,8 @@
 
 ## Features
 
-* Added support for HMAC signing of client messages
+* Added support for HMAC signing of UnaryUnary client messages
+* Added support for HMAC signing of UnaryStream client messages
 
 ## Upgrading
 
