@@ -17,8 +17,16 @@ from grpc.aio import (
     secure_channel,
 )
 
-from .authentication import AuthenticationInterceptor, AuthenticationOptions
-from .signing import SigningInterceptor, SigningOptions
+from .authentication import (
+    AuthenticationInterceptorUnaryStream,
+    AuthenticationInterceptorUnaryUnary,
+    AuthenticationOptions,
+)
+from .signing import (
+    SigningInterceptorUnaryStream,
+    SigningInterceptorUnaryUnary,
+    SigningOptions,
+)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -193,14 +201,16 @@ def parse_grpc_uri(
 
     interceptors: list[ClientInterceptor] = []
     if defaults.auth is not None:
-        interceptors.append(
-            AuthenticationInterceptor(options=defaults.auth)  # type: ignore[arg-type]
-        )
+        interceptors += [
+            AuthenticationInterceptorUnaryUnary(options=defaults.auth),  # type: ignore [list-item]
+            AuthenticationInterceptorUnaryStream(options=defaults.auth),  # type: ignore [list-item]
+        ]
 
     if defaults.sign is not None:
-        interceptors.append(
-            SigningInterceptor(options=defaults.sign)  # type: ignore[arg-type]
-        )
+        interceptors += [
+            SigningInterceptorUnaryUnary(options=defaults.sign),  # type: ignore [list-item]
+            SigningInterceptorUnaryStream(options=defaults.sign),  # type: ignore [list-item]
+        ]
 
     ssl = defaults.ssl.enabled if options.ssl is None else options.ssl
     if ssl:

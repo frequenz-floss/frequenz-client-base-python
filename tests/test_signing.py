@@ -5,24 +5,21 @@
 
 from unittest import mock
 
-from frequenz.client.base.signing import (
-    SigningInterceptor,
-    SigningOptions,
-)
+from frequenz.client.base.signing import _add_hmac
 
 
 async def test_sign_interceptor() -> None:
     """Test that the HMAC is calculated correctly so that it will match the value of the server."""
-    sign: SigningOptions = SigningOptions(secret="my_secret")
-    sign_interceptor: SigningInterceptor = SigningInterceptor(options=sign)
-
     metadata: dict[str, str | bytes] = {"key": "my_key"}
 
     client_call_details = mock.MagicMock(method="my_rpc")
     client_call_details.metadata = metadata
+    client_call_details.method = (
+        b"/frequenz.api.wishlist.v1.Wishlist/ElectrifyTheFutureRequest"
+    )
 
-    sign_interceptor.add_hmac(client_call_details, b"1634567890", b"123456789")
+    _add_hmac(b"hunter2", client_call_details, 1634567890, b"123456789")
 
-    assert metadata["sig"] == "NJDvrkRZhOPekn5AvPiaJsYTJYCgnLzA-LQFC2D7GNE=".encode(
+    assert metadata["sig"] == "yNCJYXjac-waeqLhlYJE2cql9rUGIq-7Flz4MAOZefQ".encode(
         "utf-8"
     )
