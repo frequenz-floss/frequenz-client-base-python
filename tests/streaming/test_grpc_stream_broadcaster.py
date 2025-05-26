@@ -7,12 +7,19 @@ import asyncio
 import logging
 from collections.abc import AsyncIterator
 from contextlib import AsyncExitStack
+from datetime import timedelta
 from unittest import mock
 
 import grpc.aio
 import pytest
+from frequenz.channels import Receiver
 
 from frequenz.client.base import retry, streaming
+from frequenz.client.base.streaming import (
+    StreamEvent,
+    StreamStartedEvent,
+    StreamStoppedEvent,
+)
 
 
 def _transformer(x: int) -> str:
@@ -34,6 +41,17 @@ def no_retry() -> mock.MagicMock:
     mock_retry.copy.return_value = mock_retry
     mock_retry.get_progress.return_value = "mock progress"
     return mock_retry
+
+
+def mock_error() -> grpc.aio.AioRpcError:
+    """Mock error for testing."""
+    return grpc.aio.AioRpcError(
+        code=mock.MagicMock(name="mock grpc code"),
+        initial_metadata=mock.MagicMock(),
+        trailing_metadata=mock.MagicMock(),
+        details="mock details",
+        debug_error_string="mock debug_error_string",
+    )
 
 
 @pytest.fixture
@@ -60,6 +78,28 @@ async def ok_helper(
     )
     yield helper
     await helper.stop()
+
+
+async def _split_message(
+    receiver: Receiver[StreamEvent | str],
+) -> tuple[list[str], list[StreamEvent]]:
+    """Split the items received from the receiver into items and messages.
+
+    Args:
+        receiver: The receiver to process.
+
+    Returns:
+        A tuple containing a list of transformed items and a list of messages.
+    """
+    items: list[str] = []
+    events: list[StreamEvent] = []
+    async for item in receiver:
+        match item:
+            case StreamStartedEvent() | StreamStoppedEvent() as item:
+                events.append(item)
+            case str():
+                items.append(item)
+    return items, events
 
 
 class _ErroringAsyncIter(AsyncIterator[int]):
@@ -93,11 +133,12 @@ async def test_streaming_success_retry_on_exhausted(
     """Test streaming success."""
     caplog.set_level(logging.INFO)
     items: list[str] = []
+    events: list[StreamEvent] = []
     async with asyncio.timeout(1):
         receiver = ok_helper.new_receiver()
         receiver_ready_event.set()
-        async for item in receiver:
-            items.append(item)
+        items, events = await _split_message(receiver)
+
     no_retry.next_interval.assert_called_once_with()
     assert items == [
         "transformed_0",
@@ -106,6 +147,10 @@ async def test_streaming_success_retry_on_exhausted(
         "transformed_3",
         "transformed_4",
     ]
+    assert events == [
+        StreamStoppedEvent(exception=None, retry_time=None),
+    ]
+
     assert caplog.record_tuples == [
         (
             "frequenz.client.base.streaming",
@@ -128,14 +173,14 @@ async def test_streaming_success(
     """Test streaming success."""
     caplog.set_level(logging.INFO)
     items: list[str] = []
+    events: list[StreamEvent] = []
+
     async with asyncio.timeout(1):
         receiver = ok_helper.new_receiver()
         receiver_ready_event.set()
-        async for item in receiver:
-            items.append(item)
-    assert (
-        no_retry.next_interval.call_count == 0
-    ), "next_interval should not be called when streaming is successful"
+        items, events = await _split_message(receiver)
+
+    no_retry.next_interval.assert_called_once_with()
 
     assert items == [
         "transformed_0",
@@ -143,6 +188,9 @@ async def test_streaming_success(
         "transformed_2",
         "transformed_3",
         "transformed_4",
+    ]
+    assert events == [
+        StreamStoppedEvent(exception=None, retry_time=None),
     ]
     assert caplog.record_tuples == [
         (
@@ -173,13 +221,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
     """Test streaming errors."""
     caplog.set_level(logging.INFO)
 
-    error = grpc.aio.AioRpcError(
-        code=_NamedMagicMock(name="mock grpc code"),
-        initial_metadata=mock.MagicMock(),
-        trailing_metadata=mock.MagicMock(),
-        details="mock details",
-        debug_error_string="mock debug_error_string",
-    )
+    error = mock_error()
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
@@ -196,8 +238,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
 
         receiver = helper.new_receiver()
         receiver_ready_event.set()
-        async for item in receiver:
-            items.append(item)
+        items, _ = await _split_message(receiver)
 
     no_retry.next_interval.assert_called_once_with()
     assert items == [f"transformed_{i}" for i in range(successes)]
@@ -211,12 +252,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
             "frequenz.client.base.streaming",
             logging.ERROR,
             "test_helper: connection ended, retry limit exceeded (mock progress), "
-            "giving up. Error: "
-            "<AioRpcError of RPC that terminated with:\n"
-            "\tstatus = mock grpc code\n"
-            '\tdetails = "mock details"\n'
-            '\tdebug_error_string = "mock debug_error_string"\n'
-            ">.",
+            f"giving up. Error: {error}.",
         ),
         (
             "frequenz.client.base.streaming",
@@ -232,13 +268,7 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
 ) -> None:
     """Test retry logic when next_interval returns 0."""
     caplog.set_level(logging.WARNING)
-    error = grpc.aio.AioRpcError(
-        code=_NamedMagicMock(name="mock grpcio code"),
-        initial_metadata=mock.MagicMock(),
-        trailing_metadata=mock.MagicMock(),
-        details="mock details",
-        debug_error_string="mock debug_error_string",
-    )
+    error = mock_error()
     mock_retry = mock.MagicMock(spec=retry.Strategy)
     mock_retry.next_interval.side_effect = [0, None]
     mock_retry.copy.return_value = mock_retry
@@ -256,29 +286,62 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
 
         receiver = helper.new_receiver()
         receiver_ready_event.set()
-        async for item in receiver:
-            items.append(item)
+        items, _ = await _split_message(receiver)
 
     assert not items
     assert mock_retry.next_interval.mock_calls == [mock.call(), mock.call()]
-    expected_error_str = (
-        "<AioRpcError of RPC that terminated with:\n"
-        "\tstatus = mock grpcio code\n"
-        '\tdetails = "mock details"\n'
-        '\tdebug_error_string = "mock debug_error_string"\n'
-        ">"
-    )
     assert caplog.record_tuples == [
         (
             "frequenz.client.base.streaming",
             logging.WARNING,
             "test_helper: connection ended, retrying mock progress in 0.000 "
-            f"seconds. Error: {expected_error_str}.",
+            f"seconds. Error: {error}.",
         ),
         (
             "frequenz.client.base.streaming",
             logging.ERROR,
             "test_helper: connection ended, retry limit exceeded (mock progress), "
-            f"giving up. Error: {expected_error_str}.",
+            f"giving up. Error: {error}.",
         ),
+    ]
+
+
+async def test_messages_on_retry(
+    receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
+) -> None:
+    """Test that messages are sent on retry."""
+    helper = streaming.GrpcStreamBroadcaster(
+        stream_name="test_helper",
+        stream_method=lambda: _ErroringAsyncIter(
+            mock_error(),
+            receiver_ready_event,
+        ),
+        transform=_transformer,
+        retry_strategy=retry.LinearBackoff(
+            limit=1,
+            interval=0.01,
+        ),
+        retry_on_exhausted_stream=True,
+    )
+
+    items: list[str] = []
+    events: list[StreamEvent] = []
+    async with AsyncExitStack() as stack:
+        stack.push_async_callback(helper.stop)
+
+        receiver = helper.new_receiver()
+        receiver_ready_event.set()
+        items, events = await _split_message(receiver)
+
+    assert items == []
+    assert [type(e) for e in events] == [
+        type(e)
+        for e in [
+            StreamStartedEvent(),
+            StreamStoppedEvent(
+                exception=mock_error(), retry_time=timedelta(seconds=0.01)
+            ),
+            StreamStartedEvent(),
+            StreamStoppedEvent(exception=mock_error(), retry_time=None),
+        ]
     ]

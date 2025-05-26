@@ -6,7 +6,9 @@
 import asyncio
 import logging
 from collections.abc import Callable
-from typing import AsyncIterable, Generic, TypeVar
+from dataclasses import dataclass
+from datetime import timedelta
+from typing import AsyncIterable, Generic, TypeAlias, TypeVar
 
 import grpc.aio
 
@@ -24,8 +26,70 @@ OutputT = TypeVar("OutputT")
 """The output type of the stream."""
 
 
+@dataclass(frozen=True, kw_only=True)
+class StreamStartedEvent:
+    """Event indicating that the stream has started."""
+
+
+@dataclass(frozen=True, kw_only=True)
+class StreamStoppedEvent:
+    """Event indicating that the stream has stopped."""
+
+    retry_time: timedelta | None = None
+    """Time to wait before retrying the stream, if applicable."""
+
+    exception: Exception | None = None
+    """The exception that caused the stream to stop, if any."""
+
+
+StreamEvent: TypeAlias = StreamStartedEvent | StreamStoppedEvent
+"""Type alias for the events that can be sent over the stream."""
+
+
+# Ignore D412: "No blank lines allowed between a section header and its content"
+# flake8: noqa: D412
 class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
-    """Helper class to handle grpc streaming methods."""
+    """Helper class to handle grpc streaming methods.
+
+    This class handles the grpc streaming methods, automatically reconnecting
+    when the connection is lost, and broadcasting the received messages to
+    multiple receivers.
+
+    The stream is started when the class is initialized, and can be stopped
+    with the `stop` method. New receivers can be created with the
+    `new_receiver` method, which will receive the streamed messages.
+
+    Additionally to the transformed messages, the broadcaster will also send
+    state change messages indicating whether the stream is connecting,
+    connected, or disconnected. These messages can be used to monitor the
+    state of the stream.
+
+    Example:
+
+    ```python
+    from frequenz.client.base import GrpcStreamBroadcaster
+
+    def async_range() -> AsyncIterable[int]:
+        yield from range(10)
+
+    streamer = GrpcStreamBroadcaster(
+        stream_name="example_stream",
+        stream_method=async_range,
+        transform=lambda msg: msg,
+    )
+
+    recv = streamer.new_receiver()
+
+    for msg in recv:
+        match msg:
+            case StreamStartedEvent():
+                print("Stream started")
+            case StreamStoppedEvent() as event:
+                print(f"Stream stopped, reason {event.exception}, retry in {event.retry_time}")
+            case int() as output:
+                print(f"Received message: {output}")
+    ```
+    """
 
     def __init__(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
@@ -55,14 +119,14 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
         )
         self._retry_on_exhausted_stream = retry_on_exhausted_stream
 
-        self._channel: channels.Broadcast[OutputT] = channels.Broadcast(
+        self._channel: channels.Broadcast[StreamEvent | OutputT] = channels.Broadcast(
             name=f"GrpcStreamBroadcaster-{stream_name}"
         )
         self._task = asyncio.create_task(self._run())
 
     def new_receiver(
         self, maxsize: int = 50, warn_on_overflow: bool = True
-    ) -> channels.Receiver[OutputT]:
+    ) -> channels.Receiver[StreamEvent | OutputT]:
         """Create a new receiver for the stream.
 
         Args:
@@ -107,16 +171,21 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             _logger.info("%s: starting to stream", self._stream_name)
             try:
                 call = self._stream_method()
+                await sender.send(StreamStartedEvent())
                 async for msg in call:
                     await sender.send(self._transform(msg))
             except grpc.aio.AioRpcError as err:
                 error = err
-            except Exception as err:  # pylint: disable=broad-except
-                _logger.exception(
-                    "%s: raise an unexpected exception",
-                    self._stream_name,
+
+            interval = self._retry_strategy.next_interval()
+
+            await sender.send(
+                StreamStoppedEvent(
+                    retry_time=timedelta(seconds=interval) if interval else None,
+                    exception=error,
                 )
-                error = err
+            )
+
             if error is None and not self._retry_on_exhausted_stream:
                 _logger.info(
                     "%s: connection closed, stream exhausted", self._stream_name
@@ -124,7 +193,6 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                 await self._channel.close()
                 break
             error_str = f"Error: {error}" if error else "Stream exhausted"
-            interval = self._retry_strategy.next_interval()
             if interval is None:
                 _logger.error(
                     "%s: connection ended, retry limit exceeded (%s), giving up. %s.",
