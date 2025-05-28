@@ -17,9 +17,9 @@
 
     for msg in recv:
         match msg:
-            case StreamStartedEvent():
+            case StreamStarted():
                 print("Stream started")
-            case StreamStoppedEvent() as event:
+            case StreamStopped() as event:
                 print(f"Stream stopped, reason {event.exception}, retry in {event.retry_time}")
             case int() as output:
                 print(f"Received message: {output}")

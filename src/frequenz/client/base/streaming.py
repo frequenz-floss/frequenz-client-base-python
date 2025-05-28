@@ -27,12 +27,12 @@ OutputT = TypeVar("OutputT")
 
 
 @dataclass(frozen=True, kw_only=True)
-class StreamStartedEvent:
+class StreamStarted:
     """Event indicating that the stream has started."""
 
 
 @dataclass(frozen=True, kw_only=True)
-class StreamStoppedEvent:
+class StreamStopped:
     """Event indicating that the stream has stopped."""
 
     retry_time: timedelta | None = None
@@ -42,7 +42,7 @@ class StreamStoppedEvent:
     """The exception that caused the stream to stop, if any."""
 
 
-StreamEvent: TypeAlias = StreamStartedEvent | StreamStoppedEvent
+StreamEvent: TypeAlias = StreamStarted | StreamStopped
 """Type alias for the events that can be sent over the stream."""
 
 
@@ -79,9 +79,9 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
 
         for msg in recv:
             match msg:
-                case StreamStartedEvent():
+                case StreamStarted():
                     print("Stream started")
-                case StreamStoppedEvent() as event:
+                case StreamStopped() as event:
                     print(f"Stream stopped, reason {event.exception}, retry in {event.retry_time}")
                 case int() as output:
                     print(f"Received message: {output}")
@@ -168,7 +168,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             _logger.info("%s: starting to stream", self._stream_name)
             try:
                 call = self._stream_method()
-                await sender.send(StreamStartedEvent())
+                await sender.send(StreamStarted())
                 async for msg in call:
                     await sender.send(self._transform(msg))
             except grpc.aio.AioRpcError as err:
@@ -177,7 +177,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             interval = self._retry_strategy.next_interval()
 
             await sender.send(
-                StreamStoppedEvent(
+                StreamStopped(
                     retry_time=timedelta(seconds=interval) if interval else None,
                     exception=error,
                 )

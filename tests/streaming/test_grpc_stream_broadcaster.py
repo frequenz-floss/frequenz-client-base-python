@@ -17,8 +17,8 @@ from frequenz.channels import Receiver
 from frequenz.client.base import retry, streaming
 from frequenz.client.base.streaming import (
     StreamEvent,
-    StreamStartedEvent,
-    StreamStoppedEvent,
+    StreamStarted,
+    StreamStopped,
 )
 
 
@@ -95,7 +95,7 @@ async def _split_message(
     events: list[StreamEvent] = []
     async for item in receiver:
         match item:
-            case StreamStartedEvent() | StreamStoppedEvent() as item:
+            case StreamStarted() | StreamStopped() as item:
                 events.append(item)
             case str():
                 items.append(item)
@@ -148,7 +148,7 @@ async def test_streaming_success_retry_on_exhausted(
         "transformed_4",
     ]
     assert events == [
-        StreamStoppedEvent(exception=None, retry_time=None),
+        StreamStopped(exception=None, retry_time=None),
     ]
 
     assert caplog.record_tuples == [
@@ -190,7 +190,7 @@ async def test_streaming_success(
         "transformed_4",
     ]
     assert events == [
-        StreamStoppedEvent(exception=None, retry_time=None),
+        StreamStopped(exception=None, retry_time=None),
     ]
     assert caplog.record_tuples == [
         (
@@ -337,11 +337,11 @@ async def test_messages_on_retry(
     assert [type(e) for e in events] == [
         type(e)
         for e in [
-            StreamStartedEvent(),
-            StreamStoppedEvent(
+            StreamStarted(),
+            StreamStopped(
                 exception=mock_error(), retry_time=timedelta(seconds=0.01)
             ),
-            StreamStartedEvent(),
-            StreamStoppedEvent(exception=mock_error(), retry_time=None),
+            StreamStarted(),
+            StreamStopped(exception=mock_error(), retry_time=None),
         ]
     ]
