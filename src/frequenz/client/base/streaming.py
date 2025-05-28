@@ -46,8 +46,6 @@ StreamEvent: TypeAlias = StreamStartedEvent | StreamStoppedEvent
 """Type alias for the events that can be sent over the stream."""
 
 
-# Ignore D412: "No blank lines allowed between a section header and its content"
-# flake8: noqa: D412
 class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
     """Helper class to handle grpc streaming methods.
 
@@ -65,30 +63,29 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
     state of the stream.
 
     Example:
+        ```python
+        from frequenz.client.base import GrpcStreamBroadcaster
 
-    ```python
-    from frequenz.client.base import GrpcStreamBroadcaster
+        def async_range() -> AsyncIterable[int]:
+            yield from range(10)
 
-    def async_range() -> AsyncIterable[int]:
-        yield from range(10)
+        streamer = GrpcStreamBroadcaster(
+            stream_name="example_stream",
+            stream_method=async_range,
+            transform=lambda msg: msg,
+        )
 
-    streamer = GrpcStreamBroadcaster(
-        stream_name="example_stream",
-        stream_method=async_range,
-        transform=lambda msg: msg,
-    )
+        recv = streamer.new_receiver()
 
-    recv = streamer.new_receiver()
-
-    for msg in recv:
-        match msg:
-            case StreamStartedEvent():
-                print("Stream started")
-            case StreamStoppedEvent() as event:
-                print(f"Stream stopped, reason {event.exception}, retry in {event.retry_time}")
-            case int() as output:
-                print(f"Received message: {output}")
-    ```
+        for msg in recv:
+            match msg:
+                case StreamStartedEvent():
+                    print("Stream started")
+                case StreamStoppedEvent() as event:
+                    print(f"Stream stopped, reason {event.exception}, retry in {event.retry_time}")
+                case int() as output:
+                    print(f"Received message: {output}")
+        ```
     """
 
     def __init__(  # pylint: disable=too-many-arguments,too-many-positional-arguments
