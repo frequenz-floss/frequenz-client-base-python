@@ -282,6 +282,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
 
         while True:
             error: Exception | None = None
+            first_message_received = False
             _logger.info("%s: starting to stream", self._stream_name)
             try:
                 call = self._stream_method()
@@ -290,9 +291,14 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                     await self._event_sender.send(StreamStarted())
 
                 async for msg in call:
+                    first_message_received = True
                     await data_sender.send(self._transform(msg))
+
             except grpc.aio.AioRpcError as err:
                 error = err
+
+            if first_message_received:
+                self._retry_strategy.reset()
 
             if error is None and not self._retry_on_exhausted_stream:
                 _logger.info(
