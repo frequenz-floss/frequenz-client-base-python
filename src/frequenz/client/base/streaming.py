@@ -101,7 +101,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
         Args:
             stream_name: A name to identify the stream in the logs.
             stream_method: A function that returns the grpc stream. This function is
-                called everytime the connection is lost and we want to retry.
+                called every time the connection is lost and we want to retry.
             transform: A function to transform the input type to the output type.
             retry_strategy: The retry strategy to use, when the connection is lost. Defaults
                 to retries every 3 seconds, with a jitter of 1 second, indefinitely.
