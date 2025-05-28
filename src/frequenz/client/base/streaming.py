@@ -188,7 +188,9 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
 
             await sender.send(
                 StreamStopped(
-                    retry_time=timedelta(seconds=interval) if interval else None,
+                    retry_time=(
+                        timedelta(seconds=interval) if interval is not None else None
+                    ),
                     exception=error,
                 )
             )

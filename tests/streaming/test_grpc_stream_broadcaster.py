@@ -324,7 +324,7 @@ async def test_messages_on_retry(
             receiver_ready_event,
         ),
         transform=_transformer,
-        retry_strategy=retry.LinearBackoff(limit=1, interval=0.01, jitter=0.0),
+        retry_strategy=retry.LinearBackoff(limit=1, interval=0.0, jitter=0.0),
         retry_on_exhausted_stream=True,
     )
 
@@ -340,7 +340,7 @@ async def test_messages_on_retry(
     assert items == []
     assert events == [
         StreamStarted(),
-        StreamStopped(timedelta(seconds=0.01), error),
+        StreamStopped(timedelta(seconds=0.0), error),
         StreamStarted(),
         StreamStopped(None, error),
         StreamFatalError(error),
