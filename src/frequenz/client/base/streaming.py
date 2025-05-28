@@ -26,12 +26,12 @@ OutputT = TypeVar("OutputT")
 """The output type of the stream."""
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass(frozen=True)
 class StreamStarted:
     """Event indicating that the stream has started."""
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass(frozen=True)
 class StreamStopped:
     """Event indicating that the stream has stopped."""
 
@@ -81,8 +81,8 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             match msg:
                 case StreamStarted():
                     print("Stream started")
-                case StreamStopped() as event:
-                    print(f"Stream stopped, reason {event.exception}, retry in {event.retry_time}")
+                case StreamStopped(delay, error):
+                    print(f"Stream stopped, reason {error}, retry in {delay}")
                 case int() as output:
                     print(f"Received message: {output}")
         ```
