@@ -19,8 +19,8 @@
         match msg:
             case StreamStarted():
                 print("Stream started")
-            case StreamStopped(delay, error):
-                print(f"Stream stopped, reason {error}, retry in {delay}")
+            case StreamRetrying(delay, error):
+                print(f"Stream stopped and will retry in {delay}: {error or 'closed'}")
             case StreamFatalError(error):
                 print(f"Stream will stop because of a fatal error: {error}")
             case int() as output:

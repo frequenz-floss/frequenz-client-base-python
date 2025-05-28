@@ -19,8 +19,8 @@ from frequenz.client.base import retry, streaming
 from frequenz.client.base.streaming import (
     StreamEvent,
     StreamFatalError,
+    StreamRetrying,
     StreamStarted,
-    StreamStopped,
 )
 
 
@@ -97,7 +97,7 @@ async def _split_message(
     events: list[StreamEvent] = []
     async for item in receiver:
         match item:
-            case StreamStarted() | StreamStopped() | StreamFatalError():
+            case StreamStarted() | StreamRetrying() | StreamFatalError():
                 events.append(item)
             case str():
                 items.append(item)
@@ -149,9 +149,7 @@ async def test_streaming_success_retry_on_exhausted(
         "transformed_3",
         "transformed_4",
     ]
-    assert events == [
-        StreamStopped(exception=None, retry_time=None),
-    ]
+    assert events == []
 
     assert caplog.record_tuples == [
         (
@@ -182,7 +180,7 @@ async def test_streaming_success(
         receiver_ready_event.set()
         items, events = await _split_message(receiver)
 
-    no_retry.next_interval.assert_called_once_with()
+    no_retry.next_interval.assert_not_called()
 
     assert items == [
         "transformed_0",
@@ -191,9 +189,7 @@ async def test_streaming_success(
         "transformed_3",
         "transformed_4",
     ]
-    assert events == [
-        StreamStopped(exception=None, retry_time=None),
-    ]
+    assert events == []
     assert caplog.record_tuples == [
         (
             "frequenz.client.base.streaming",
@@ -344,8 +340,7 @@ async def test_messages_on_retry(
     ]
     assert events == [
         StreamStarted(),
-        StreamStopped(timedelta(seconds=0.0), error),
+        StreamRetrying(timedelta(seconds=0.0), error),
         StreamStarted(),
-        StreamStopped(None, error),
         StreamFatalError(error),
     ]

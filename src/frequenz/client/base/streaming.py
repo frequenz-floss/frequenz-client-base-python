@@ -32,14 +32,18 @@ class StreamStarted:
 
 
 @dataclass(frozen=True)
-class StreamStopped:
+class StreamRetrying:
     """Event indicating that the stream has stopped."""
 
-    retry_time: timedelta | None = None
-    """Time to wait before retrying the stream, if applicable."""
+    delay: timedelta
+    """Time to wait before retrying to start the stream again."""
 
     exception: Exception | None = None
-    """The exception that caused the stream to stop, if any."""
+    """The exception that caused the stream to stop, if any.
+
+    If `None`, the stream was stopped without an error, e.g. the server closed the
+    stream.
+    """
 
 
 @dataclass(frozen=True)
@@ -50,7 +54,7 @@ class StreamFatalError:
     """The exception that caused the stream to stop."""
 
 
-StreamEvent: TypeAlias = StreamStarted | StreamStopped | StreamFatalError
+StreamEvent: TypeAlias = StreamStarted | StreamRetrying | StreamFatalError
 """Type alias for the events that can be sent over the stream."""
 
 
@@ -89,8 +93,8 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             match msg:
                 case StreamStarted():
                     print("Stream started")
-                case StreamStopped(delay, error):
-                    print(f"Stream stopped, reason {error}, retry in {delay}")
+                case StreamRetrying(delay, error):
+                    print(f"Stream stopped and will retry in {delay}: {error or 'closed'}")
                 case StreamFatalError(error):
                     print(f"Stream will stop because of a fatal error: {error}")
                 case int() as output:
@@ -184,23 +188,14 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             except grpc.aio.AioRpcError as err:
                 error = err
 
-            interval = self._retry_strategy.next_interval()
-
-            await sender.send(
-                StreamStopped(
-                    retry_time=(
-                        timedelta(seconds=interval) if interval is not None else None
-                    ),
-                    exception=error,
-                )
-            )
-
             if error is None and not self._retry_on_exhausted_stream:
                 _logger.info(
                     "%s: connection closed, stream exhausted", self._stream_name
                 )
                 await self._channel.close()
                 break
+
+            interval = self._retry_strategy.next_interval()
             error_str = f"Error: {error}" if error else "Stream exhausted"
             if interval is None:
                 _logger.error(
@@ -220,4 +215,6 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                 interval,
                 error_str,
             )
+
+            await sender.send(StreamRetrying(timedelta(seconds=interval), error))
             await asyncio.sleep(interval)
