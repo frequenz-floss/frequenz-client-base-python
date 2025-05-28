@@ -320,8 +320,7 @@ async def test_messages_on_retry(
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
         stream_method=lambda: _ErroringAsyncIter(
-            error,
-            receiver_ready_event,
+            error, receiver_ready_event, num_successes=2
         ),
         transform=_transformer,
         retry_strategy=retry.LinearBackoff(limit=1, interval=0.0, jitter=0.0),
@@ -337,7 +336,12 @@ async def test_messages_on_retry(
         receiver_ready_event.set()
         items, events = await _split_message(receiver)
 
-    assert items == []
+    assert items == [
+        "transformed_0",
+        "transformed_1",
+        "transformed_0",
+        "transformed_1",
+    ]
     assert events == [
         StreamStarted(),
         StreamStopped(timedelta(seconds=0.0), error),
