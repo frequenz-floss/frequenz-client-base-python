@@ -13,16 +13,18 @@
 * The streaming client now also sends state change events out. Usage example:
 
     ```python
-        recv = streamer.new_receiver()
+    recv = streamer.new_receiver()
 
-        for msg in recv:
-            match msg:
-                case StreamStartedEvent():
-                    print("Stream started")
-                case StreamStoppedEvent() as event:
-                    print(f"Stream stopped, reason {event.exception}, retry in {event.retry_time}")
-                case int() as output:
-                    print(f"Received message: {output}")
+    for msg in recv:
+        match msg:
+            case StreamStarted():
+                print("Stream started")
+            case StreamRetrying(delay, error):
+                print(f"Stream stopped and will retry in {delay}: {error or 'closed'}")
+            case StreamFatalError(error):
+                print(f"Stream will stop because of a fatal error: {error}")
+            case int() as output:
+                print(f"Received message: {output}")
     ```
 
 ## Bug Fixes

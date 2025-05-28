@@ -10,6 +10,7 @@ from contextlib import AsyncExitStack
 from datetime import timedelta
 from unittest import mock
 
+import grpc
 import grpc.aio
 import pytest
 from frequenz.channels import Receiver
@@ -17,8 +18,9 @@ from frequenz.channels import Receiver
 from frequenz.client.base import retry, streaming
 from frequenz.client.base.streaming import (
     StreamEvent,
-    StreamStartedEvent,
-    StreamStoppedEvent,
+    StreamFatalError,
+    StreamRetrying,
+    StreamStarted,
 )
 
 
@@ -43,12 +45,12 @@ def no_retry() -> mock.MagicMock:
     return mock_retry
 
 
-def mock_error() -> grpc.aio.AioRpcError:
+def make_error() -> grpc.aio.AioRpcError:
     """Mock error for testing."""
     return grpc.aio.AioRpcError(
-        code=mock.MagicMock(name="mock grpc code"),
-        initial_metadata=mock.MagicMock(),
-        trailing_metadata=mock.MagicMock(),
+        code=grpc.StatusCode.UNAVAILABLE,
+        initial_metadata=grpc.aio.Metadata(),
+        trailing_metadata=grpc.aio.Metadata(),
         details="mock details",
         debug_error_string="mock debug_error_string",
     )
@@ -95,7 +97,7 @@ async def _split_message(
     events: list[StreamEvent] = []
     async for item in receiver:
         match item:
-            case StreamStartedEvent() | StreamStoppedEvent() as item:
+            case StreamStarted() | StreamRetrying() | StreamFatalError():
                 events.append(item)
             case str():
                 items.append(item)
@@ -147,9 +149,7 @@ async def test_streaming_success_retry_on_exhausted(
         "transformed_3",
         "transformed_4",
     ]
-    assert events == [
-        StreamStoppedEvent(exception=None, retry_time=None),
-    ]
+    assert events == []
 
     assert caplog.record_tuples == [
         (
@@ -180,7 +180,7 @@ async def test_streaming_success(
         receiver_ready_event.set()
         items, events = await _split_message(receiver)
 
-    no_retry.next_interval.assert_called_once_with()
+    no_retry.next_interval.assert_not_called()
 
     assert items == [
         "transformed_0",
@@ -189,9 +189,7 @@ async def test_streaming_success(
         "transformed_3",
         "transformed_4",
     ]
-    assert events == [
-        StreamStoppedEvent(exception=None, retry_time=None),
-    ]
+    assert events == []
     assert caplog.record_tuples == [
         (
             "frequenz.client.base.streaming",
@@ -221,7 +219,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
     """Test streaming errors."""
     caplog.set_level(logging.INFO)
 
-    error = mock_error()
+    error = make_error()
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
@@ -268,7 +266,7 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
 ) -> None:
     """Test retry logic when next_interval returns 0."""
     caplog.set_level(logging.WARNING)
-    error = mock_error()
+    error = make_error()
     mock_retry = mock.MagicMock(spec=retry.Strategy)
     mock_retry.next_interval.side_effect = [0, None]
     mock_retry.copy.return_value = mock_retry
@@ -310,17 +308,18 @@ async def test_messages_on_retry(
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
 ) -> None:
     """Test that messages are sent on retry."""
+    # We need to use a specific instance for all the test here because 2 errors created
+    # with the same arguments don't compare equal (grpc.aio.AioRpcError doesn't seem to
+    # provide a __eq__ method).
+    error = make_error()
+
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
         stream_method=lambda: _ErroringAsyncIter(
-            mock_error(),
-            receiver_ready_event,
+            error, receiver_ready_event, num_successes=2
         ),
         transform=_transformer,
-        retry_strategy=retry.LinearBackoff(
-            limit=1,
-            interval=0.01,
-        ),
+        retry_strategy=retry.LinearBackoff(limit=1, interval=0.0, jitter=0.0),
         retry_on_exhausted_stream=True,
     )
 
@@ -333,15 +332,15 @@ async def test_messages_on_retry(
         receiver_ready_event.set()
         items, events = await _split_message(receiver)
 
-    assert items == []
-    assert [type(e) for e in events] == [
-        type(e)
-        for e in [
-            StreamStartedEvent(),
-            StreamStoppedEvent(
-                exception=mock_error(), retry_time=timedelta(seconds=0.01)
-            ),
-            StreamStartedEvent(),
-            StreamStoppedEvent(exception=mock_error(), retry_time=None),
-        ]
+    assert items == [
+        "transformed_0",
+        "transformed_1",
+        "transformed_0",
+        "transformed_1",
+    ]
+    assert events == [
+        StreamStarted(),
+        StreamRetrying(timedelta(seconds=0.0), error),
+        StreamStarted(),
+        StreamFatalError(error),
     ]
