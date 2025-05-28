@@ -17,6 +17,7 @@ from frequenz.channels import Receiver
 from frequenz.client.base import retry, streaming
 from frequenz.client.base.streaming import (
     StreamEvent,
+    StreamFatalError,
     StreamStarted,
     StreamStopped,
 )
@@ -95,7 +96,7 @@ async def _split_message(
     events: list[StreamEvent] = []
     async for item in receiver:
         match item:
-            case StreamStarted() | StreamStopped() as item:
+            case StreamStarted() | StreamStopped() | StreamFatalError():
                 events.append(item)
             case str():
                 items.append(item)
@@ -343,5 +344,6 @@ async def test_messages_on_retry(
             ),
             StreamStarted(),
             StreamStopped(exception=mock_error(), retry_time=None),
+            StreamFatalError(mock_error()),
         ]
     ]

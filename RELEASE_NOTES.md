@@ -21,6 +21,8 @@
                 print("Stream started")
             case StreamStopped(delay, error):
                 print(f"Stream stopped, reason {error}, retry in {delay}")
+            case StreamFatalError(error):
+                print(f"Stream will stop because of a fatal error: {error}")
             case int() as output:
                 print(f"Received message: {output}")
     ```

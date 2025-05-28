@@ -42,7 +42,15 @@ class StreamStopped:
     """The exception that caused the stream to stop, if any."""
 
 
-StreamEvent: TypeAlias = StreamStarted | StreamStopped
+@dataclass(frozen=True)
+class StreamFatalError:
+    """Event indicating that the stream has stopped due to an unrecoverable error."""
+
+    exception: Exception
+    """The exception that caused the stream to stop."""
+
+
+StreamEvent: TypeAlias = StreamStarted | StreamStopped | StreamFatalError
 """Type alias for the events that can be sent over the stream."""
 
 
@@ -83,6 +91,8 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                     print("Stream started")
                 case StreamStopped(delay, error):
                     print(f"Stream stopped, reason {error}, retry in {delay}")
+                case StreamFatalError(error):
+                    print(f"Stream will stop because of a fatal error: {error}")
                 case int() as output:
                     print(f"Received message: {output}")
         ```
@@ -197,6 +207,8 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                     self._retry_strategy.get_progress(),
                     error_str,
                 )
+                if error is not None:
+                    await sender.send(StreamFatalError(error))
                 await self._channel.close()
                 break
             _logger.warning(
