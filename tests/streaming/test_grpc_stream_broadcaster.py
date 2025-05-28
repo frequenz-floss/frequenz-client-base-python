@@ -10,6 +10,7 @@ from contextlib import AsyncExitStack
 from datetime import timedelta
 from unittest import mock
 
+import grpc
 import grpc.aio
 import pytest
 from frequenz.channels import Receiver
@@ -44,12 +45,12 @@ def no_retry() -> mock.MagicMock:
     return mock_retry
 
 
-def mock_error() -> grpc.aio.AioRpcError:
+def make_error() -> grpc.aio.AioRpcError:
     """Mock error for testing."""
     return grpc.aio.AioRpcError(
-        code=mock.MagicMock(name="mock grpc code"),
-        initial_metadata=mock.MagicMock(),
-        trailing_metadata=mock.MagicMock(),
+        code=grpc.StatusCode.UNAVAILABLE,
+        initial_metadata=grpc.aio.Metadata(),
+        trailing_metadata=grpc.aio.Metadata(),
         details="mock details",
         debug_error_string="mock debug_error_string",
     )
@@ -222,7 +223,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
     """Test streaming errors."""
     caplog.set_level(logging.INFO)
 
-    error = mock_error()
+    error = make_error()
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
@@ -269,7 +270,7 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
 ) -> None:
     """Test retry logic when next_interval returns 0."""
     caplog.set_level(logging.WARNING)
-    error = mock_error()
+    error = make_error()
     mock_retry = mock.MagicMock(spec=retry.Strategy)
     mock_retry.next_interval.side_effect = [0, None]
     mock_retry.copy.return_value = mock_retry
@@ -311,17 +312,19 @@ async def test_messages_on_retry(
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
 ) -> None:
     """Test that messages are sent on retry."""
+    # We need to use a specific instance for all the test here because 2 errors created
+    # with the same arguments don't compare equal (grpc.aio.AioRpcError doesn't seem to
+    # provide a __eq__ method).
+    error = make_error()
+
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
         stream_method=lambda: _ErroringAsyncIter(
-            mock_error(),
+            error,
             receiver_ready_event,
         ),
         transform=_transformer,
-        retry_strategy=retry.LinearBackoff(
-            limit=1,
-            interval=0.01,
-        ),
+        retry_strategy=retry.LinearBackoff(limit=1, interval=0.01, jitter=0.0),
         retry_on_exhausted_stream=True,
     )
 
@@ -335,15 +338,10 @@ async def test_messages_on_retry(
         items, events = await _split_message(receiver)
 
     assert items == []
-    assert [type(e) for e in events] == [
-        type(e)
-        for e in [
-            StreamStarted(),
-            StreamStopped(
-                exception=mock_error(), retry_time=timedelta(seconds=0.01)
-            ),
-            StreamStarted(),
-            StreamStopped(exception=mock_error(), retry_time=None),
-            StreamFatalError(mock_error()),
-        ]
+    assert events == [
+        StreamStarted(),
+        StreamStopped(timedelta(seconds=0.01), error),
+        StreamStarted(),
+        StreamStopped(None, error),
+        StreamFatalError(error),
     ]
