@@ -3,7 +3,7 @@
 
 [build-system]
 requires = [
-  "setuptools == 80.3.1",
+  "setuptools == 80.9.0",
   "setuptools_scm[toml] == 8.3.1",
   "frequenz-repo-config[lib] == 0.13.3",
 ]
@@ -61,7 +61,7 @@ dev-mkdocs = [
   "frequenz-client-base",
 ]
 dev-mypy = [
-  "mypy == 1.15.0",
+  "mypy == 1.16.0",
   "types-Markdown == 3.8.0.20250415",
   "types-protobuf == 5.29.1.20250403",
   "grpc-stubs == 1.53.0.6", # This dependency introduces breaking changes in patch releases
@@ -80,7 +80,7 @@ dev-pytest = [
   "pytest-mock == 3.14.0",
   "pytest-asyncio == 0.26.0",
   "async-solipsism == 0.7",
-  "hypothesis == 6.131.9",
+  "hypothesis == 6.132.0",
   "frequenz-client-base",
 ]
 dev = [
