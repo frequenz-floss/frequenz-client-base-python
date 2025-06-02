@@ -26,6 +26,7 @@
             case int() as output:
                 print(f"Received message: {output}")
     ```
+* In the `streaming` module, the new function `filter_stream_events` can be used to filter out stream events and retain the old behavior.
 
 ## Bug Fixes
 

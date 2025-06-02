@@ -8,7 +8,7 @@ import logging
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import timedelta
-from typing import AsyncIterable, Generic, TypeAlias, TypeVar
+from typing import AsyncIterable, Generic, Tuple, Type, TypeAlias, TypeGuard, TypeVar
 
 import grpc.aio
 
@@ -56,6 +56,35 @@ class StreamFatalError:
 
 StreamEvent: TypeAlias = StreamStarted | StreamRetrying | StreamFatalError
 """Type alias for the events that can be sent over the stream."""
+
+
+FilteredOutputT = TypeVar("FilteredOutputT")
+"""Type alias for the output type of the stream after filtering."""
+
+
+def filter_stream_events(
+    receiver: channels.Receiver[StreamEvent | FilteredOutputT],
+    ignore_events: Tuple[Type[StreamEvent], ...] = (
+        StreamStarted,
+        StreamRetrying,
+        StreamFatalError,
+    ),
+) -> channels.Receiver[FilteredOutputT]:
+    """Filter out specific stream events from the receiver.
+
+    Args:
+        receiver: The receiver to filter.
+        ignore_events: A tuple of event types to filter out, by default all.
+
+    Returns:
+        A new receiver that only returns the transformed output type.
+    """
+
+    def _filter(sample: FilteredOutputT | StreamEvent) -> TypeGuard[FilteredOutputT]:
+        """Check if the received message is of the output type."""
+        return not isinstance(sample, ignore_events)
+
+    return receiver.filter(_filter)
 
 
 class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
