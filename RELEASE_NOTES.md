@@ -10,10 +10,10 @@
 
 ## New Features
 
-* The streaming client now also sends state change events out. Usage example:
+* The streaming client, when using `new_receiver(include_events=True)`, will now return a receiver that yields stream notification events, such as `StreamStarted`, `StreamRetrying`, and `StreamFatalError`. This allows you to monitor the state of the stream:
 
-    ```python
-    recv = streamer.new_receiver()
+    ```python
+    recv = streamer.new_receiver(include_events=True)
 
     for msg in recv:
         match msg:
