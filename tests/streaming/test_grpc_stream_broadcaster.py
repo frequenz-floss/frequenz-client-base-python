@@ -8,6 +8,7 @@ import logging
 from collections.abc import AsyncIterator
 from contextlib import AsyncExitStack
 from datetime import timedelta
+from typing import Literal
 from unittest import mock
 
 import grpc
@@ -260,9 +261,11 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
     ]
 
 
+@pytest.mark.parametrize("include_events", [True, False])
 async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
     caplog: pytest.LogCaptureFixture,
+    include_events: Literal[True] | Literal[False],
 ) -> None:
     """Test retry logic when next_interval returns 0."""
     caplog.set_level(logging.WARNING)
@@ -279,14 +282,17 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     )
 
     items: list[str] = []
+    events: list[StreamEvent] = []
     async with AsyncExitStack() as stack:
         stack.push_async_callback(helper.stop)
 
-        receiver = helper.new_receiver()
+        receiver = helper.new_receiver(include_events=include_events)
         receiver_ready_event.set()
-        items, _ = await _split_message(receiver)
+        items, events = await _split_message(receiver)
 
     assert not items
+    assert bool(events) == include_events
+
     assert mock_retry.next_interval.mock_calls == [mock.call(), mock.call()]
     assert caplog.record_tuples == [
         (
@@ -304,8 +310,10 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     ]
 
 
+@pytest.mark.parametrize("include_events", [True, False])
 async def test_messages_on_retry(
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
+    include_events: Literal[True] | Literal[False],
 ) -> None:
     """Test that messages are sent on retry."""
     # We need to use a specific instance for all the test here because 2 errors created
@@ -328,7 +336,7 @@ async def test_messages_on_retry(
     async with AsyncExitStack() as stack:
         stack.push_async_callback(helper.stop)
 
-        receiver = helper.new_receiver()
+        receiver = helper.new_receiver(include_events=include_events)
         receiver_ready_event.set()
         items, events = await _split_message(receiver)
 
@@ -338,9 +346,12 @@ async def test_messages_on_retry(
         "transformed_0",
         "transformed_1",
     ]
-    assert events == [
-        StreamStarted(),
-        StreamRetrying(timedelta(seconds=0.0), error),
-        StreamStarted(),
-        StreamFatalError(error),
-    ]
+    if include_events:
+        assert events == [
+            StreamStarted(),
+            StreamRetrying(timedelta(seconds=0.0), error),
+            StreamStarted(),
+            StreamFatalError(error),
+        ]
+    else:
+        assert events == []
