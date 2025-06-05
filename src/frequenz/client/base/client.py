@@ -6,15 +6,25 @@
 import abc
 import inspect
 from collections.abc import Awaitable, Callable
+from types import EllipsisType
 from typing import Any, Generic, Self, TypeVar, overload
 
 from grpc.aio import (
     AioRpcError,
     Channel,
+    ClientInterceptor,
 )
 
+from .authentication import (
+    AuthenticationInterceptorUnaryStream,
+    AuthenticationInterceptorUnaryUnary,
+)
 from .channel import ChannelOptions, parse_grpc_uri
 from .exception import ApiClientError, ClientNotConnected
+from .signing import (
+    SigningInterceptorUnaryStream,
+    SigningInterceptorUnaryUnary,
+)
 
 StubT = TypeVar("StubT")
 """The type of the gRPC stub."""
@@ -153,13 +163,15 @@ class BaseApiClient(abc.ABC, Generic[StubT]):
                 instances.
     """
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         server_url: str,
         create_stub: Callable[[Channel], StubT],
         *,
         connect: bool = True,
         channel_defaults: ChannelOptions = ChannelOptions(),
+        auth_key: str | None = None,
+        sign_secret: str | None = None,
     ) -> None:
         """Create an instance and connect to the server.
 
@@ -172,14 +184,21 @@ class BaseApiClient(abc.ABC, Generic[StubT]):
                 called.
             channel_defaults: The default options for the gRPC channel to create using
                 the server URL.
+            auth_key: The API key to use when connecting to the service.
+            sign_secret: The secret to use when creating message HMAC.
+
         """
         self._server_url: str = server_url
         self._create_stub: Callable[[Channel], StubT] = create_stub
         self._channel_defaults: ChannelOptions = channel_defaults
+        self._auth_key = auth_key
+        self._sign_secret = sign_secret
         self._channel: Channel | None = None
         self._stub: StubT | None = None
         if connect:
-            self.connect(server_url)
+            self.connect(
+                server_url=self._server_url, auth_key=auth_key, sign_secret=sign_secret
+            )
 
     @property
     def server_url(self) -> str:
@@ -212,7 +231,13 @@ class BaseApiClient(abc.ABC, Generic[StubT]):
         """Whether the client is connected to the server."""
         return self._channel is not None
 
-    def connect(self, server_url: str | None = None) -> None:
+    def connect(
+        self,
+        server_url: str | None = None,
+        *,
+        auth_key: str | None | EllipsisType = ...,
+        sign_secret: str | None | EllipsisType = ...,
+    ) -> None:
         """Connect to the server, possibly using a new URL.
 
         If the client is already connected and the URL is the same as the previous URL,
@@ -222,12 +247,41 @@ class BaseApiClient(abc.ABC, Generic[StubT]):
         Args:
             server_url: The URL of the server to connect to. If not provided, the
                 previously used URL is used.
+            auth_key: The API key to use when connecting to the service. If an Ellipsis
+                is provided, the previously used auth_key is used.
+            sign_secret: The secret to use when creating message HMAC. If an Ellipsis is
+                provided,
         """
+        reconnect = False
         if server_url is not None and server_url != self._server_url:  # URL changed
             self._server_url = server_url
-        elif self.is_connected:
+            reconnect = True
+        if auth_key is not ... and auth_key != self._auth_key:
+            self._auth_key = auth_key
+            reconnect = True
+        if sign_secret is not ... and sign_secret != self._sign_secret:
+            self._sign_secret = sign_secret
+            reconnect = True
+        if self.is_connected and not reconnect:  # Desired connection already exists
             return
-        self._channel = parse_grpc_uri(self._server_url, self._channel_defaults)
+
+        interceptors: list[ClientInterceptor] = []
+        if self._auth_key is not None:
+            interceptors += [
+                AuthenticationInterceptorUnaryUnary(self._auth_key),  # type: ignore [list-item]
+                AuthenticationInterceptorUnaryStream(self._auth_key),  # type: ignore [list-item]
+            ]
+        if self._sign_secret is not None:
+            interceptors += [
+                SigningInterceptorUnaryUnary(self._sign_secret),  # type: ignore [list-item]
+                SigningInterceptorUnaryStream(self._sign_secret),  # type: ignore [list-item]
+            ]
+
+        self._channel = parse_grpc_uri(
+            self._server_url,
+            interceptors,
+            defaults=self._channel_defaults,
+        )
         self._stub = self._create_stub(self._channel)
 
     async def disconnect(self) -> None:

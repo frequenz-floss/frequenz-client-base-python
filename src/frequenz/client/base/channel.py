@@ -6,7 +6,7 @@
 import dataclasses
 import pathlib
 from datetime import timedelta
-from typing import assert_never
+from typing import Sequence, assert_never
 from urllib.parse import parse_qs, urlparse
 
 from grpc import ssl_channel_credentials
@@ -15,17 +15,6 @@ from grpc.aio import (
     ClientInterceptor,
     insecure_channel,
     secure_channel,
-)
-
-from .authentication import (
-    AuthenticationInterceptorUnaryStream,
-    AuthenticationInterceptorUnaryUnary,
-    AuthenticationOptions,
-)
-from .signing import (
-    SigningInterceptorUnaryStream,
-    SigningInterceptorUnaryUnary,
-    SigningOptions,
 )
 
 
@@ -85,15 +74,10 @@ class ChannelOptions:
     keep_alive: KeepAliveOptions = KeepAliveOptions()
     """HTTP2 keep-alive options for the channel."""
 
-    sign: SigningOptions | None = None
-    """Signing options for the channel."""
-
-    auth: AuthenticationOptions | None = None
-    """Authentication options for the channel."""
-
 
 def parse_grpc_uri(
     uri: str,
+    interceptors: Sequence[ClientInterceptor] = (),
     /,
     defaults: ChannelOptions = ChannelOptions(),
 ) -> Channel:
@@ -131,6 +115,8 @@ def parse_grpc_uri(
 
     Args:
         uri: The gRPC URI specifying the connection parameters.
+        interceptors: A list of interceptors to apply to the channel. They are applied
+            in the same order as they are passed in (see grpc interceptor docs for details)
         defaults: The default options use to create the channel when not specified in
             the URI.
 
@@ -198,19 +184,6 @@ def parse_grpc_uri(
         if keep_alive
         else None
     )
-
-    interceptors: list[ClientInterceptor] = []
-    if defaults.auth is not None:
-        interceptors += [
-            AuthenticationInterceptorUnaryUnary(options=defaults.auth),  # type: ignore [list-item]
-            AuthenticationInterceptorUnaryStream(options=defaults.auth),  # type: ignore [list-item]
-        ]
-
-    if defaults.sign is not None:
-        interceptors += [
-            SigningInterceptorUnaryUnary(options=defaults.sign),  # type: ignore [list-item]
-            SigningInterceptorUnaryStream(options=defaults.sign),  # type: ignore [list-item]
-        ]
 
     ssl = defaults.ssl.enabled if options.ssl is None else options.ssl
     if ssl:

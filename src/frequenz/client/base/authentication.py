@@ -3,7 +3,6 @@
 
 """An Interceptor that adds the API key to a gRPC call."""
 
-import dataclasses
 from typing import AsyncIterable, Callable
 
 from grpc.aio import (
@@ -35,25 +34,17 @@ def _add_auth_header(
     client_call_details.metadata["key"] = key
 
 
-@dataclasses.dataclass(frozen=True)
-class AuthenticationOptions:
-    """Options for authenticating to the endpoint."""
-
-    api_key: str
-    """The API key to authenticate with."""
-
-
 # There is an issue in gRPC which means the type can not be specified correctly here.
 class AuthenticationInterceptorUnaryUnary(UnaryUnaryClientInterceptor):  # type: ignore[type-arg]
     """An Interceptor that adds HMAC authentication of the metadata fields to a gRPC call."""
 
-    def __init__(self, options: AuthenticationOptions):
+    def __init__(self, api_key: str):
         """Create an instance of the interceptor.
 
         Args:
-            options: The options for authenticating to the endpoint.
+            api_key: The API key to send along for the request.
         """
-        self._key = options.api_key
+        self._key = api_key
 
     async def intercept_unary_unary(
         self,
@@ -83,13 +74,13 @@ class AuthenticationInterceptorUnaryUnary(UnaryUnaryClientInterceptor):  # type:
 class AuthenticationInterceptorUnaryStream(UnaryStreamClientInterceptor):  # type: ignore[type-arg]
     """An Interceptor that adds HMAC authentication of the metadata fields to a gRPC call."""
 
-    def __init__(self, options: AuthenticationOptions):
+    def __init__(self, api_key: str):
         """Create an instance of the interceptor.
 
         Args:
-            options: The options for authenticating to the endpoint.
+            api_key: The API key to send along for the request.
         """
-        self._key = options.api_key
+        self._key = api_key
 
     async def intercept_unary_stream(
         self,

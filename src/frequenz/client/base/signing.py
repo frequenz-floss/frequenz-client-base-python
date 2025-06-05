@@ -3,7 +3,6 @@
 
 """An Interceptor that adds HMAC signature of the metadata fields to a gRPC call."""
 
-import dataclasses
 import hmac
 import logging
 import secrets
@@ -68,25 +67,17 @@ def _add_hmac(
     )
 
 
-@dataclasses.dataclass(frozen=True)
-class SigningOptions:
-    """Options for message signing of messages."""
-
-    secret: str
-    """The secret to sign the message with."""
-
-
 # There is an issue in gRPC which means the type can not be specified correctly here.
 class SigningInterceptorUnaryUnary(UnaryUnaryClientInterceptor):  # type: ignore[type-arg]
     """An Interceptor that adds HMAC authentication of the metadata fields to a gRPC call."""
 
-    def __init__(self, options: SigningOptions):
+    def __init__(self, secret: str):
         """Create an instance of the interceptor.
 
         Args:
-            options: The options for signing the message.
+            secret: The secret used for signing the message.
         """
-        self._secret = options.secret.encode()
+        self._secret = secret.encode()
 
     async def intercept_unary_unary(
         self,
@@ -121,13 +112,13 @@ class SigningInterceptorUnaryUnary(UnaryUnaryClientInterceptor):  # type: ignore
 class SigningInterceptorUnaryStream(UnaryStreamClientInterceptor):  # type: ignore[type-arg]
     """An Interceptor that adds HMAC authentication of the metadata fields to a gRPC call."""
 
-    def __init__(self, options: SigningOptions):
+    def __init__(self, secret: str):
         """Create an instance of the interceptor.
 
         Args:
-            options: The options for signing the message.
+            secret: The secret used for signing the message.
         """
-        self._secret = options.secret.encode()
+        self._secret = secret.encode()
 
     async def intercept_unary_stream(
         self,

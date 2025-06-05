@@ -52,12 +52,14 @@ class _ClientMocks:
 _DEFAULT_SERVER_URL = "grpc://localhost"
 
 
-def create_client_with_mocks(
+def create_client_with_mocks(  # pylint: disable=too-many-arguments
     mocker: pytest_mock.MockFixture,
     *,
     auto_connect: bool = True,
     server_url: str = _DEFAULT_SERVER_URL,
     channel_defaults: ChannelOptions | None = None,
+    auth_key: str | None = None,
+    sign_secret: str | None = None,
 ) -> tuple[BaseApiClient[mock.MagicMock], _ClientMocks]:
     """Create a BaseApiClient instance with mocks."""
     mock_stub = mock.MagicMock(name="stub")
@@ -73,6 +75,8 @@ def create_client_with_mocks(
         server_url=server_url,
         create_stub=mock_create_stub,
         connect=auto_connect,
+        auth_key=auth_key,
+        sign_secret=sign_secret,
         **kwargs,
     )
     return client, _ClientMocks(
@@ -93,7 +97,9 @@ def test_base_api_client_init(
     assert client.server_url == _DEFAULT_SERVER_URL
     if auto_connect:
         mocks.parse_grpc_uri.assert_called_once_with(
-            client.server_url, ChannelOptions()
+            client.server_url,
+            [],
+            defaults=ChannelOptions(),
         )
         assert client.channel is mocks.channel
         assert client._stub is mocks.stub  # pylint: disable=protected-access
@@ -112,7 +118,11 @@ def test_base_api_client_init_with_channel_defaults(
     channel_defaults = ChannelOptions(ssl=SslOptions(enabled=False))
     client, mocks = create_client_with_mocks(mocker, channel_defaults=channel_defaults)
     assert client.server_url == _DEFAULT_SERVER_URL
-    mocks.parse_grpc_uri.assert_called_once_with(client.server_url, channel_defaults)
+    mocks.parse_grpc_uri.assert_called_once_with(
+        client.server_url,
+        [],
+        defaults=channel_defaults,
+    )
     assert client.channel is mocks.channel
     assert client._stub is mocks.stub  # pylint: disable=protected-access
     assert client.is_connected
@@ -155,7 +165,9 @@ def test_base_api_client_connect(
         mocks.create_stub.assert_not_called()
     else:
         mocks.parse_grpc_uri.assert_called_once_with(
-            client.server_url, ChannelOptions()
+            client.server_url,
+            [],
+            defaults=ChannelOptions(),
         )
         mocks.create_stub.assert_called_once_with(mocks.channel)
 
@@ -195,7 +207,9 @@ async def test_base_api_client_async_context_manager(
             mocks.create_stub.assert_not_called()
         else:
             mocks.parse_grpc_uri.assert_called_once_with(
-                client.server_url, ChannelOptions()
+                client.server_url,
+                [],
+                defaults=ChannelOptions(),
             )
             mocks.create_stub.assert_called_once_with(mocks.channel)
 
@@ -330,3 +344,23 @@ async def test_call_stub_method_success(
     assert response == (2 if transform else 1)
     if mock_transform:
         mock_transform.assert_called_once_with(1)
+
+
+async def test_create_interceptors(mocker: pytest_mock.MockFixture) -> None:
+    """Test that the client constructor creates the interceptors as expected."""
+    url = "grpc://localhost:2355?keep_alive=0"
+    _, mocks = create_client_with_mocks(
+        mocker,
+        auto_connect=True,
+        server_url=url,
+        auth_key="hunter2",
+        sign_secret="password1245",
+    )
+
+    mocks.parse_grpc_uri.assert_called_once_with(
+        url, [mock.ANY, mock.ANY, mock.ANY, mock.ANY], defaults=ChannelOptions()
+    )
+    args, _ = mocks.parse_grpc_uri.call_args
+    interceptors = args[1]
+    for interceptor in interceptors:
+        assert isinstance(interceptor, grpc.aio.ClientInterceptor)
