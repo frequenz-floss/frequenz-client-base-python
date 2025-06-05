@@ -194,26 +194,26 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
     @overload
     def new_receiver(
         self,
+        *,
         maxsize: int = 50,
         warn_on_overflow: bool = True,
-        *,
         include_events: Literal[False] = False,
     ) -> channels.Receiver[OutputT]: ...
 
     @overload
     def new_receiver(
         self,
+        *,
         maxsize: int = 50,
         warn_on_overflow: bool = True,
-        *,
         include_events: Literal[True],
     ) -> channels.Receiver[StreamEvent | OutputT]: ...
 
     def new_receiver(
         self,
+        *,
         maxsize: int = 50,
         warn_on_overflow: bool = True,
-        *,
         include_events: bool = False,
     ) -> channels.Receiver[OutputT] | channels.Receiver[StreamEvent | OutputT]:
         """Create a new receiver for the stream.
