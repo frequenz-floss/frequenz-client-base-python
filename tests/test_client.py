@@ -28,13 +28,13 @@ def _assert_is_disconnected(client: BaseApiClient[StubT]) -> None:
     """Assert that the client is disconnected."""
     assert not client.is_connected
 
-    with pytest.raises(ClientNotConnected, match=r"") as exc_info:
+    with pytest.raises(ClientNotConnected) as exc_info:
         _ = client.channel
     exc = exc_info.value
     assert exc.server_url == _DEFAULT_SERVER_URL
     assert exc.operation == "channel"
 
-    with pytest.raises(ClientNotConnected, match=r"") as exc_info:
+    with pytest.raises(ClientNotConnected) as exc_info:
         _ = client.channel
     exc = exc_info.value
     assert exc.server_url == _DEFAULT_SERVER_URL
