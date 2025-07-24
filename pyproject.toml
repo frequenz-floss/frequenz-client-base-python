@@ -39,7 +39,7 @@ email = "floss@frequenz.com"
 
 [project.optional-dependencies]
 dev-flake8 = [
-  "flake8 == 7.2.0",
+  "flake8 == 7.3.0",
   "flake8-docstrings == 1.7.0",
   "flake8-pyproject == 1.2.3", # For reading the flake8 config from pyproject.toml
   "pydoclint == 0.6.6",
@@ -61,7 +61,7 @@ dev-mkdocs = [
   "frequenz-client-base",
 ]
 dev-mypy = [
-  "mypy == 1.16.1",
+  "mypy == 1.17.0",
   "types-Markdown == 3.8.0.20250415",
   "types-protobuf == 6.30.2.20250516",
   "grpc-stubs == 1.53.0.6", # This dependency introduces breaking changes in patch releases
@@ -75,12 +75,12 @@ dev-pylint = [
   "frequenz-client-base[dev-mkdocs,dev-noxfile,dev-pytest]",
 ]
 dev-pytest = [
-  "pytest == 8.3.5",
+  "pytest == 8.4.1",
   "frequenz-repo-config[extra-lint-examples] == 0.13.5",
   "pytest-mock == 3.14.1",
   "pytest-asyncio == 1.0.0",
   "async-solipsism == 0.7",
-  "hypothesis == 6.132.0",
+  "hypothesis == 6.136.3",
   "frequenz-client-base",
 ]
 dev = [
