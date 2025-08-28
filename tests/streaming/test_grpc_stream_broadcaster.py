@@ -126,7 +126,7 @@ class _ErroringAsyncIter(AsyncIterator[int]):
     """Async iterator that raises an error after a certain number of successes."""
 
     def __init__(
-        self, error: Exception, ready_event: asyncio.Event, num_successes: int = 0
+        self, error: Exception, ready_event: asyncio.Event, *, num_successes: int = 0
     ):
         self._error = error
         self._ready_event = ready_event
@@ -155,7 +155,7 @@ def erroring_rpc_mock(
 ) -> mock.MagicMock:
     """Fixture for mocked erroring rpc."""
     # In this case we want to keep the state of the erroring call
-    erroring_iter = _ErroringAsyncIter(error, ready_event, num_successes)
+    erroring_iter = _ErroringAsyncIter(error, ready_event, num_successes=num_successes)
     call_mock = unary_stream_call_mock(
         "erroring_unary_stream_call", lambda: erroring_iter
     )
