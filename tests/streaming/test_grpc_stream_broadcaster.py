@@ -141,9 +141,18 @@ class _ErroringAsyncIter(AsyncIterator[int]):
             raise self._error
         return self._current
 
+    async def initial_metadata(self) -> None:
+        """Mock initial metadata method."""
+        if self._current >= self._num_successes:
+            raise self._error
+
 
 def erroring_rpc_mock(
-    error: Exception, ready_event: asyncio.Event, num_successes: int = 0
+    error: Exception,
+    ready_event: asyncio.Event,
+    *,
+    num_successes: int = 0,
+    should_error_on_initial_metadata_too: bool = False,
 ) -> mock.MagicMock:
     """Fixture for mocked erroring rpc."""
     # In this case we want to keep the state of the erroring call
@@ -151,6 +160,8 @@ def erroring_rpc_mock(
     call_mock = unary_stream_call_mock(
         "erroring_unary_stream_call", lambda: erroring_iter
     )
+    if should_error_on_initial_metadata_too:
+        call_mock.initial_metadata.side_effect = erroring_iter.initial_metadata
     rpc_mock = mock.MagicMock(name="erroring_rpc", return_value=call_mock)
 
     return rpc_mock
@@ -342,10 +353,18 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     ]
 
 
-@pytest.mark.parametrize("include_events", [True, False])
+@pytest.mark.parametrize(
+    "include_events", [True, False], ids=["with_events", "without_events"]
+)
+@pytest.mark.parametrize(
+    "error_in_metadata",
+    [True, False],
+    ids=["with_initial_metadata_error", "iterator_error_only"],
+)
 async def test_messages_on_retry(
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
     include_events: Literal[True] | Literal[False],
+    error_in_metadata: bool,
 ) -> None:
     """Test that messages are sent on retry."""
     # We need to use a specific instance for all the test here because 2 errors created
@@ -355,7 +374,12 @@ async def test_messages_on_retry(
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=erroring_rpc_mock(error, receiver_ready_event, num_successes=2),
+        stream_method=erroring_rpc_mock(
+            error,
+            receiver_ready_event,
+            num_successes=2,
+            should_error_on_initial_metadata_too=error_in_metadata,
+        ),
         transform=_transformer,
         retry_strategy=retry.LinearBackoff(limit=1, interval=0.0, jitter=0.0),
         retry_on_exhausted_stream=True,
@@ -375,10 +399,13 @@ async def test_messages_on_retry(
         "transformed_1",
     ]
     if include_events:
+        extra_events: list[StreamEvent] = []
+        if not error_in_metadata:
+            extra_events.append(StreamStarted())
         assert events == [
             StreamStarted(),
             StreamRetrying(timedelta(seconds=0.0), error),
-            StreamStarted(),
+            *extra_events,
             StreamFatalError(error),
         ]
     else:
