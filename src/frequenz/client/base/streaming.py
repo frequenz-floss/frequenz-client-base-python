@@ -8,7 +8,7 @@ import logging
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import timedelta
-from typing import AsyncIterable, Generic, Literal, TypeAlias, TypeVar, overload
+from typing import Generic, Literal, TypeAlias, TypeVar, overload
 
 import grpc.aio
 
@@ -17,6 +17,10 @@ from frequenz import channels
 from . import retry
 
 _logger = logging.getLogger(__name__)
+
+
+RequestT = TypeVar("RequestT")
+"""The request type of the stream."""
 
 
 InputT = TypeVar("InputT")
@@ -76,31 +80,20 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
 
     Example:
         ```python
+        from typing import Any
         from frequenz.client.base import (
             GrpcStreamBroadcaster,
             StreamFatalError,
             StreamRetrying,
             StreamStarted,
         )
-        from frequenz.channels import Receiver # Assuming Receiver is available
-
-        # Dummy async iterable for demonstration
-        async def async_range(fail_after: int = -1) -> AsyncIterable[int]:
-            for i in range(10):
-                if fail_after != -1 and i >= fail_after:
-                    raise grpc.aio.AioRpcError(
-                        code=grpc.StatusCode.UNAVAILABLE,
-                        initial_metadata=grpc.aio.Metadata(),
-                        trailing_metadata=grpc.aio.Metadata(),
-                        details="Simulated error"
-                    )
-                yield i
-                await asyncio.sleep(0.1)
+        from frequenz.channels import Receiver
 
         async def main():
+            stub: Any = ...  # The gRPC stub
             streamer = GrpcStreamBroadcaster(
                 stream_name="example_stream",
-                stream_method=lambda: async_range(fail_after=3),
+                stream_method=stub.MyStreamingMethod,
                 transform=lambda msg: msg * 2, # transform messages
                 retry_on_exhausted_stream=False,
             )
@@ -156,7 +149,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
     def __init__(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         stream_name: str,
-        stream_method: Callable[[], AsyncIterable[InputT]],
+        stream_method: Callable[[], grpc.aio.UnaryStreamCall[RequestT, InputT]],
         transform: Callable[[InputT], OutputT],
         retry_strategy: retry.Strategy | None = None,
         retry_on_exhausted_stream: bool = False,
@@ -287,6 +280,12 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             try:
                 call = self._stream_method()
 
+                # We await for the initial metadata before sending a
+                # StreamStarted event. This is the best indication we have of a
+                # successful connection without delaying it until the first
+                # message is received, which might happen a long time after the
+                # "connection" was established.
+                await call.initial_metadata()
                 if self._event_sender:
                     await self._event_sender.send(StreamStarted())
 
