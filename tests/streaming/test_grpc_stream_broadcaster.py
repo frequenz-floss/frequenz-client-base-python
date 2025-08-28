@@ -5,7 +5,7 @@
 
 import asyncio
 import logging
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Callable
 from contextlib import AsyncExitStack
 from datetime import timedelta
 from typing import Literal
@@ -142,6 +142,20 @@ class _ErroringAsyncIter(AsyncIterator[int]):
         return self._current
 
 
+def erroring_rpc_mock(
+    error: Exception, ready_event: asyncio.Event, num_successes: int = 0
+) -> mock.MagicMock:
+    """Fixture for mocked erroring rpc."""
+    # In this case we want to keep the state of the erroring call
+    erroring_iter = _ErroringAsyncIter(error, ready_event, num_successes)
+    call_mock = unary_stream_call_mock(
+        "erroring_unary_stream_call", lambda: erroring_iter
+    )
+    rpc_mock = mock.MagicMock(name="erroring_rpc", return_value=call_mock)
+
+    return rpc_mock
+
+
 @pytest.mark.parametrize("retry_on_exhausted_stream", [True])
 async def test_streaming_success_retry_on_exhausted(
     ok_helper: streaming.GrpcStreamBroadcaster[
@@ -242,7 +256,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=lambda: _ErroringAsyncIter(
+        stream_method=erroring_rpc_mock(
             error, receiver_ready_event, num_successes=successes
         ),
         transform=_transformer,
@@ -294,7 +308,7 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     mock_retry.get_progress.return_value = "mock progress"
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=lambda: _ErroringAsyncIter(error, receiver_ready_event),
+        stream_method=erroring_rpc_mock(error, receiver_ready_event),
         transform=_transformer,
         retry_strategy=mock_retry,
     )
@@ -341,9 +355,7 @@ async def test_messages_on_retry(
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=lambda: _ErroringAsyncIter(
-            error, receiver_ready_event, num_successes=2
-        ),
+        stream_method=erroring_rpc_mock(error, receiver_ready_event, num_successes=2),
         transform=_transformer,
         retry_strategy=retry.LinearBackoff(limit=1, interval=0.0, jitter=0.0),
         retry_on_exhausted_stream=True,
