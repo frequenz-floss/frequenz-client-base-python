@@ -242,16 +242,6 @@ async def test_streaming_success(
     ]
 
 
-class _NamedMagicMock(mock.MagicMock):
-    """Mock with a name."""
-
-    def __str__(self) -> str:
-        return self._mock_name  # type: ignore
-
-    def __repr__(self) -> str:
-        return self._mock_name  # type: ignore
-
-
 @pytest.mark.parametrize("successes", [0, 1, 5])
 async def test_streaming_error(  # pylint: disable=too-many-arguments
     successes: int,
