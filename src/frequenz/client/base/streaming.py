@@ -199,7 +199,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
         *,
         maxsize: int = 50,
         warn_on_overflow: bool = True,
-        include_events: Literal[True],
+        include_events: bool,
     ) -> channels.Receiver[StreamEvent | OutputT]: ...
 
     def new_receiver(
@@ -208,7 +208,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
         maxsize: int = 50,
         warn_on_overflow: bool = True,
         include_events: bool = False,
-    ) -> channels.Receiver[OutputT] | channels.Receiver[StreamEvent | OutputT]:
+    ) -> channels.Receiver[StreamEvent | OutputT]:
         """Create a new receiver for the stream.
 
         Args:

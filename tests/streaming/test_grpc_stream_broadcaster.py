@@ -8,7 +8,6 @@ import logging
 from collections.abc import AsyncIterator, Callable
 from contextlib import AsyncExitStack
 from datetime import timedelta
-from typing import Literal
 from unittest import mock
 
 import grpc
@@ -308,7 +307,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
 async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
     caplog: pytest.LogCaptureFixture,
-    include_events: Literal[True] | Literal[False],
+    include_events: bool,
 ) -> None:
     """Test retry logic when next_interval returns 0."""
     caplog.set_level(logging.WARNING)
@@ -363,7 +362,7 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
 )
 async def test_messages_on_retry(
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
-    include_events: Literal[True] | Literal[False],
+    include_events: bool,
     error_in_metadata: bool,
 ) -> None:
     """Test that messages are sent on retry."""
