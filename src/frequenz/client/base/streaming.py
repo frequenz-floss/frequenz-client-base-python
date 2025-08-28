@@ -265,9 +265,9 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
             await self._task
         except asyncio.CancelledError:
             pass
-        await self._data_channel.close()
+        await self._data_channel.aclose()
         if self._event_channel is not None:
-            await self._event_channel.close()
+            await self._event_channel.aclose()
 
     async def _run(self) -> None:
         """Run the streaming helper."""
@@ -303,9 +303,9 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                 _logger.info(
                     "%s: connection closed, stream exhausted", self._stream_name
                 )
-                await self._data_channel.close()
+                await self._data_channel.aclose()
                 if self._event_channel is not None:
-                    await self._event_channel.close()
+                    await self._event_channel.aclose()
                 break
 
             interval = self._retry_strategy.next_interval()
@@ -319,9 +319,9 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                 )
                 if error is not None and self._event_sender:
                     await self._event_sender.send(StreamFatalError(error))
-                await self._data_channel.close()
+                await self._data_channel.aclose()
                 if self._event_channel is not None:
-                    await self._event_channel.close()
+                    await self._event_channel.aclose()
                 break
             _logger.warning(
                 "%s: connection ended, retrying %s in %0.3f seconds. %s.",
