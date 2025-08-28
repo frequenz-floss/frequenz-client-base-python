@@ -57,6 +57,18 @@ def make_error() -> grpc.aio.AioRpcError:
     )
 
 
+def unary_stream_call_mock(
+    name: str, side_effect: Callable[[], AsyncIterator[object]]
+) -> mock.MagicMock:
+    """Create a new mocked unary stream call."""
+    # Sadly we can't use spec here because grpc.aio.UnaryStreamCall seems to be
+    # dynamic and mock doesn't find `__aiter__` in it when creating the spec.
+    call_mock = mock.MagicMock(name=name)
+    call_mock.__aiter__.side_effect = side_effect
+    call_mock.initial_metadata = mock.AsyncMock()
+    return call_mock
+
+
 @pytest.fixture
 async def ok_helper(
     no_retry: mock.MagicMock,  # pylint: disable=redefined-outer-name
@@ -72,9 +84,15 @@ async def ok_helper(
             yield i
             await asyncio.sleep(0)  # Yield control to the event loop
 
+    rpc_mock = mock.MagicMock(
+        name="ok_helper_method",
+        side_effect=lambda: unary_stream_call_mock(
+            "ok_helper_unary_stream_call", asynciter
+        ),
+    )
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=asynciter,
+        stream_method=rpc_mock,
         transform=_transformer,
         retry_strategy=no_retry,
         retry_on_exhausted_stream=retry_on_exhausted_stream,
