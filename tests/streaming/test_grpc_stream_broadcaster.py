@@ -65,16 +65,16 @@ async def ok_helper(
 ) -> AsyncIterator[streaming.GrpcStreamBroadcaster[int, str]]:
     """Fixture for GrpcStreamBroadcaster."""
 
-    async def asynciter(ready_event: asyncio.Event) -> AsyncIterator[int]:
+    async def asynciter() -> AsyncIterator[int]:
         """Mock async iterator."""
-        await ready_event.wait()
+        await receiver_ready_event.wait()
         for i in range(5):
             yield i
             await asyncio.sleep(0)  # Yield control to the event loop
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=lambda: asynciter(receiver_ready_event),
+        stream_method=asynciter,
         transform=_transformer,
         retry_strategy=no_retry,
         retry_on_exhausted_stream=retry_on_exhausted_stream,
