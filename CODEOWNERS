@@ -1,7 +1,6 @@
 # Each line is a file pattern followed by one or more owners.
 # Owners will be requested for review when someone opens a pull request.
 
-# Fallback owner.
-# These are the default owners for everything in the repo, unless a later match
-# takes precedence.
-* @frequenz-floss/python-sdk-team
+# Only apply to source code directories to allow dependabot PRs that only
+# modify pyproject.toml to be auto-merged without requiring code owner approval.
+/{src,tests,docs,dist}/ @frequenz-floss/python-sdk-team
