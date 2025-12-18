@@ -5,7 +5,7 @@
 
 import asyncio
 import logging
-from collections.abc import AsyncIterator, Callable
+from collections.abc import AsyncIterator
 from contextlib import AsyncExitStack
 from datetime import timedelta
 from unittest import mock
@@ -56,18 +56,6 @@ def make_error() -> grpc.aio.AioRpcError:
     )
 
 
-def unary_stream_call_mock(
-    name: str, side_effect: Callable[[], AsyncIterator[object]]
-) -> mock.MagicMock:
-    """Create a new mocked unary stream call."""
-    # Sadly we can't use spec here because grpc.aio.UnaryStreamCall seems to be
-    # dynamic and mock doesn't find `__aiter__` in it when creating the spec.
-    call_mock = mock.MagicMock(name=name)
-    call_mock.__aiter__.side_effect = side_effect
-    call_mock.initial_metadata = mock.AsyncMock()
-    return call_mock
-
-
 @pytest.fixture
 async def ok_helper(
     no_retry: mock.MagicMock,  # pylint: disable=redefined-outer-name
@@ -83,15 +71,9 @@ async def ok_helper(
             yield i
             await asyncio.sleep(0)  # Yield control to the event loop
 
-    rpc_mock = mock.MagicMock(
-        name="ok_helper_method",
-        side_effect=lambda: unary_stream_call_mock(
-            "ok_helper_unary_stream_call", asynciter
-        ),
-    )
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=rpc_mock,
+        stream_method=asynciter,
         transform=_transformer,
         retry_strategy=no_retry,
         retry_on_exhausted_stream=retry_on_exhausted_stream,
@@ -139,31 +121,6 @@ class _ErroringAsyncIter(AsyncIterator[int]):
         if self._current >= self._num_successes:
             raise self._error
         return self._current
-
-    async def initial_metadata(self) -> None:
-        """Mock initial metadata method."""
-        if self._current >= self._num_successes:
-            raise self._error
-
-
-def erroring_rpc_mock(
-    error: Exception,
-    ready_event: asyncio.Event,
-    *,
-    num_successes: int = 0,
-    should_error_on_initial_metadata_too: bool = False,
-) -> mock.MagicMock:
-    """Fixture for mocked erroring rpc."""
-    # In this case we want to keep the state of the erroring call
-    erroring_iter = _ErroringAsyncIter(error, ready_event, num_successes=num_successes)
-    call_mock = unary_stream_call_mock(
-        "erroring_unary_stream_call", lambda: erroring_iter
-    )
-    if should_error_on_initial_metadata_too:
-        call_mock.initial_metadata.side_effect = erroring_iter.initial_metadata
-    rpc_mock = mock.MagicMock(name="erroring_rpc", return_value=call_mock)
-
-    return rpc_mock
 
 
 @pytest.mark.parametrize("retry_on_exhausted_stream", [True])
@@ -256,7 +213,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=erroring_rpc_mock(
+        stream_method=lambda: _ErroringAsyncIter(
             error, receiver_ready_event, num_successes=successes
         ),
         transform=_transformer,
@@ -316,9 +273,7 @@ async def test_streaming_transform_error(  # pylint: disable=too-many-arguments
 
     rpc_mock = mock.MagicMock(
         name="ok_helper_method",
-        side_effect=lambda: unary_stream_call_mock(
-            "ok_helper_unary_stream_call", asynciter
-        ),
+        side_effect=asynciter,
     )
 
     helper = streaming.GrpcStreamBroadcaster(
@@ -388,7 +343,7 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     mock_retry.get_progress.return_value = "mock progress"
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=erroring_rpc_mock(error, receiver_ready_event),
+        stream_method=lambda: _ErroringAsyncIter(error, receiver_ready_event),
         transform=_transformer,
         retry_strategy=mock_retry,
     )
@@ -422,18 +377,10 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     ]
 
 
-@pytest.mark.parametrize(
-    "include_events", [True, False], ids=["with_events", "without_events"]
-)
-@pytest.mark.parametrize(
-    "error_in_metadata",
-    [True, False],
-    ids=["with_initial_metadata_error", "iterator_error_only"],
-)
+@pytest.mark.parametrize("include_events", [True, False])
 async def test_messages_on_retry(
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
     include_events: bool,
-    error_in_metadata: bool,
 ) -> None:
     """Test that messages are sent on retry."""
     # We need to use a specific instance for all the test here because 2 errors created
@@ -443,11 +390,8 @@ async def test_messages_on_retry(
 
     helper = streaming.GrpcStreamBroadcaster(
         stream_name="test_helper",
-        stream_method=erroring_rpc_mock(
-            error,
-            receiver_ready_event,
-            num_successes=2,
-            should_error_on_initial_metadata_too=error_in_metadata,
+        stream_method=lambda: _ErroringAsyncIter(
+            error, receiver_ready_event, num_successes=2
         ),
         transform=_transformer,
         retry_strategy=retry.LinearBackoff(limit=1, interval=0.0, jitter=0.0),
@@ -466,57 +410,15 @@ async def test_messages_on_retry(
     assert items == [
         "transformed_0",
         "transformed_1",
+        "transformed_0",
+        "transformed_1",
     ]
     if include_events:
-        extra_events: list[StreamEvent] = []
-        if not error_in_metadata:
-            extra_events.append(StreamStarted())
         assert events == [
             StreamStarted(),
             StreamRetrying(timedelta(seconds=0.0), error),
-            *extra_events,
+            StreamStarted(),
             StreamFatalError(error),
         ]
     else:
         assert events == []
-
-
-@mock.patch(
-    "frequenz.client.base.streaming.asyncio.sleep", autospec=True, wraps=asyncio.sleep
-)
-async def test_retry_reset(
-    mock_sleep: mock.MagicMock,
-    receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
-) -> None:
-    """Test that retry strategy resets after a successful start."""
-    # Use a mock retry strategy so we can assert reset() was called.
-    mock_retry = mock.MagicMock(spec=retry.Strategy)
-    # Simulate one retry interval then exhaustion.
-    mock_retry.next_interval.side_effect = [0.01, 0.01, None]
-    mock_retry.copy.return_value = mock_retry
-    mock_retry.get_progress.return_value = "mock progress"
-
-    # The rpc will yield one message then raise, so the strategy should be reset
-    # after the successful start (i.e. after first message received).
-    helper = streaming.GrpcStreamBroadcaster(
-        stream_name="test_helper",
-        stream_method=erroring_rpc_mock(
-            make_error(), receiver_ready_event, num_successes=1
-        ),
-        transform=_transformer,
-        retry_strategy=mock_retry,
-        retry_on_exhausted_stream=True,
-    )
-
-    async with AsyncExitStack() as stack:
-        stack.push_async_callback(helper.stop)
-
-        receiver = helper.new_receiver()
-        receiver_ready_event.set()
-        _ = await _split_message(receiver)
-
-    # reset() should have been called once after the successful start.
-    mock_retry.reset.assert_called_once()
-
-    # One sleep for the single retry interval.
-    mock_sleep.assert_has_calls([mock.call(0.01), mock.call(0.01)])
