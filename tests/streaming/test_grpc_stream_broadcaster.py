@@ -293,6 +293,86 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
     ]
 
 
+async def test_streaming_transform_error(  # pylint: disable=too-many-arguments
+    no_retry: mock.MagicMock,  # pylint: disable=redefined-outer-name
+    receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Test streaming transform errors."""
+    caplog.set_level(logging.INFO)
+
+    def transform_err(x: int) -> str:
+        """Mock transform with err for odd values."""
+        if x % 2 == 1:
+            raise ValueError("No, you transform.")
+        return f"transformed_{x}"
+
+    async def asynciter() -> AsyncIterator[int]:
+        """Mock async iterator."""
+        await receiver_ready_event.wait()
+        for i in range(5):
+            yield i
+            await asyncio.sleep(0)  # Yield control to the event loop
+
+    rpc_mock = mock.MagicMock(
+        name="ok_helper_method",
+        side_effect=lambda: unary_stream_call_mock(
+            "ok_helper_unary_stream_call", asynciter
+        ),
+    )
+
+    helper = streaming.GrpcStreamBroadcaster(
+        stream_name="test_helper",
+        stream_method=rpc_mock,
+        transform=transform_err,
+        retry_strategy=no_retry,
+    )
+
+    items: list[str] = []
+    async with AsyncExitStack() as stack:
+        stack.push_async_callback(helper.stop)
+
+        receiver = helper.new_receiver()
+        receiver_ready_event.set()
+        items, _ = await _split_message(receiver)
+
+    assert items == [
+        "transformed_0",
+        "transformed_2",
+        "transformed_4",
+    ]
+
+    assert caplog.record_tuples == [
+        (
+            "frequenz.client.base.streaming",
+            logging.INFO,
+            "test_helper: starting to stream",
+        ),
+        # LogCaptureFixture can't capture tracebacks, so only the error message
+        # is checked.
+        (
+            "frequenz.client.base.streaming",
+            logging.ERROR,
+            "test_helper: error transforming message: 1",
+        ),
+        (
+            "frequenz.client.base.streaming",
+            logging.ERROR,
+            "test_helper: error transforming message: 3",
+        ),
+        (
+            "frequenz.client.base.streaming",
+            logging.INFO,
+            "test_helper: connection closed, stream exhausted",
+        ),
+        (
+            "frequenz.client.base.streaming",
+            logging.INFO,
+            "test_helper: stopping the stream",
+        ),
+    ]
+
+
 @pytest.mark.parametrize("include_events", [True, False])
 async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
     receiver_ready_event: asyncio.Event,  # pylint: disable=redefined-outer-name
