@@ -442,6 +442,8 @@ async def test_messages_on_retry(
     assert items == [
         "transformed_0",
         "transformed_1",
+        "transformed_0",
+        "transformed_1",
     ]
     if include_events:
         assert events == [
