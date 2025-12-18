@@ -291,7 +291,17 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
 
                 async for msg in call:
                     first_message_received = True
-                    await data_sender.send(self._transform(msg))
+                    try:
+                        transformed = self._transform(msg)
+                    except Exception:  # pylint: disable=broad-exception-caught
+                        _logger.exception(
+                            "%s: error transforming message: %s",
+                            self._stream_name,
+                            msg,
+                        )
+                        continue
+
+                    await data_sender.send(transformed)
 
             except grpc.aio.AioRpcError as err:
                 error = err
