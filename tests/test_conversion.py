@@ -15,9 +15,10 @@ from hypothesis import strategies as st
 from frequenz.client.base.conversion import to_datetime, to_timestamp
 
 # Strategy for generating datetime objects
+# It requires naive datetime objects because it creates the timezone via a strategy
 datetime_strategy = st.datetimes(
-    min_value=datetime(1970, 1, 1),
-    max_value=datetime(9999, 12, 31),
+    min_value=datetime(1970, 1, 1),  # noqa: DTZ001
+    max_value=datetime(9999, 12, 31),  # noqa: DTZ001
     timezones=st.just(timezone.utc),
 )
 
