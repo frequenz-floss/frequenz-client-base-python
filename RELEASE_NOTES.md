@@ -14,4 +14,4 @@
 
 ## Bug Fixes
 
-- This fixes a bug in the `GrpcStreamBroadcaster` that was causing exceptions in the transform method to be silenced.
+<!-- Here goes notable bug fixes that are worth a special mention or explanation -->
