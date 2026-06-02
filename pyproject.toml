@@ -62,7 +62,7 @@ dev-mkdocs = [
   "frequenz-client-base",
 ]
 dev-mypy = [
-  "mypy == 1.20.2",
+  "mypy == 2.1.0",
   "types-Markdown == 3.10.2.20260408",
   "types-protobuf == 7.34.1.20260408",
   "grpc-stubs == 1.53.0.6", # This dependency introduces breaking changes in patch releases
