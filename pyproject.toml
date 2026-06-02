@@ -63,7 +63,7 @@ dev-mkdocs = [
 ]
 dev-mypy = [
   "mypy == 2.1.0",
-  "types-Markdown == 3.10.2.20260408",
+  "types-Markdown == 3.10.2.20260518",
   "types-protobuf == 7.34.1.20260518",
   "grpc-stubs == 1.53.0.6", # This dependency introduces breaking changes in patch releases
   # For checking the noxfile, docs/ script, and tests
