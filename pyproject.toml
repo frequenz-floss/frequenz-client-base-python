@@ -64,7 +64,7 @@ dev-mkdocs = [
 dev-mypy = [
   "mypy == 1.20.2",
   "types-Markdown == 3.10.2.20260408",
-  "types-protobuf == 7.34.1.20260408",
+  "types-protobuf == 7.34.1.20260518",
   "grpc-stubs == 1.53.0.6", # This dependency introduces breaking changes in patch releases
   # For checking the noxfile, docs/ script, and tests
   "frequenz-client-base[dev-mkdocs,dev-noxfile,dev-pytest]",
