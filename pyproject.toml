@@ -62,14 +62,14 @@ dev-mkdocs = [
   "frequenz-client-base",
 ]
 dev-mypy = [
-  "mypy == 2.1.0",
+  "mypy == 2.3.0",
   "types-Markdown == 3.10.2.20260518",
   "types-protobuf == 7.34.1.20260518",
   "grpc-stubs == 1.53.0.6", # This dependency introduces breaking changes in patch releases
   # For checking the noxfile, docs/ script, and tests
   "frequenz-client-base[dev-mkdocs,dev-noxfile,dev-pytest]",
 ]
-dev-noxfile = ["nox == 2026.4.10", "frequenz-repo-config[lib] == 0.18.0"]
+dev-noxfile = ["nox == 2026.7.11", "frequenz-repo-config[lib] == 0.18.0"]
 dev-pylint = [
   "pylint == 4.0.6",
   # For checking the noxfile, docs/ script, and tests
@@ -81,7 +81,7 @@ dev-pytest = [
   "pytest-mock == 3.15.1",
   "pytest-asyncio == 1.4.0",
   "async-solipsism == 0.9",
-  "hypothesis == 6.155.7",
+  "hypothesis == 6.163.0",
   "frequenz-client-base",
 ]
 dev = [
