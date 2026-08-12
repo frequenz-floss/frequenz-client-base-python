@@ -162,23 +162,19 @@ def parse_grpc_uri(
             ("grpc.keepalive_permit_without_calls", 1),
             (
                 "grpc.keepalive_time_ms",
-                (
-                    (
-                        defaults.keep_alive.interval
-                        if options.keep_alive_interval is None
-                        else options.keep_alive_interval
-                    ).total_seconds()
-                    * 1000
+                _to_millis(
+                    defaults.keep_alive.interval
+                    if options.keep_alive_interval is None
+                    else options.keep_alive_interval
                 ),
             ),
             (
                 "grpc.keepalive_timeout_ms",
-                (
+                _to_millis(
                     defaults.keep_alive.timeout
                     if options.keep_alive_timeout is None
                     else options.keep_alive_timeout
-                ).total_seconds()
-                * 1000,
+                ),
             ),
         ]
         if keep_alive
@@ -210,6 +206,22 @@ def parse_grpc_uri(
             interceptors=interceptors,
         )
     return insecure_channel(target, channel_options, interceptors=interceptors)
+
+
+def _to_millis(duration: timedelta) -> int:
+    """Convert a duration to whole milliseconds.
+
+    gRPC channel arguments must be `int` or `str`. grpc-python silently ignores
+    arguments of any other type, so passing a `float` disables the option instead
+    of raising an error.
+
+    Args:
+        duration: The duration to convert.
+
+    Returns:
+        The duration in whole milliseconds.
+    """
+    return int(duration.total_seconds() * 1000)
 
 
 def _to_bool(value: str) -> bool:
