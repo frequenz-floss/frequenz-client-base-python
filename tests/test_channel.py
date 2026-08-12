@@ -280,11 +280,11 @@ def test_parse_uri_ok(  # pylint: disable=too-many-locals
             ("grpc.keepalive_permit_without_calls", 1),
             (
                 "grpc.keepalive_time_ms",
-                (expected_keep_alive_interval.total_seconds() * 1000),
+                int(expected_keep_alive_interval.total_seconds() * 1000),
             ),
             (
                 "grpc.keepalive_timeout_ms",
-                expected_keep_alive_timeout.total_seconds() * 1000,
+                int(expected_keep_alive_timeout.total_seconds() * 1000),
             ),
         ]
         if expected_keep_alive.enabled
@@ -323,6 +323,38 @@ def test_parse_uri_ok(  # pylint: disable=too-many-locals
     else:
         insecure_channel_mock.assert_called_once_with(
             expected_target, expected_channel_options, interceptors=()
+        )
+
+
+@pytest.mark.parametrize(
+    "uri",
+    [
+        "grpc://api.example.com:443",
+        "grpc://api.example.com:443?keep_alive_interval_s=12.5",
+        "grpc://api.example.com:443?keep_alive_timeout_s=0.75",
+    ],
+)
+def test_keep_alive_option_types(uri: str) -> None:
+    """Test that keep-alive channel arguments are passed as `int`, not `float`.
+
+    gRPC silently ignores channel arguments whose value is neither `int` nor `str`,
+    so a `float` here disables keep-alive without any error. Comparing values only
+    would not catch this, because `60000 == 60000.0`.
+    """
+    with mock.patch(
+        "frequenz.client.base.channel.insecure_channel",
+        return_value=mock.MagicMock(name="mock_channel", spec=Channel),
+    ) as insecure_channel_mock:
+        parse_grpc_uri(uri, defaults=ChannelOptions(ssl=SslOptions(enabled=False)))
+
+    channel_options = insecure_channel_mock.call_args.args[1]
+    assert channel_options is not None
+    keep_alive_args = dict(channel_options)
+    for name in ("grpc.keepalive_time_ms", "grpc.keepalive_timeout_ms"):
+        value = keep_alive_args[name]
+        assert type(value) is int, (  # pylint: disable=unidiomatic-typecheck
+            f"channel argument {name!r} has value {value!r} of type "
+            f"{type(value).__name__}; gRPC only accepts int or str"
         )
 
 
