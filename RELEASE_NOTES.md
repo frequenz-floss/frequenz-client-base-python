@@ -2,15 +2,13 @@
 
 ## Summary
 
-Fix HTTP/2 keep-alive, which was never actually enabled.
+This release adds support for protobuf 7 and fixes HTTP/2 keep-alive, which was
+never actually enabled.
 
 ## Upgrading
 
-<!-- Here goes notes on how to upgrade from previous versions, including deprecations and what they should be replaced with -->
-
-## New Features
-
-<!-- Here goes the main new features and examples or instructions on how to use them -->
+- The protobuf requirement is now `>=5.29.2,<8`, allowing protobuf 7 while
+  retaining support for protobuf 5 and 6.
 
 ## Bug Fixes
 
