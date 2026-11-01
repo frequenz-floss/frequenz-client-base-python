@@ -1268,31 +1268,31 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/frequenz/client/base/conversion.py</code></summary>
-              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-58">58</a></span>
-<span class="normal"><a href="#__codelineno-0-59">59</a></span>
-<span class="normal"><a href="#__codelineno-0-60">60</a></span>
-<span class="normal"><a href="#__codelineno-0-61">61</a></span>
-<span class="normal"><a href="#__codelineno-0-62">62</a></span>
-<span class="normal"><a href="#__codelineno-0-63">63</a></span>
-<span class="normal"><a href="#__codelineno-0-64">64</a></span>
-<span class="normal"><a href="#__codelineno-0-65">65</a></span>
-<span class="normal"><a href="#__codelineno-0-66">66</a></span>
-<span class="normal"><a href="#__codelineno-0-67">67</a></span>
-<span class="normal"><a href="#__codelineno-0-68">68</a></span>
-<span class="normal"><a href="#__codelineno-0-69">69</a></span>
-<span class="normal"><a href="#__codelineno-0-70">70</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_datetime</span><span class="p">(</span><span class="n">ts</span><span class="p">:</span> <span class="n">Timestamp</span><span class="p">,</span> <span class="n">tz</span><span class="p">:</span> <span class="n">timezone</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
-</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="w">    </span><span class="sd">"""Convert a protobuf Timestamp to a datetime.</span>
-</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        ts: Timestamp object to convert</span>
-</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        tz: Timezone to use for the datetime</span>
-</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a>
-</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    Returns:</span>
-</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        Timestamp converted to datetime</span>
-</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    """</span>
-</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="c1"># Add microseconds and add nanoseconds converted to microseconds</span>
-</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="n">microseconds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">nanos</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
-</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70"></a>    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">seconds</span> <span class="o">+</span> <span class="n">microseconds</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-58">58</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-59">59</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-60">60</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-61">61</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-62">62</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-63">63</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-64">64</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-65">65</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-66">66</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-67">67</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-68">68</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-69">69</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_datetime--source--__codelineno-0-70">70</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-58"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-58" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-58"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_datetime</span><span class="p">(</span><span class="n">ts</span><span class="p">:</span> <span class="n">Timestamp</span><span class="p">,</span> <span class="n">tz</span><span class="p">:</span> <span class="n">timezone</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-59"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-59" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-59"></a><span class="w">    </span><span class="sd">"""Convert a protobuf Timestamp to a datetime.</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-60"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-60" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-60"></a>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-61"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-61" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-61"></a><span class="sd">    Args:</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-62"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-62" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-62"></a><span class="sd">        ts: Timestamp object to convert</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-63"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-63" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-63"></a><span class="sd">        tz: Timezone to use for the datetime</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-64"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-64" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-64"></a>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-65"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-65" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-65"></a><span class="sd">    Returns:</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-66"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-66" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-66"></a><span class="sd">        Timestamp converted to datetime</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-67"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-67" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-67"></a><span class="sd">    """</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-68"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-68" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-68"></a>    <span class="c1"># Add microseconds and add nanoseconds converted to microseconds</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-69"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-69" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-69"></a>    <span class="n">microseconds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">nanos</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span>
+</span><span id="frequenz.client.base.conversion.to_datetime--source--__span-0-70"><a id="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-70" name="frequenz.client.base.conversion.to_datetime--source--__codelineno-0-70"></a>    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">seconds</span> <span class="o">+</span> <span class="n">microseconds</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1374,39 +1374,39 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/frequenz/client/base/conversion.py</code></summary>
-              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-39">39</a></span>
-<span class="normal"><a href="#__codelineno-0-40">40</a></span>
-<span class="normal"><a href="#__codelineno-0-41">41</a></span>
-<span class="normal"><a href="#__codelineno-0-42">42</a></span>
-<span class="normal"><a href="#__codelineno-0-43">43</a></span>
-<span class="normal"><a href="#__codelineno-0-44">44</a></span>
-<span class="normal"><a href="#__codelineno-0-45">45</a></span>
-<span class="normal"><a href="#__codelineno-0-46">46</a></span>
-<span class="normal"><a href="#__codelineno-0-47">47</a></span>
-<span class="normal"><a href="#__codelineno-0-48">48</a></span>
-<span class="normal"><a href="#__codelineno-0-49">49</a></span>
-<span class="normal"><a href="#__codelineno-0-50">50</a></span>
-<span class="normal"><a href="#__codelineno-0-51">51</a></span>
-<span class="normal"><a href="#__codelineno-0-52">52</a></span>
-<span class="normal"><a href="#__codelineno-0-53">53</a></span>
-<span class="normal"><a href="#__codelineno-0-54">54</a></span>
-<span class="normal"><a href="#__codelineno-0-55">55</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_timestamp</span><span class="p">(</span><span class="n">dt</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Timestamp</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="w">    </span><span class="sd">"""Convert a datetime to a protobuf Timestamp.</span>
-</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    Returns None if dt is None.</span>
-</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        dt: datetime object to convert</span>
-</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    Returns:</span>
-</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        datetime converted to Timestamp</span>
-</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    """</span>
-</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a>    <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a>        <span class="k">return</span> <span class="kc">None</span>
-</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a>    <span class="n">ts</span> <span class="o">=</span> <span class="n">Timestamp</span><span class="p">()</span>
-</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a>    <span class="n">ts</span><span class="o">.</span><span class="n">FromDatetime</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
-</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a>    <span class="k">return</span> <span class="n">ts</span>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-39">39</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-40">40</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-41">41</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-42">42</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-43">43</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-44">44</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-45">45</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-46">46</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-47">47</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-48">48</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-49">49</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-50">50</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-51">51</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-52">52</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-53">53</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-54">54</a></span>
+<span class="normal"><a href="#frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-55">55</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-39"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-39" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-39"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_timestamp</span><span class="p">(</span><span class="n">dt</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Timestamp</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-40"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-40" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-40"></a><span class="w">    </span><span class="sd">"""Convert a datetime to a protobuf Timestamp.</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-41"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-41" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-41"></a>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-42"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-42" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-42"></a><span class="sd">    Returns None if dt is None.</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-43"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-43" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-43"></a>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-44"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-44" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-44"></a><span class="sd">    Args:</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-45"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-45" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-45"></a><span class="sd">        dt: datetime object to convert</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-46"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-46" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-46"></a>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-47"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-47" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-47"></a><span class="sd">    Returns:</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-48"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-48" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-48"></a><span class="sd">        datetime converted to Timestamp</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-49"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-49" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-49"></a><span class="sd">    """</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-50"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-50" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-50"></a>    <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-51"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-51" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-51"></a>        <span class="k">return</span> <span class="kc">None</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-52"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-52" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-52"></a>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-53"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-53" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-53"></a>    <span class="n">ts</span> <span class="o">=</span> <span class="n">Timestamp</span><span class="p">()</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-54"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-54" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-54"></a>    <span class="n">ts</span><span class="o">.</span><span class="n">FromDatetime</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+</span><span id="frequenz.client.base.conversion.to_timestamp--source--__span-0-55"><a id="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-55" name="frequenz.client.base.conversion.to_timestamp--source--__codelineno-0-55"></a>    <span class="k">return</span> <span class="n">ts</span>
 </span></code></pre></div></td></tr></table></div>
             </details>
     </div>
