@@ -15,3 +15,5 @@
 ## Bug Fixes
 
 <!-- Here goes notable bug fixes that are worth a special mention or explanation -->
+
+- `GrpcStreamBroadcaster` now logs stream errors on a single line, showing only the gRPC status code and details.

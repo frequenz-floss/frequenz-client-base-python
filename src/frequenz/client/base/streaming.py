@@ -19,6 +19,22 @@ from . import retry
 _logger = logging.getLogger(__name__)
 
 
+def _format_error(error: grpc.aio.AioRpcError) -> str:
+    """Format a gRPC error as a single line.
+
+    Args:
+        error: The error to format.
+
+    Returns:
+        The status code and, if present, the details with line breaks
+            replaced by spaces.
+    """
+    error_str = f"Error: {error.code().name}"
+    if details := " ".join((error.details() or "").splitlines()):
+        error_str += f": {details}"
+    return error_str
+
+
 InputT = TypeVar("InputT")
 """The input type of the stream."""
 
@@ -281,7 +297,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
         data_sender = self._data_channel.new_sender()
 
         while True:
-            error: Exception | None = None
+            error: grpc.aio.AioRpcError | None = None
             _logger.info("%s: starting to stream", self._stream_name)
             try:
                 call = self._stream_method()
@@ -315,7 +331,7 @@ class GrpcStreamBroadcaster(Generic[InputT, OutputT]):
                 break
 
             interval = self._retry_strategy.next_interval()
-            error_str = f"Error: {error}" if error else "Stream exhausted"
+            error_str = _format_error(error) if error else "Stream exhausted"
             if interval is None:
                 _logger.error(
                     "%s: connection ended, retry limit exceeded (%s), giving up. %s.",
