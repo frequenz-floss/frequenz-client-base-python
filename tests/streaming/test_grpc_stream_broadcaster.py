@@ -21,6 +21,7 @@ from frequenz.client.base.streaming import (
     StreamFatalError,
     StreamRetrying,
     StreamStarted,
+    _format_error,
 )
 
 
@@ -240,7 +241,7 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
             "frequenz.client.base.streaming",
             logging.ERROR,
             "test_helper: connection ended, retry limit exceeded (mock progress), "
-            f"giving up. Error: {error}.",
+            "giving up. Error: UNAVAILABLE: mock details.",
         ),
         (
             "frequenz.client.base.streaming",
@@ -248,6 +249,26 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
             "test_helper: stopping the stream",
         ),
     ]
+
+
+@pytest.mark.parametrize(
+    "details, expected",
+    [
+        ("first\nsecond\r\nthird", "Error: UNAUTHENTICATED: first second third"),
+        ("", "Error: UNAUTHENTICATED"),
+        (None, "Error: UNAUTHENTICATED"),
+    ],
+)
+def test_format_error(details: str | None, expected: str) -> None:
+    """Test that errors are formatted on a single line."""
+    error = grpc.aio.AioRpcError(
+        code=grpc.StatusCode.UNAUTHENTICATED,
+        initial_metadata=grpc.aio.Metadata(),
+        trailing_metadata=grpc.aio.Metadata(),
+        details=details,
+        debug_error_string="mock debug_error_string",
+    )
+    assert _format_error(error) == expected
 
 
 async def test_streaming_transform_error(  # pylint: disable=too-many-arguments
@@ -366,13 +387,13 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
             "frequenz.client.base.streaming",
             logging.WARNING,
             "test_helper: connection ended, retrying mock progress in 0.000 "
-            f"seconds. Error: {error}.",
+            "seconds. Error: UNAVAILABLE: mock details.",
         ),
         (
             "frequenz.client.base.streaming",
             logging.ERROR,
             "test_helper: connection ended, retry limit exceeded (mock progress), "
-            f"giving up. Error: {error}.",
+            "giving up. Error: UNAVAILABLE: mock details.",
         ),
     ]
 
