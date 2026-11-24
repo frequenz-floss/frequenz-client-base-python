@@ -2,7 +2,7 @@
 
 ## Summary
 
-<!-- Here goes a general summary of what this release is about -->
+This release supports `frequenz-channels >= 1.8.0, < 3`, including v2.0.0.
 
 ## Upgrading
 
