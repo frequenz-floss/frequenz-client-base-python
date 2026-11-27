@@ -21,6 +21,7 @@ from frequenz.client.base.streaming import (
     StreamFatalError,
     StreamRetrying,
     StreamStarted,
+    _format_error,
 )
 
 
@@ -45,14 +46,18 @@ def no_retry() -> mock.MagicMock:
     return mock_retry
 
 
-def make_error() -> grpc.aio.AioRpcError:
+def make_error(
+    code: grpc.StatusCode = grpc.StatusCode.UNAVAILABLE,
+    details: str | None = "mock\ndetails",
+    debug: str | None = "mock debug_error_string",
+) -> grpc.aio.AioRpcError:
     """Mock error for testing."""
     return grpc.aio.AioRpcError(
-        code=grpc.StatusCode.UNAVAILABLE,
+        code=code,
         initial_metadata=grpc.aio.Metadata(),
         trailing_metadata=grpc.aio.Metadata(),
-        details="mock details",
-        debug_error_string="mock debug_error_string",
+        details=details,
+        debug_error_string=debug,
     )
 
 
@@ -240,7 +245,8 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
             "frequenz.client.base.streaming",
             logging.ERROR,
             "test_helper: connection ended, retry limit exceeded (mock progress), "
-            f"giving up. Error: {error}.",
+            "giving up. Error: code=UNAVAILABLE details='mock\\ndetails' "
+            "debug_error_string='mock debug_error_string'.",
         ),
         (
             "frequenz.client.base.streaming",
@@ -248,6 +254,53 @@ async def test_streaming_error(  # pylint: disable=too-many-arguments
             "test_helper: stopping the stream",
         ),
     ]
+
+
+@pytest.mark.parametrize(
+    "error, expected",
+    [
+        pytest.param(
+            make_error(
+                grpc.StatusCode.DEADLINE_EXCEEDED,
+                "Stream removed (Deadline Exceeded)",
+                "DEADLINE_EXCEEDED:Stream removed (Deadline Exceeded)",
+            ),
+            "Error: code=DEADLINE_EXCEEDED details='Stream removed (Deadline Exceeded)'",
+            id="redundant-debug",
+        ),
+        pytest.param(
+            make_error(
+                grpc.StatusCode.UNAVAILABLE,
+                "failed to connect",
+                "UNKNOWN:Error received from peer ipv4:10.0.0.1:443",
+            ),
+            "Error: code=UNAVAILABLE details='failed to connect' "
+            "debug_error_string='UNKNOWN:Error received from peer ipv4:10.0.0.1:443'",
+            id="informative-debug",
+        ),
+        pytest.param(
+            make_error(grpc.StatusCode.INTERNAL, "first\nsecond\r\nthird", "a\rb\nc"),
+            r"Error: code=INTERNAL details='first\nsecond\r\nthird' "
+            r"debug_error_string='a\rb\nc'",
+            id="multiline",
+        ),
+        pytest.param(
+            make_error(grpc.StatusCode.UNAUTHENTICATED, None, None),
+            "Error: code=UNAUTHENTICATED details=None",
+            id="missing",
+        ),
+        pytest.param(
+            make_error(grpc.StatusCode.UNAUTHENTICATED, "", ""),
+            "Error: code=UNAUTHENTICATED details=''",
+            id="empty",
+        ),
+    ],
+)
+def test_format_error(error: grpc.aio.AioRpcError, expected: str) -> None:
+    """Test that errors are formatted on a single line."""
+    formatted = _format_error(error)
+    assert formatted == expected
+    assert len(formatted.splitlines()) == 1
 
 
 async def test_streaming_transform_error(  # pylint: disable=too-many-arguments
@@ -366,13 +419,15 @@ async def test_retry_next_interval_zero(  # pylint: disable=too-many-arguments
             "frequenz.client.base.streaming",
             logging.WARNING,
             "test_helper: connection ended, retrying mock progress in 0.000 "
-            f"seconds. Error: {error}.",
+            "seconds. Error: code=UNAVAILABLE details='mock\\ndetails' "
+            "debug_error_string='mock debug_error_string'.",
         ),
         (
             "frequenz.client.base.streaming",
             logging.ERROR,
             "test_helper: connection ended, retry limit exceeded (mock progress), "
-            f"giving up. Error: {error}.",
+            "giving up. Error: code=UNAVAILABLE details='mock\\ndetails' "
+            "debug_error_string='mock debug_error_string'.",
         ),
     ]
 

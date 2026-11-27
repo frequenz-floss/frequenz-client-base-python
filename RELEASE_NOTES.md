@@ -15,3 +15,5 @@
 ## Bug Fixes
 
 <!-- Here goes notable bug fixes that are worth a special mention or explanation -->
+
+- `GrpcStreamBroadcaster` now logs stream errors on a single line, leaving out the debug string when it only repeats the code and details.
